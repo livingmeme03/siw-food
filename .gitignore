@@ -1,1 +1,14 @@
 /.metadata/
+# Ignore Eclipse project files
+.metadata/
+.classpath
+.project
+.settings/
+
+# Ignore STS specific files
+.springBeans
+.factorypath
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
