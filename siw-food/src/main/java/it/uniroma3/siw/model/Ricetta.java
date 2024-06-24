@@ -1,5 +1,92 @@
 package it.uniroma3.siw.model;
 
-public class Ricetta {
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+
+@Entity
+public class Ricetta {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	private String nome;
+	private String descrizione;
+	@ManyToMany
+	private List<Ingrediente> ingredienti;
+	@ManyToOne
+	private Cuoco cuoco;
+	private List<String> pathImmagini;
+	
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	public String getDescrizione() {
+		return descrizione;
+	}
+	public void setDescrizione(String descrizione) {
+		this.descrizione = descrizione;
+	}
+//	public Map<Ingrediente, Integer> getIngredienti() {
+//		return ingredienti;
+//	}
+//	public void setIngredienti(Map<Ingrediente, Integer> ingredienti) {
+//		this.ingredienti = ingredienti;
+//	}
+	public List<Ingrediente> getIngredienti() {
+		return ingredienti;
+	}
+	public void setIngredienti(List<Ingrediente> ingredienti) {
+		this.ingredienti = ingredienti;
+	}
+	public Cuoco getCuoco() {
+		return cuoco;
+	}
+	public void setCuoco(Cuoco cuoco) {
+		this.cuoco = cuoco;
+	}
+	public List<String> getPathImmagini() {
+		return pathImmagini;
+	}
+	public void setPathImmagini(List<String> pathImmagini) {
+		this.pathImmagini = pathImmagini;
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(cuoco, ingredienti, nome);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Ricetta other = (Ricetta) obj;
+		return Objects.equals(cuoco, other.cuoco) && Objects.equals(ingredienti, other.ingredienti)
+				&& Objects.equals(nome, other.nome);
+	}
+	
+	
+	
+	
 }
