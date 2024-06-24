@@ -4,12 +4,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapKeyColumn;
 
 @Entity
 public class Ricetta {
@@ -19,8 +23,11 @@ public class Ricetta {
 	private Long id;
 	private String nome;
 	private String descrizione;
-	@ManyToMany
-	private List<Ingrediente> ingredienti;
+	@ElementCollection
+	@CollectionTable(name = "ricette_ingredienti_quantità", joinColumns = @JoinColumn(name = "ricetta_id"))
+	@MapKeyColumn(name = "nome")
+	@Column(name = "quantità")
+	private Map<String, Integer> ingredienti;
 	@ManyToOne
 	private Cuoco cuoco;
 	private List<String> pathImmagini;
@@ -44,16 +51,10 @@ public class Ricetta {
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
 	}
-//	public Map<Ingrediente, Integer> getIngredienti() {
-//		return ingredienti;
-//	}
-//	public void setIngredienti(Map<Ingrediente, Integer> ingredienti) {
-//		this.ingredienti = ingredienti;
-//	}
-	public List<Ingrediente> getIngredienti() {
+	public Map<String, Integer> getIngredienti() {
 		return ingredienti;
 	}
-	public void setIngredienti(List<Ingrediente> ingredienti) {
+	public void setIngredienti(Map<String, Integer> ingredienti) {
 		this.ingredienti = ingredienti;
 	}
 	public Cuoco getCuoco() {
