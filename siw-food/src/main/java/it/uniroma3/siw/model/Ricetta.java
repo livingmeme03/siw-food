@@ -27,7 +27,8 @@ public class Ricetta {
 	@CollectionTable(name = "ricette_ingredienti_quantità", joinColumns = @JoinColumn(name = "ricetta_id"))
 	@MapKeyColumn(name = "nome")
 	@Column(name = "quantità")
-	private Map<String, Integer> ingredienti;
+	//@ManyToMany?
+	private Map<Ingrediente, Integer> ingredienti;
 	@ManyToOne
 	private Cuoco cuoco;
 	private List<String> pathImmagini;
@@ -51,10 +52,10 @@ public class Ricetta {
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
 	}
-	public Map<String, Integer> getIngredienti() {
+	public Map<Ingrediente, Integer> getIngredienti() {
 		return ingredienti;
 	}
-	public void setIngredienti(Map<String, Integer> ingredienti) {
+	public void setIngredienti(Map<Ingrediente, Integer> ingredienti) {
 		this.ingredienti = ingredienti;
 	}
 	public Cuoco getCuoco() {
