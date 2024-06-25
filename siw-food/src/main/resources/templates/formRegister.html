@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>SiwFood Registration</title>
+	</head>
+	<body>
+		<h2>Registrazione nuovo utente:</h2>
+		<form th:action="@{/register}" method="POST"> 
+			<label for="username">Username:</label><br>
+			<input type = "text" th:field="${credentials.username}" required>
+				<br><br>
+			<label for="password">Password:</label><br>
+			<input type = "password" th:field="${credentials.password}" required>
+				<br><br>
+			<label for="nome">Nome:</label><br>
+			<input type = "text" th:field="${user.nome}" required>
+				<br><br>
+			<label for="cognome">Cognome:</label><br>
+			<input type = "text" th:field="${user.cognome}" required>
+				<br><br>
+			<input type = "submit" value = "Registrati">		
+		</form>
+	</body>	
+</html>

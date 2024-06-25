@@ -56,21 +56,21 @@ public class Credentials {
 		this.user = user;
 	}
 	
-	@Override
-	public int hashCode() {
-		return Objects.hash(password, username);
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Credentials other = (Credentials) obj;
-		return Objects.equals(password, other.password) && Objects.equals(username, other.username);
-	}
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(password, username);
+//	}
+//	@Override
+//	public boolean equals(Object obj) {
+//		if (this == obj)
+//			return true;
+//		if (obj == null)
+//			return false;
+//		if (getClass() != obj.getClass())
+//			return false;
+//		Credentials other = (Credentials) obj;
+//		return Objects.equals(password, other.password) && Objects.equals(username, other.username);
+//	}
 	
 	
 	
