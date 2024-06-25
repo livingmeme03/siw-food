@@ -58,7 +58,7 @@ public class Credentials {
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(password, role, user, username);
+		return Objects.hash(password, username);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -69,8 +69,9 @@ public class Credentials {
 		if (getClass() != obj.getClass())
 			return false;
 		Credentials other = (Credentials) obj;
-		return Objects.equals(password, other.password) && Objects.equals(role, other.role)
-				&& Objects.equals(user, other.user) && Objects.equals(username, other.username);
+		return Objects.equals(password, other.password) && Objects.equals(username, other.username);
 	}
+	
+	
 	
 }
