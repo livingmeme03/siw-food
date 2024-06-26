@@ -2,6 +2,8 @@ package it.uniroma3.siw.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import it.uniroma3.siw.controller.validation.IngredienteValidator;
 import it.uniroma3.siw.service.IngredienteService;
@@ -14,4 +16,16 @@ public class IngredienteController {
 	
 	@Autowired
 	private IngredienteValidator ingredienteValidator;
+	
+	@GetMapping("/elencoIngredienti")		//non servono validazioni 
+	public String showElencoIngredienti(Model model) {
+		model.addAttribute("ingredienti", this.ingredienteService.findAll());
+		return "elencoIngredienti.html";
+	}
+	
+	//TODO
+	@GetMapping("/ingrediente/{id}")
+	public String showIngrediente(Model model) {
+		return "ingrediente.html";
+	}
 }

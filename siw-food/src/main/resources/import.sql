@@ -1,0 +1,8 @@
+insert into ingrediente(id, nome) values(nextval('ingrediente_seq'), 'Cipolla')
+insert into ingrediente(id, nome) values(nextval('ingrediente_seq'), 'Aglio')
+insert into ingrediente(id, nome) values(nextval('ingrediente_seq'), 'Pomodoro')
+insert into ingrediente(id, nome) values(nextval('ingrediente_seq'), 'Farina')
+insert into cuoco(id, data_nascita, cognome, nome) values(nextval('cuoco_seq'), '1965-10-8', 'Cracco', 'Carlo')
+insert into ricetta(id, descrizione, nome) values(nextval('ricetta_seq'), 'Davvero un bellissimo uovo', 'Uovo')
+insert into cuoco(id, data_nascita, cognome, nome) values(nextval('cuoco_seq'), '1962-01-12', 'Barbieri', 'Bruno')
+insert into cuoco(id, data_nascita, cognome, nome) values(nextval('cuoco_seq'), '1975-04-16', 'Cannavacciuolo', 'Antonino')
