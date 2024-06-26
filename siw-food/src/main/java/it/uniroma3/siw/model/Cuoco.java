@@ -23,7 +23,7 @@ public class Cuoco {
 	private String nome;
 	@NotBlank
 	private String cognome;
-	@NotBlank
+	@NotNull
 	@Past
 	private LocalDate dataNascita;
 	private String pathFotografia;

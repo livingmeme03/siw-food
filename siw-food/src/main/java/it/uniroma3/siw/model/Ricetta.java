@@ -30,9 +30,9 @@ public class Ricetta {
 	@CollectionTable(name = "ricette_ingredienti_quantità", joinColumns = @JoinColumn(name = "ricetta_id"))
 	@MapKeyColumn(name = "nome")
 	@Column(name = "quantità")
-	//@ManyToMany?
+	@NotNull //probabilmente non serve perché non ho casistiche in cui questa mappa non viene creata
 	private Map<Ingrediente, Integer> ingredienti;
-	@NotBlank
+	@NotNull
 	@ManyToOne
 	private Cuoco cuoco;
 	private List<String> pathImmagini;
