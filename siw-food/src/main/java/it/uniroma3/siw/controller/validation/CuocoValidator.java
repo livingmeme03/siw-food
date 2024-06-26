@@ -14,7 +14,8 @@ public class CuocoValidator implements Validator{
 
 	
 	@Override
-	public void validate(Object target, Errors errors) {
+	public void validate(Object o, Errors errors) {
+		Cuoco cuoco = (Cuoco)o;
 		//TODO: scrivere metodo che dice che non possono esserci cuochi duplicati
 		//per farlo serve il metodo apposito del repository!! (existsBy...)
 	}
