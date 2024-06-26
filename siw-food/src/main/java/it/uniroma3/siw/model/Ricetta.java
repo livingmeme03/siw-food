@@ -79,11 +79,8 @@ public class Ricetta {
 	public void setPathImmagini(List<String> pathImmagini) {
 		this.pathImmagini = pathImmagini;
 	}
-	public List<Ingrediente> getListaIngredienti() {
-		 
-		List<Ingrediente> keyList = new ArrayList<>(this.ingredienti.keySet());
-		return keyList;
-			
+	public Set<Ingrediente> getListaIngredienti() {
+		return this.ingredienti.keySet();		
 	}
 //	public void setListaIngredienti(List<Ingrediente> listaIngredienti) {
 //		this.listaIngredienti = listaIngredienti;

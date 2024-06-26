@@ -28,9 +28,6 @@ public class RicettaController {
 	public String showRicetta(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("ricetta", this.ricettaService.findById(id));
 		model.addAttribute("listaIngredienti", this.ricettaService.findById(id).getListaIngredienti());
-		for (int i=0; i<this.ricettaService.findById(id).getListaIngredienti().size(); i++) {
-			System.out.println(this.ricettaService.findById(id).getListaIngredienti().get(i).getNome());
-		}
 		return "ricetta.html";
 	}
 }
