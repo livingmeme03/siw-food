@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SiwFood - Pagina Cuoco</title>
+    <link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+    <div th:if="${cuoco}">
+         <h1 th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}">Nome cuoco </h1>
+         <span> <img th:src="${cuoco.pathFotografia}"> </span>
+         <div>
+			 Data di nascita:<span th:text="${cuoco.dataNascita}"></span>
+		 </div>
+		 <div>
+			Ricette:
+			<ul>
+				<li th:each="ricetta : ${cuoco.ricette}">
+					<a th:href="@{'/ricetta' + '/' + ${ricetta.id}}" th:text="${ricetta.nome}"> Ricetta Generica</a>
+				</li>
+			</ul>
+		 </div>
+    </div>
+    <div th:unless="${cuoco}">Questo cuoco non è presente nel sistema!</div>
+</body>
+
+</html>

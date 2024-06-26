@@ -1,8 +1,10 @@
 package it.uniroma3.siw.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.CollectionTable;
@@ -36,6 +38,9 @@ public class Ricetta {
 	@ManyToOne
 	private Cuoco cuoco;
 	private List<String> pathImmagini;
+//	@ElementCollection
+//	private List<Ingrediente> listaIngredienti;
+	
 	
 	
 	public Long getId() {
@@ -74,6 +79,15 @@ public class Ricetta {
 	public void setPathImmagini(List<String> pathImmagini) {
 		this.pathImmagini = pathImmagini;
 	}
+	public List<Ingrediente> getListaIngredienti() {
+		 
+		List<Ingrediente> keyList = new ArrayList<>(this.ingredienti.keySet());
+		return keyList;
+			
+	}
+//	public void setListaIngredienti(List<Ingrediente> listaIngredienti) {
+//		this.listaIngredienti = listaIngredienti;
+//	}
 	
 	@Override
 	public int hashCode() {

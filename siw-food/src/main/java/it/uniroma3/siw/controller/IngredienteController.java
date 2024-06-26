@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import it.uniroma3.siw.controller.validation.IngredienteValidator;
 import it.uniroma3.siw.service.IngredienteService;
@@ -23,9 +24,9 @@ public class IngredienteController {
 		return "elencoIngredienti.html";
 	}
 	
-	//TODO
 	@GetMapping("/ingrediente/{id}")
-	public String showIngrediente(Model model) {
+	public String showIngrediente(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("ingrediente", this.ingredienteService.findById(id));
 		return "ingrediente.html";
 	}
 }

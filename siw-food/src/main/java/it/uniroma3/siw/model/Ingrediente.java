@@ -17,7 +17,10 @@ public class Ingrediente {
 	private Long id;
 	@NotBlank
 	private String nome;
+	
+	private String pathImmagine;
 
+	
 	public Long getId() {
 		return id;
 	}
@@ -29,6 +32,12 @@ public class Ingrediente {
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	public String getPathImmagine() {
+		return pathImmagine;
+	}
+	public void setPathImmagine(String pathImmagine) {
+		this.pathImmagine = pathImmagine;
 	}
 	
 	@Override

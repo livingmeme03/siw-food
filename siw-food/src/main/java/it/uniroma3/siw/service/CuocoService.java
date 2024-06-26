@@ -15,4 +15,8 @@ public class CuocoService {
 	public Iterable<Cuoco> findAll() {
 		return this.cuocoRepository.findAll();
 	}
+
+	public Cuoco findById(Long id) {
+		return this.cuocoRepository.findById(id).get();
+	}
 }

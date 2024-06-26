@@ -49,6 +49,7 @@ public class Cuoco {
 	public void setCognome(String cognome) {
 		this.cognome = cognome;
 	}
+	
 	public LocalDate getDataNascita() {
 		return dataNascita;
 	}
@@ -60,6 +61,13 @@ public class Cuoco {
 	}
 	public void setPathFotografia(String pathFotografia) {
 		this.pathFotografia = pathFotografia;
+	}
+	
+	public List<Ricetta> getRicette() {
+		return ricette;
+	}
+	public void setRicette(List<Ricetta> ricette) {
+		this.ricette = ricette;
 	}
 	
 	@Override

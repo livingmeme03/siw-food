@@ -15,4 +15,8 @@ public class RicettaService {
 	public Iterable<Ricetta> findAll() {
 		return this.ricettaRepository.findAll();
 	}
+
+	public Ricetta findById(Long id) {
+		return this.ricettaRepository.findById(id).get();
+	}
 }
