@@ -8,7 +8,7 @@ import it.uniroma3.siw.model.Ricetta;
 import it.uniroma3.siw.service.RicettaService;
 
 public class RicettaValidator implements Validator{
-	
+
 	@Autowired 
 	private RicettaService ricettaService;
 
@@ -18,12 +18,12 @@ public class RicettaValidator implements Validator{
 		Ricetta ricetta = (Ricetta) o;
 		//TODO: scrivere metodo che dice che non possono esserci ricette duplicate
 		//per farlo serve il metodo apposito del repository!! (existsBy...)
-		
+
 	}
-	
+
 	@Override
 	public boolean supports(Class<?> aClass) {
-		
+
 		return Ricetta.class.equals(aClass);
 	}
 

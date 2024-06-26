@@ -18,7 +18,7 @@ import it.uniroma3.siw.service.UserService;
 
 @Controller
 public class AuthenticationController {
-	
+
 	@Autowired
 	private CredentialsService credentialsService;
 
@@ -35,10 +35,10 @@ public class AuthenticationController {
 	@PostMapping("/register")
 	public String newUser(@ModelAttribute("user") User user, @ModelAttribute("credentials") Credentials credentials, Model model) {
 		credentials.setUser(user);
-        credentialsService.saveCredentials(credentials); //Role lo setto qui, anche l'hash della pwd
+		credentialsService.saveCredentials(credentials); //Role lo setto qui, anche l'hash della pwd
 		return "redirect:login"; //finito di registrare redirecto a /
 	}
-	
+
 
 	@GetMapping("/")
 	public String showIndex(Model model) {
@@ -54,12 +54,12 @@ public class AuthenticationController {
 			}
 			return "index2.html";
 		}
-		
+
 	}
-	
+
 	@GetMapping("/login")
 	public String showLoginForm(Model model) {
 		return "login.html";
 	}
-	
+
 }
