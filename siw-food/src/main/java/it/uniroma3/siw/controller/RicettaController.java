@@ -40,10 +40,12 @@ public class RicettaController {
 	@GetMapping("/ricetta/{id}") 
 	public String showRicetta(@PathVariable("id") Long id, Model model) {
 		Ricetta ricetta =  this.ricettaService.findById(id);
-		ricetta.setPathImmagini(ricetta.getTuttiPathDelleImmagini());
-		for(int i=0; i<ricetta.getPathImmagini().size(); i++) {
-			System.out.println(ricetta.getPathImmagini().get(i));
+		if(ricetta.getTuttiPathDelleImmagini()!=null) {						//questo if si può togliere se tutte le 
+			ricetta.setPathImmagini(ricetta.getTuttiPathDelleImmagini());	//ricette nel db hanno immagini associate
 		}
+//		for(int i=0; i<ricetta.getPathImmagini().size(); i++) {
+//			System.out.println(ricetta.getPathImmagini().get(i));
+//		}
 		model.addAttribute("ricetta", ricetta);
 		model.addAttribute("listaIngredienti", this.ricettaService.findById(id).getListaIngredienti());
 		
