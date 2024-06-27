@@ -17,15 +17,19 @@ public class RicettaValidator implements Validator{
 
 	@Override
 	public void validate(Object o, Errors errors) {
+		
 		Ricetta ricetta = (Ricetta) o;
-		//TODO: scrivere metodo che dice che non possono esserci ricette duplicate
-		//per farlo serve il metodo apposito del repository!! (existsBy...)
+		if(ricetta.getTitolo()!=null && ricetta.getCuoco() !=null && this.ricettaService.existsByTitoloAndCuoco(ricetta.getTitolo(), ricetta.getCuoco())) {
+			errors.reject("ricetta.duplicata");
+		}
+		if(ricetta.getCuoco()==null) {
+			errors.reject("cuoco.nonEsiste");
+		}
 
 	}
 
 	@Override
 	public boolean supports(Class<?> aClass) {
-
 		return Ricetta.class.equals(aClass);
 	}
 

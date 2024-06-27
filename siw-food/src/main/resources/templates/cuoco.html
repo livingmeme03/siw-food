@@ -17,7 +17,7 @@
 			Ricette:
 			<ul>
 				<li th:each="ricetta : ${cuoco.ricette}">
-					<a th:href="@{'/ricetta' + '/' + ${ricetta.id}}" th:text="${ricetta.nome}"> Ricetta Generica</a>
+					<a th:href="@{'/ricetta' + '/' + ${ricetta.id}}" th:text="${ricetta.titolo}"> Ricetta Generica</a>
 				</li>
 			</ul>
 		 </div>

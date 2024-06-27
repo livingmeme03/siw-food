@@ -1,5 +1,6 @@
 package it.uniroma3.siw.service;
 
+import java.time.LocalDate;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,4 +28,21 @@ public class CuocoService {
 			return null;
 		}
 	}
+	
+	public Cuoco save(Cuoco cuoco) {
+		return this.cuocoRepository.save(cuoco);
+	}
+	
+	public boolean existsByNomeAndCognomeAndDataNascita(String nome, String cognome, LocalDate dataNascita) {
+		return this.cuocoRepository.existsByNomeAndCognomeAndDataNascita(nome, cognome, dataNascita);
+	}
+	
+	public Cuoco findByNomeAndCognomeAndDataNascita(String nome, String cognome, LocalDate dataNascita) {
+		return this.cuocoRepository.findByNomeAndCognomeAndDataNascita(nome, cognome, dataNascita);
+	}
+	
+	public Cuoco findByNomeAndCognome(String nome, String cognome) {
+		return this.cuocoRepository.findByNomeAndCognome(nome, cognome);
+	}
 }
+

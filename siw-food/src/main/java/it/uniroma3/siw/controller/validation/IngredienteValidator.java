@@ -18,9 +18,10 @@ public class IngredienteValidator implements Validator{
 	@Override
 	public void validate(Object o, Errors errors) {
 		Ingrediente ingrediente = (Ingrediente) o;
-		//TODO: scrivere metodo che dice che non possono esserci ingredienti duplicati
-		//per farlo serve il metodo apposito del repository!! (existsBy...)
-
+		
+		if(ingrediente.getNome()!=null && this.ingredienteService.existsByNome(ingrediente.getNome())) {
+			errors.reject("ingrediente.duplicato");
+		}
 	}
 
 	@Override

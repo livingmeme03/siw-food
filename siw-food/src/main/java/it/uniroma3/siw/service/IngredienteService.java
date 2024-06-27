@@ -29,4 +29,12 @@ public class IngredienteService {
 			return null;
 		}
 	}
+	
+	public Ingrediente save(Ingrediente ingrediente) {
+		return this.ingredienteRepository.save(ingrediente);
+	}
+	
+	public boolean existsByNome(String nome) {
+		return this.ingredienteRepository.existsByNome(nome);
+	}
 }

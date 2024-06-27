@@ -26,15 +26,13 @@ public class Ricetta {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@NotBlank
-	private String nome;
+	private String titolo;
 	private String descrizione;
 	@ElementCollection
 	@CollectionTable(name = "ricette_ingredienti_quantità", joinColumns = @JoinColumn(name = "ricetta_id"))
 	@MapKeyColumn(name = "nome")
 	@Column(name = "quantità")
-	@NotNull //probabilmente non serve perché non ho casistiche in cui questa mappa non viene creata
 	private Map<Ingrediente, Integer> ingredienti;
-	@NotNull
 	@ManyToOne
 	private Cuoco cuoco;
 	private List<String> pathImmagini;
@@ -49,11 +47,11 @@ public class Ricetta {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getNome() {
-		return nome;
+	public String getTitolo() {
+		return titolo;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setTitolo(String nome) {
+		this.titolo = nome;
 	}
 	public String getDescrizione() {
 		return descrizione;
@@ -88,7 +86,7 @@ public class Ricetta {
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(cuoco, ingredienti, nome);
+		return Objects.hash(cuoco, ingredienti, titolo);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -99,8 +97,7 @@ public class Ricetta {
 		if (getClass() != obj.getClass())
 			return false;
 		Ricetta other = (Ricetta) obj;
-		return Objects.equals(cuoco, other.cuoco) && Objects.equals(ingredienti, other.ingredienti)
-				&& Objects.equals(nome, other.nome);
+		return Objects.equals(cuoco, other.cuoco) && Objects.equals(titolo, other.titolo);
 	}
 	
 	

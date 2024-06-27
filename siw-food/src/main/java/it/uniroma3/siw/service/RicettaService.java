@@ -5,6 +5,7 @@ import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import it.uniroma3.siw.model.Cuoco;
 import it.uniroma3.siw.model.Ricetta;
 import it.uniroma3.siw.repository.RicettaRepository;
 
@@ -27,5 +28,13 @@ public class RicettaService {
 		catch(NoSuchElementException e) {
 			return null;
 		}
+	}
+	
+	public Ricetta save(Ricetta ricetta) {
+		return this.ricettaRepository.save(ricetta);
+	}
+	
+	public boolean existsByTitoloAndCuoco(String titolo, Cuoco cuoco) {
+		return this.ricettaRepository.existsByTitoloAndCuoco(titolo, cuoco);
 	}
 }

@@ -18,8 +18,11 @@ public class CuocoValidator implements Validator{
 	@Override
 	public void validate(Object o, Errors errors) {
 		Cuoco cuoco = (Cuoco)o;
-		//TODO: scrivere metodo che dice che non possono esserci cuochi duplicati
-		//per farlo serve il metodo apposito del repository!! (existsBy...)
+		
+		if(cuoco.getNome()!=null && cuoco.getCognome()!=null && cuoco.getDataNascita()!=null 
+				&& this.cuocoService.existsByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita())) {
+			errors.reject("cuoco.duplicato");
+		}
 	}
 
 	@Override
