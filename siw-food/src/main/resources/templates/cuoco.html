@@ -9,7 +9,7 @@
 <body>
     <div th:if="${cuoco}">
          <h1 th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}">Nome cuoco </h1>
-         <span> <img th:src="${cuoco.pathFotografia}"> </span>
+         <span> <img th:src="'/' + ${cuoco.pathFotografia}"> </span>
          <div>
 			 Data di nascita:<span th:text="${cuoco.dataNascita}"></span>
 		 </div>

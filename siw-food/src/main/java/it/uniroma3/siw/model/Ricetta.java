@@ -1,6 +1,7 @@
 package it.uniroma3.siw.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -36,8 +37,10 @@ public class Ricetta {
 	@ManyToOne
 	private Cuoco cuoco;
 	private List<String> pathImmagini;
+	private String tuttiPathDelleImmagini;
 //	@ElementCollection
 //	private List<Ingrediente> listaIngredienti;
+	
 	
 	
 	
@@ -72,10 +75,16 @@ public class Ricetta {
 		this.cuoco = cuoco;
 	}
 	public List<String> getPathImmagini() {
-		return pathImmagini;
+		return this.pathImmagini;
 	}
-	public void setPathImmagini(List<String> pathImmagini) {
-		this.pathImmagini = pathImmagini;
+	public void setPathImmagini(String path) {
+		this.pathImmagini = Arrays.asList(path.split(","));
+	}
+	public String getTuttiPathDelleImmagini() {
+		return tuttiPathDelleImmagini;
+	}
+	public void setTuttiPathDelleImmagini(String tuttiPathDelleImmagini) {
+		this.tuttiPathDelleImmagini = tuttiPathDelleImmagini;
 	}
 	public Set<Ingrediente> getListaIngredienti() {
 		return this.ingredienti.keySet();		

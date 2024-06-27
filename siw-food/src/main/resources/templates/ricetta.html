@@ -11,7 +11,7 @@
          <h1 th:text="${ricetta.titolo}">Titolo ricetta </h1>
          	<ul>
 				<li th:each="immagine : ${ricetta.pathImmagini}">
-					<img th:src="${immagine}"> </span>
+					<img th:src="'/' + ${immagine}">
 				</li>
 			</ul>
 		 <div>

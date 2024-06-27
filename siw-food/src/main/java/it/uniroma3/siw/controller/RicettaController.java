@@ -39,8 +39,14 @@ public class RicettaController {
 
 	@GetMapping("/ricetta/{id}") 
 	public String showRicetta(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("ricetta", this.ricettaService.findById(id));
+		Ricetta ricetta =  this.ricettaService.findById(id);
+		ricetta.setPathImmagini(ricetta.getTuttiPathDelleImmagini());
+		for(int i=0; i<ricetta.getPathImmagini().size(); i++) {
+			System.out.println(ricetta.getPathImmagini().get(i));
+		}
+		model.addAttribute("ricetta", ricetta);
 		model.addAttribute("listaIngredienti", this.ricettaService.findById(id).getListaIngredienti());
+		
 		return "ricetta.html";
 	}
 
@@ -48,26 +54,17 @@ public class RicettaController {
 	public String showFormAggiungiRicetta(Model model) {
 		model.addAttribute("nuovaRicetta", new Ricetta());	
 		model.addAttribute("cuoco", new Cuoco());
-	//	model.addAttribute("ingredienti", new String());
-	//	model.addAttribute("quantitàIngredienti", new String());
-	//	model.addAttribute("immagini", new String());
 		return "formAggiungiRicetta.html";
 	}
 
 	@PostMapping("/aggiungiRicetta")
 	public String newRicetta(@Valid @ModelAttribute("nuovaRicetta") Ricetta ricetta, BindingResult bindingResult, 
-			 @ModelAttribute("cuoco") Cuoco cuoco, 
-			//@ModelAttribute("ingredienti") String ingredienti, 
-			// @ModelAttribute("immagini") String immagini, 
-			// @ModelAttribute("quantitàIngredienti") String quantitàIngredienti, 
-			Model model) {
-		System.out.println(ricetta.getTitolo());
-		System.out.println(cuoco.toString());
-		System.out.println(cuoco.getNome());
-		System.out.println(cuoco.getCognome());
+			@ModelAttribute("cuoco") Cuoco cuoco, Model model) {
+
 		Cuoco cuocoAssociato = this.cuocoService.findByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita());
 		ricetta.setCuoco(cuocoAssociato);
-		//List<String> nomiIngredienti = Arrays.asList(ingredienti.split(","));
+//		System.out.println("ORA STAMPO LE IMMAGINI");
+//		System.out.println(ricetta.getTuttiPathDelleImmagini());
 		this.ricettaValidator.validate(ricetta, bindingResult);
 		if(bindingResult.hasErrors()) {
 			return "formAggiungiRicetta.html";
@@ -76,16 +73,15 @@ public class RicettaController {
 			this.ricettaService.save(ricetta);
 			return "redirect:ricetta/"+ricetta.getId();
 		}
-		
-		
-					
-//		Percorsi file immagini: <input type="text" th:field="${immagini}">
-//		<br><br>
-//		Lista ingredienti: <input type="text" th:field="${ingredienti}">
-//    	<span th:if="${#fields.hasErrors('ingredienti')}" th:errors="*{ingredienti}"></span>
-//		<br><br>
-//		Quantità ingredienti: <input type="text" th:field="${quantitàIngredienti}">
-//    	<span th:if="${#fields.hasErrors('quantitàIngredienti')}" th:errors="*{quantitàIngredienti}"></span>
-//		<br><br>
+
+
+
+		//		Lista ingredienti: <input type="text" th:field="${ingredienti}">
+		//    	<span th:if="${#fields.hasErrors('ingredienti')}" th:errors="*{ingredienti}"></span>
+		//		<br><br>
+		//		Quantità ingredienti: <input type="text" th:field="${quantitàIngredienti}">
+		//    	<span th:if="${#fields.hasErrors('quantitàIngredienti')}" th:errors="*{quantitàIngredienti}"></span>
+		//		<br><br>
+
 	}
 }
