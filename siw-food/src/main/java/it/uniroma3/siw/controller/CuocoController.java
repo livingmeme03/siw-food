@@ -69,24 +69,23 @@ public class CuocoController {
 	@PostMapping("/rimuoviCuoco")
 	public String deleteCuoco(@Valid @ModelAttribute("cuocoDaRimuovere") Cuoco cuoco, BindingResult bindingResult, Model model) {
 
-		if(bindingResult.hasErrors()) {
-			this.aggiungiAttributiCuochi(model);
+		this.cuocoValidator.validate(cuoco, bindingResult);		//verifico errori
+
+		if(bindingResult.hasErrors()) {				
+			if(bindingResult.getAllErrors().toString().contains("cuoco.duplicato")) {		//se gli errori contengono
+				this.cuocoService.delete(cuoco);								//ingrediente duplicato, allora è giusto
+				return "redirect:elencoCuochi";									//e lo cancello
+			}
+			this.aggiungiAttributiCuochi(model);		//se c'erano altri errori ridò la form
 			return "formRimuoviCuoco.html";
 		}
-		
-		this.cuocoValidator.validate(cuoco, bindingResult);
-		
-		if(bindingResult.hasErrors()) {
-			this.cuocoService.delete(cuoco);
-			return "redirect:elencoCuochi";
-		}
-		
+
 		bindingResult.reject("cuoco.nonEsiste");
-		this.aggiungiAttributiCuochi(model);
-		return "formRimuoviCuoco.html";
+		this.aggiungiAttributiCuochi(model);		//se non c'erano errori, non avevo trovato nessun ingrediente che corrisponde
+		return "formRimuoviCuoco.html";	
 
 	}
-	
+
 	public void aggiungiAttributiCuochi(Model model) {
 		List<String> nomiCuochi = new ArrayList<String>();
 		List<String> cognomiCuochi = new ArrayList<String>();

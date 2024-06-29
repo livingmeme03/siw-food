@@ -1,5 +1,8 @@
 package it.uniroma3.siw.controller;
 
+import java.util.Set;
+import java.util.TreeSet;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,19 +59,36 @@ public class IngredienteController {
 	@GetMapping("/rimuoviIngrediente")
 	public String showFormRimuoviIngrediente(Model model) {
 		model.addAttribute("ingredienteDaRimuovere", new Ingrediente());
+		this.aggiungiAttributiIngrediente(model);
 		return "formRimuoviIngrediente.html";
 	}
 	
-//	@PostMapping("/rimuoviIngrediente")
-//	public String deleteIngrediente(@Valid @ModelAttribute("ingredienteDaRimuovere") Ingrediente ingrediente, BindingResult bindingResult, Model model) {
-//		this.ingredienteValidator.validate(ingrediente, bindingResult);
-//		if(bindingResult.hasErrors()) {
-//			return "formAggiungiIngrediente.html";
-//		}
-//		else {
-//			this.ingredienteService.save(ingrediente);
-//			return "redirect:ingrediente/"+ingrediente.getId();
-//		}
-//	}
+	@PostMapping("/rimuoviIngrediente")
+	public String deleteIngrediente(@Valid @ModelAttribute("ingredienteDaRimuovere") Ingrediente ingrediente, BindingResult bindingResult, Model model) {
+		
+		this.ingredienteValidator.validate(ingrediente, bindingResult);		//verifico errori
+		
+		if(bindingResult.hasErrors()) {				
+			if(bindingResult.getAllErrors().toString().contains("ingrediente.duplicato")) {		//se gli errori contengono
+				this.ingredienteService.delete(ingrediente);								//ingrediente duplicato, allora è giusto
+				return "redirect:elencoIngredienti";									//e lo cancello
+			}
+			this.aggiungiAttributiIngrediente(model);		//se c'erano altri errori ridò la form
+			return "formRimuoviIngrediente.html";
+		}
+		
+		bindingResult.reject("ingrediente.nonEsiste");
+		this.aggiungiAttributiIngrediente(model);		//se non c'erano errori, non avevo trovato nessun ingrediente che corrisponde
+		return "formRimuoviIngrediente.html";	
+		
+	}
+	
+	public void aggiungiAttributiIngrediente(Model model) {
+		Set<String> nomiIngredienti = new TreeSet<String>();
+		for(Ingrediente i : this.ingredienteService.findAll()) {
+			nomiIngredienti.add(i.getNome());
+		}
+		model.addAttribute("nomiIngredienti", nomiIngredienti);
+	}
 	
 }

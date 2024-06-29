@@ -115,7 +115,7 @@ public class RicettaController {
 		
 		if(bindingResult.hasErrors()) {				
 			if(bindingResult.getAllErrors().toString().contains("ricetta.duplicata")) {		//se gli errori contengono
-				this.ricettaService.delete(ricetta);								//variant duplicata, allora è giusto
+				this.ricettaService.delete(ricetta);								//ricetta duplicata, allora è giusto
 				return "redirect:elencoRicette";									//e la cancello
 			}
 			this.aggiungiAttributiRicette(model);		//se c'erano altri errori ridò la form

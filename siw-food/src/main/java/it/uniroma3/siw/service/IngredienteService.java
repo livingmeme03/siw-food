@@ -37,4 +37,9 @@ public class IngredienteService {
 	public boolean existsByNome(String nome) {
 		return this.ingredienteRepository.existsByNome(nome);
 	}
+	
+	public void delete(Ingrediente ingrediente) {
+		Ingrediente ingredienteDaEliminare = this.ingredienteRepository.findByNome(ingrediente.getNome());
+		this.ingredienteRepository.delete(ingredienteDaEliminare);
+	}
 }

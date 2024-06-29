@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SiwFood - Pagina eliminazione ingrediente</title>
+</head>
+<body>
+    <h2>Rimuovi cuoco</h2>
+    <form th:action="@{/rimuoviIngrediente}" method="POST" th:object="${ingredienteDaRimuovere}">
+		<div th:if="${#fields.hasGlobalErrors()}">
+			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+		</div>
+		<div>
+        	Nome: <select th:field="${ingredienteDaRimuovere.nome}">
+                    	<option th:each="nomeIngrediente : ${nomiIngredienti}" th:value = "${nomeIngrediente}" th:text="${nomeIngrediente}">Nome</option>
+                   </select>
+        		<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+				<br><br>
+        </div>
+        <div>
+			<span><button type="submit">Conferma</button></span>
+		</div>
+    </form>
+</body>
+</html>
