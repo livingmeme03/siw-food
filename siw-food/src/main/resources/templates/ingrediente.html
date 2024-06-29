@@ -9,7 +9,7 @@
 <body>
     <div th:if="${ingrediente}">
          <h1 th:text="${ingrediente.nome}">Nome ingrediente </h1>
-         <span> <img th:src="'/' + ${ingrediente.pathImmagine}"> </span>
+         <span th:if = "${ingrediente.pathImmagine != null && ingrediente.pathImmagine != ''}"> <img th:src="'/' + ${ingrediente.pathImmagine}"> </span>
     </div>
     <div th:unless="${ingrediente}">Questo ingrediente non è presente nel sistema!</div>
 </body>

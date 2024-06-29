@@ -9,7 +9,9 @@
 <body>
     <div th:if="${cuoco}">
          <h1 th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}">Nome cuoco </h1>
-         <span> <img th:src="'/' + ${cuoco.pathFotografia}"> </span>
+         <span th:if = "${cuoco.pathFotografia != '' && cuoco.pathFotografia != null}"> 
+			 <img th:src="'/' + ${cuoco.pathFotografia}" width="20%"> 
+			 </span>
          <div>
 			 Data di nascita:<span th:text="${cuoco.dataNascita}"></span>
 		 </div>
