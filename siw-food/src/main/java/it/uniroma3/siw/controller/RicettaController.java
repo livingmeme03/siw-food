@@ -47,25 +47,22 @@ public class RicettaController {
 		if(ricetta.getTuttiPathDelleImmagini()!=null) {						//questo if si può togliere se tutte le 
 			ricetta.setPathImmagini(ricetta.getTuttiPathDelleImmagini());	//ricette nel db hanno immagini associate
 		}
-//		for(int i=0; i<ricetta.getPathImmagini().size(); i++) {
-//			System.out.println(ricetta.getPathImmagini().get(i));
-//		}
 		model.addAttribute("ricetta", ricetta);
 		model.addAttribute("listaIngredienti", this.ricettaService.findById(id).getListaIngredienti());
 		
 		return "ricetta.html";
 	}
 
-	@GetMapping("/aggiungiRicetta")
-	public String showFormAggiungiRicetta(Model model) {
+	@GetMapping("/aggiungiRicettaCompleta")
+	public String showFormAggiungiRicettaCompleta(Model model) {
 		model.addAttribute("nuovaRicetta", new Ricetta());	
 		model.addAttribute("cuoco", new Cuoco());
 		this.aggiungiAttributiCuochi(model);
-		return "formAggiungiRicetta.html";
+		return "formAggiungiRicettaCompleta.html";
 	}
 
-	@PostMapping("/aggiungiRicetta")
-	public String newRicetta(@Valid @ModelAttribute("nuovaRicetta") Ricetta ricetta, BindingResult bindingResult, 
+	@PostMapping("/aggiungiRicettaCompleta")
+	public String newRicettaCompleta(@Valid @ModelAttribute("nuovaRicetta") Ricetta ricetta, BindingResult bindingResult, 
 			@ModelAttribute("cuoco") Cuoco cuoco, Model model) {
 
 		Cuoco cuocoAssociato = this.cuocoService.findByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita());
@@ -74,7 +71,7 @@ public class RicettaController {
 		this.ricettaValidator.validate(ricetta, bindingResult);
 		if(bindingResult.hasErrors()) {
 			this.aggiungiAttributiCuochi(model);
-			return "formAggiungiRicetta.html";
+			return "formAggiungiRicettaCompleta.html";
 		}
 		else {
 			this.ricettaService.save(ricetta);

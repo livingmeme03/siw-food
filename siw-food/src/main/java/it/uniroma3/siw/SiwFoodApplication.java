@@ -11,20 +11,22 @@ public class SiwFoodApplication {
 	}
 	
 	//TODO
-	//1. aggiungere ingredienti alle ricette (nuova form) (menu a tendina con tutti gli ingredienti?)
-	//2. aggiungere unità di misura agli ingredienti (attributo e menu a tendina quando aggiungi un ingrediente)
-	//2. ricerca ricette/cuochi/ingredienti per nome/cuoco///nome/datanascita///nome
-	//3. modifica ricette/cuochi/ingredienti
+	//1. aggiungere ingredienti alla ricetta (nuova form) (menu a tendina con tutti gli ingredienti?) (addactorstomovie)
+	//2. aggiungere cuoco alla ricetta	(setdirectortomovie)
+	//3. aggiungere ricette ai cuochi	(addactorstomovie)
+	//4. aggiungere ricette solo attributi semplici		(aggiungifilm)
+	//5. mettere unità di misura agli ingredienti (attributo e menu a tendina quando aggiungi un ingrediente)
+	//6. ricerca ricette/cuochi/ingredienti per nome/cuoco///nome/datanascita///nome		(searchmovies)
+	//7. rimuovi ingredienti da ricetta (credo sia insieme a quella per aggiungere ingredienti alla ricetta)
 	// FATTO (da sistemare ingrediente) 4. rimuovi ricette/cuochi/ingredienti
-	//4.5 rimuovi ingredienti da ricetta
-	//5. differenziare i vari ruoli con quello che possono fare e aggiungere admin al database
+	//8. differenziare i vari ruoli con quello che possono fare e aggiungere admin al database
 	// FATTO 6. controlli da fare su authentication col binding result
 	// FATTO 7. controllo duplicati sul login
-	//8. sistemare il database definitivo e dimensioni immagini (aggiungere immagini a tutti gli ingredienti e i cuochi)
-	//9. css
-	//10. rest
-	//11. annotazioni transactional
-	//12. optional: deploy su cloud
-	//13. optional: annotazioni internazionali per i messaggi di errore
+	//9. sistemare il database definitivo e dimensioni immagini (aggiungere immagini a tutti gli ingredienti e i cuochi)
+	//10. css
+	//11. rest
+	//12. annotazioni transactional
+	//13. optional: deploy su cloud
+	//14. optional: annotazioni internazionali per i messaggi di errore
 
 }

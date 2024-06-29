@@ -5,7 +5,7 @@
 </head>
 <body>
     <h2>Aggiungi nuova ricetta</h2>
-    <form th:action="@{/aggiungiRicetta}" method="POST" th:object="${nuovaRicetta}">
+    <form th:action="@{/aggiungiRicettaCompleta}" method="POST" th:object="${nuovaRicetta}">
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
 		</div>
