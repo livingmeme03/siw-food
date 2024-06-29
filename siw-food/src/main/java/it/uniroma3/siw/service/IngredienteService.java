@@ -30,20 +30,27 @@ public class IngredienteService {
 		}
 	}
 	
+	public boolean existsByNome(String nome) {
+		return this.ingredienteRepository.existsByNome(nome);
+	}
+	
+	public Ingrediente findByNome(String nome) {
+		return this.ingredienteRepository.findByNome(nome);
+	}
+	
+	public Iterable<Ingrediente> findAllByOrderByNomeAsc() {
+		return this.ingredienteRepository.findAllByOrderByNomeAsc();
+	}
+	
 	public Ingrediente save(Ingrediente ingrediente) {
 		return this.ingredienteRepository.save(ingrediente);
 	}
 	
-	public boolean existsByNome(String nome) {
-		return this.ingredienteRepository.existsByNome(nome);
-	}
 	
 	public void delete(Ingrediente ingrediente) {
 		Ingrediente ingredienteDaEliminare = this.ingredienteRepository.findByNome(ingrediente.getNome());
 		this.ingredienteRepository.delete(ingredienteDaEliminare);
 	}
 
-	public Iterable<Ingrediente> findAllByOrderByNomeAsc() {
-		return this.ingredienteRepository.findAllByOrderByNomeAsc();
-	}
+	
 }

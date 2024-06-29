@@ -13,10 +13,14 @@ public class CuocoValidator implements Validator{
 
 	@Autowired
 	private CuocoService cuocoService;
-
+	
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------METODO VALIDATE----------------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
 
 	@Override
 	public void validate(Object o, Errors errors) {
+		
 		Cuoco cuoco = (Cuoco)o;
 		
 		if(cuoco.getNome()!=null && cuoco.getCognome()!=null && cuoco.getDataNascita()!=null 
@@ -24,9 +28,14 @@ public class CuocoValidator implements Validator{
 			errors.reject("cuoco.duplicato");
 		}
 	}
+	
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------METODO SUPPORTS----------------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
 
 	@Override
 	public boolean supports(Class<?> aClass) {
+		
 		return Cuoco.class.equals(aClass);
 	}
 

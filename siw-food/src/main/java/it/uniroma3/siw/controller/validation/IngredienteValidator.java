@@ -13,19 +13,28 @@ public class IngredienteValidator implements Validator{
 
 	@Autowired
 	private IngredienteService ingredienteService;
-
+	
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------METODO VALIDATE----------------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
 
 	@Override
 	public void validate(Object o, Errors errors) {
+		
 		Ingrediente ingrediente = (Ingrediente) o;
 		
 		if(ingrediente.getNome()!=null && this.ingredienteService.existsByNome(ingrediente.getNome())) {
 			errors.reject("ingrediente.duplicato");
 		}
 	}
+	
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------METODO SUPPORTS----------------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
 
 	@Override
 	public boolean supports(Class<?> aClass) {
+		
 		return Ingrediente.class.equals(aClass);
 	}
 

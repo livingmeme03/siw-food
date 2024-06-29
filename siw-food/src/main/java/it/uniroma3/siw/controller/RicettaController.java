@@ -34,21 +34,21 @@ public class RicettaController {
 
 	@Autowired 
 	private RicettaValidator ricettaValidator;
-	
-	/*-------------------------------------------------------------------------------------*/
-	/*----------------------------------ELENCO RICETTE-------------------------------------*/
-	/*-------------------------------------------------------------------------------------*/
-	
+
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*-----------------------------------------ELENCO RICETTE------------------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
+
 	@GetMapping("/elencoRicette")		//non servono validazioni 
 	public String showElencoRicette(Model model) {
 		model.addAttribute("ricette", this.ricettaService.findAllByOrderByTitoloAsc());
 		return "elencoRicette.html";
 	}
-	
-	/*-------------------------------------------------------------------------------------*/
-	/*----------------------------VISUALIZZAZIONE SINGOLA RICETTA--------------------------*/
-	/*-------------------------------------------------------------------------------------*/
-	
+
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*----------------------------------VISUALIZZAZIONE SINGOLA RICETTA--------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
+
 	@GetMapping("/ricetta/{id}") 
 	public String showRicetta(@PathVariable("id") Long id, Model model) {
 		Ricetta ricetta =  this.ricettaService.findById(id);
@@ -60,10 +60,10 @@ public class RicettaController {
 
 		return "ricetta.html";
 	}
-	
-	/*-------------------------------------------------------------------------------------*/
-	/*----------------------------------AGGIUNTA RICETTA-----------------------------------*/
-	/*-------------------------------------------------------------------------------------*/
+
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------AGGIUNTA RICETTA---------------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
 
 	@GetMapping("/aggiungiRicetta")
 	public String showFormAggiungiRicetta(Model model) {
@@ -72,7 +72,8 @@ public class RicettaController {
 	}
 
 	@PostMapping("/aggiungiRicetta")
-	public String newRicetta(@Valid @ModelAttribute("nuovaRicetta") Ricetta ricetta, BindingResult bindingResult, Model model) {
+	public String newRicetta(@Valid @ModelAttribute("nuovaRicetta") Ricetta ricetta, BindingResult bindingResult, 
+			Model model) {
 
 		this.ricettaValidator.validateSimple(ricetta, bindingResult);
 		if(bindingResult.hasErrors()) {
@@ -84,11 +85,11 @@ public class RicettaController {
 		}
 
 	}
-	
-	/*-------------------------------------------------------------------------------------*/
-	/*------------------------AGGIUNTA RICETTA CON CUOCO ASSOCIATO-------------------------*/
-	/*-------------------------------------------------------------------------------------*/
-	
+
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*---------------------------------AGGIUNTA RICETTA CON CUOCO ASSOCIATO----------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
+
 	@GetMapping("/aggiungiRicettaCompleta")
 	public String showFormAggiungiRicettaCompleta(Model model) {
 		model.addAttribute("nuovaRicetta", new Ricetta());	
@@ -101,7 +102,8 @@ public class RicettaController {
 	public String newRicettaCompleta(@Valid @ModelAttribute("nuovaRicetta") Ricetta ricetta, BindingResult bindingResult, 
 			@ModelAttribute("cuoco") Cuoco cuoco, Model model) {
 
-		Cuoco cuocoAssociato = this.cuocoService.findByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita());
+		Cuoco cuocoAssociato = this.cuocoService.findByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), 
+								cuoco.getDataNascita());
 		ricetta.setCuoco(cuocoAssociato);
 
 		this.ricettaValidator.validate(ricetta, bindingResult);
@@ -115,24 +117,24 @@ public class RicettaController {
 		}
 
 	}
-	
-	/*-------------------------------------------------------------------------------------*/	
-	/*------------------------------AGGIORNAMENTO RICETTA----------------------------------*/
-	/*-------------------------------------------------------------------------------------*/
-	
+
+	/*-------------------------------------------------------------------------------------------------------*/	
+	/*------------------------------------------AGGIORNAMENTO RICETTA----------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
+
 	@GetMapping("/elencoAggiornaRicette")		//non servono validazioni 
 	public String showElencoAggiornaIngredienti(Model model) {
 		model.addAttribute("ricette", this.ricettaService.findAllByOrderByTitoloAsc());
 		return "elencoAggiornaRicette.html";
 	}
-	
+
 	@GetMapping("/impostaCuocoARicetta/{idRicetta}") 
 	public String showImpostaCuocoARicetta(@PathVariable Long idRicetta, Model model) {
 		model.addAttribute("listaCuochi", this.cuocoService.findAllByOrderByCognomeAsc());
 		model.addAttribute("idRicetta", idRicetta);
 		return "elencoCuochiImpostaCuocoARicetta.html";
 	}
-	
+
 	@GetMapping("/impostaCuocoARicetta/{idRicetta}/{idCuoco}") 
 	public String impostaCuocoARicetta(@PathVariable Long idRicetta, @PathVariable Long idCuoco, Model model) {
 		Ricetta ricetta = this.ricettaService.findById(idRicetta);
@@ -140,11 +142,11 @@ public class RicettaController {
 		this.ricettaService.save(ricetta);
 		return "redirect:../../ricetta/"+ricetta.getId();
 	}
-	
-	/*-------------------------------------------------------------------------------------*/	
-	/*------------------------------CANCELLAZIONE RICETTA----------------------------------*/
-	/*-------------------------------------------------------------------------------------*/
-	
+
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*---------------------------------------------CANCELLAZIONE RICETTA-------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
+
 
 	@GetMapping("/rimuoviRicetta")
 	public String showFormRimuoviRicetta(Model model) {
@@ -157,8 +159,8 @@ public class RicettaController {
 	@PostMapping("/rimuoviRicetta")
 	public String deleteCuoco(@Valid @ModelAttribute("ricettaDaRimuovere") Ricetta ricetta, BindingResult bindingResult, 
 			@Valid @ModelAttribute("cuoco") Cuoco cuoco, BindingResult bindingResult2, Model model) {
-
-
+		
+		
 		Cuoco cuocoAssociato = this.cuocoService.findByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita());
 		ricetta.setCuoco(cuocoAssociato);			//ricerca del cuoco associato alla ricetta 
 		//e setting del cuoco alla ricetta
@@ -175,15 +177,15 @@ public class RicettaController {
 		}
 
 		bindingResult.reject("ricetta.nonEsiste");
-		this.aggiungiAttributiRicette(model);		//se non c'erano errori, non avevo trovato nessuna ricetta che corrisponde
-		return "formRimuoviRicetta.html";				//quindi dà errore e redirecta
+		this.aggiungiAttributiRicette(model);	//se non c'erano errori, non avevo trovato nessuna ricetta che corrisponde
+		return "formRimuoviRicetta.html";		//quindi dà errore e redirecta
 
 	}
 
-	/*-------------------------------------------------------------------------------------*/	
-	/*---------------------------------METODI DI SUPPORTO----------------------------------*/
-	/*-------------------------------------------------------------------------------------*/	
-	
+	/*-------------------------------------------------------------------------------------------------------*/	
+	/*---------------------------------------------METODI DI SUPPORTO----------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
+
 	public void aggiungiAttributiRicette(Model model) {
 		Set<String> titoliRicette = new TreeSet<String>();
 		Set<String> nomiCuochi = new TreeSet<String>();

@@ -25,9 +25,12 @@ public class CuocoController {
 	@Autowired
 	private CuocoService cuocoService;
 
-
 	@Autowired 
 	private CuocoValidator cuocoValidator;
+	
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------ELENCO CUOCHI------------------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
 
 	@GetMapping("/elencoCuochi")		//non servono validazioni 
 	public String showElencoCuochi(Model model) {
@@ -35,12 +38,20 @@ public class CuocoController {
 		return "elencoCuochi.html";
 	}
 
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*----------------------------------VISUALIZZAZIONE SINGOLO CUOCO----------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
+	
 	@GetMapping("/cuoco/{id}")
 	public String showCuoco(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("cuoco", this.cuocoService.findById(id));
 		return "cuoco.html";
 	}
-
+	
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*-------------------------------------------AGGIUNTA CUOCO----------------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
+	
 	@GetMapping("/aggiungiCuoco")
 	public String showFormAggiungiCuoco(Model model) {
 		model.addAttribute("nuovoCuoco", new Cuoco());
@@ -58,6 +69,10 @@ public class CuocoController {
 			return "redirect:cuoco/"+cuoco.getId();
 		}
 	}
+	
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*-------------------------------------------CANCELLAZIONE CUOCO-----------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
 
 	@GetMapping("/rimuoviCuoco")
 	public String showFormRimuoviCuoco(Model model) {
@@ -72,7 +87,7 @@ public class CuocoController {
 		this.cuocoValidator.validate(cuoco, bindingResult);		//verifico errori
 
 		if(bindingResult.hasErrors()) {				
-			if(bindingResult.getAllErrors().toString().contains("cuoco.duplicato")) {		//se gli errori contengono
+			if(bindingResult.getAllErrors().toString().contains("cuoco.duplicato")) {	//se gli errori contengono
 				this.cuocoService.delete(cuoco);								//ingrediente duplicato, allora è giusto
 				return "redirect:elencoCuochi";									//e lo cancello
 			}
@@ -85,7 +100,11 @@ public class CuocoController {
 		return "formRimuoviCuoco.html";	
 
 	}
-
+	
+	/*-------------------------------------------------------------------------------------------------------*/	
+	/*---------------------------------------------METODI DI SUPPORTO----------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
+	
 	public void aggiungiAttributiCuochi(Model model) {
 		List<String> nomiCuochi = new ArrayList<String>();
 		List<String> cognomiCuochi = new ArrayList<String>();

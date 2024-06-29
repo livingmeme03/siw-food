@@ -23,6 +23,10 @@ import jakarta.validation.constraints.NotNull;
 @Entity
 public class Ricetta {
 	
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*----------------------------------------------ATTRIBUTI------------------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -32,7 +36,7 @@ public class Ricetta {
 	@ElementCollection
 	@CollectionTable(name = "ricette_ingredienti_quantità", joinColumns = @JoinColumn(name = "ricetta_id"))
 	@MapKeyColumn(name = "nome")
-	@Column(name = "quantità")
+	@Column(name = "quantità")			//cascadetype remove? per togliere gli ingredienti?
 	private Map<Ingrediente, Integer> ingredienti;
 	@ManyToOne
 	private Cuoco cuoco;
@@ -41,8 +45,9 @@ public class Ricetta {
 //	@ElementCollection
 //	private List<Ingrediente> listaIngredienti;
 	
-	
-	
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------GETTER E SETTER----------------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
 	
 	public Long getId() {
 		return id;
@@ -93,6 +98,10 @@ public class Ricetta {
 //		this.listaIngredienti = listaIngredienti;
 //	}
 	
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------EQUALS E HASHCODE--------------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(cuoco, ingredienti, titolo);
@@ -107,9 +116,6 @@ public class Ricetta {
 			return false;
 		Ricetta other = (Ricetta) obj;
 		return Objects.equals(cuoco, other.cuoco) && Objects.equals(titolo, other.titolo);
-	}
-	
-	
-	
+	}	
 	
 }

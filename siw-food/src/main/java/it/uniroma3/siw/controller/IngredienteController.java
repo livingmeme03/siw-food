@@ -25,18 +25,30 @@ public class IngredienteController {
 
 	@Autowired
 	private IngredienteValidator ingredienteValidator;
+	
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*----------------------------------------ELENCO INGREDIENTI---------------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
 
 	@GetMapping("/elencoIngredienti")		//non servono validazioni 
 	public String showElencoIngredienti(Model model) {
 		model.addAttribute("ingredienti", this.ingredienteService.findAllByOrderByNomeAsc());
 		return "elencoIngredienti.html";
 	}
+	
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*--------------------------------VISUALIZZAZIONE SINGOLO INGREDIENTE------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
 
 	@GetMapping("/ingrediente/{id}")
 	public String showIngrediente(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("ingrediente", this.ingredienteService.findById(id));
 		return "ingrediente.html";
 	}
+	
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*---------------------------------------AGGIUNTA INGREDIENTE--------------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
 
 	@GetMapping("/aggiungiIngrediente")
 	public String showFormAggiungiIngrediente(Model model) {
@@ -55,6 +67,10 @@ public class IngredienteController {
 			return "redirect:ingrediente/"+ingrediente.getId();
 		}
 	}
+	
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*-------------------------------------CANCELLAZIONE INGREDIENTE-----------------------------------------*/
+	/*-----------------------------------------------(wip)---------------------------------------------------*/
 	
 	@GetMapping("/rimuoviIngrediente")
 	public String showFormRimuoviIngrediente(Model model) {
@@ -82,6 +98,10 @@ public class IngredienteController {
 		return "formRimuoviIngrediente.html";	
 		
 	}
+	
+	/*-------------------------------------------------------------------------------------------------------*/	
+	/*---------------------------------------------METODI DI SUPPORTO----------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
 	
 	public void aggiungiAttributiIngrediente(Model model) {
 		Set<String> nomiIngredienti = new TreeSet<String>();

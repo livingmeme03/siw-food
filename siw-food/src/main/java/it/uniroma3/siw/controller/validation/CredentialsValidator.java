@@ -14,7 +14,10 @@ public class CredentialsValidator implements Validator{
 	@Autowired 
 	private CredentialsService credentialsService;
 
-
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------METODO VALIDATE----------------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
+	
 	@Override
 	public void validate(Object o, Errors errors) {
 
@@ -25,9 +28,14 @@ public class CredentialsValidator implements Validator{
 		}
 
 	}
+	
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------METODO SUPPORTS----------------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
 
 	@Override
 	public boolean supports(Class<?> aClass) {
+		
 		return Credentials.class.equals(aClass);
 	}
 
