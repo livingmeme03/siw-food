@@ -15,7 +15,7 @@ public class SiwFoodApplication {
 	//2. aggiungere unità di misura agli ingredienti (attributo e menu a tendina quando aggiungi un ingrediente)
 	//2. ricerca ricette/cuochi/ingredienti per nome/cuoco///nome/datanascita///nome
 	//3. modifica ricette/cuochi/ingredienti
-	//4. rimuovi ricette/cuochi/ingredienti
+	// FATTO (da sistemare ingrediente) 4. rimuovi ricette/cuochi/ingredienti
 	//4.5 rimuovi ingredienti da ricetta
 	//5. differenziare i vari ruoli con quello che possono fare e aggiungere admin al database
 	// FATTO 6. controlli da fare su authentication col binding result
