@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import it.uniroma3.siw.model.Cuoco;
 import it.uniroma3.siw.repository.CuocoRepository;
+import jakarta.validation.Valid;
 
 @Service
 public class CuocoService {
@@ -43,6 +44,11 @@ public class CuocoService {
 	
 	public Cuoco findByNomeAndCognome(String nome, String cognome) {
 		return this.cuocoRepository.findByNomeAndCognome(nome, cognome);
+	}
+
+	public void delete(Cuoco cuoco) {
+		Cuoco cuocoDaEliminare = this.cuocoRepository.findByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita());
+		this.cuocoRepository.delete(cuocoDaEliminare);
 	}
 }
 

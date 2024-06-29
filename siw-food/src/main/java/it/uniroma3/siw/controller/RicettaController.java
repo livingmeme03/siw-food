@@ -1,5 +1,6 @@
 package it.uniroma3.siw.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import it.uniroma3.siw.controller.validation.RicettaValidator;
 import it.uniroma3.siw.model.Cuoco;
+import it.uniroma3.siw.model.Ingrediente;
 import it.uniroma3.siw.model.Ricetta;
 import it.uniroma3.siw.service.CuocoService;
 import it.uniroma3.siw.service.RicettaService;
@@ -65,8 +67,6 @@ public class RicettaController {
 
 		Cuoco cuocoAssociato = this.cuocoService.findByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita());
 		ricetta.setCuoco(cuocoAssociato);
-//		System.out.println("ORA STAMPO LE IMMAGINI");
-//		System.out.println(ricetta.getTuttiPathDelleImmagini());
 		this.ricettaValidator.validate(ricetta, bindingResult);
 		if(bindingResult.hasErrors()) {
 			return "formAggiungiRicetta.html";
@@ -75,6 +75,8 @@ public class RicettaController {
 			this.ricettaService.save(ricetta);
 			return "redirect:ricetta/"+ricetta.getId();
 		}
+		
+		
 
 
 
@@ -85,5 +87,58 @@ public class RicettaController {
 		//    	<span th:if="${#fields.hasErrors('quantitàIngredienti')}" th:errors="*{quantitàIngredienti}"></span>
 		//		<br><br>
 
+	}
+	
+	@GetMapping("/rimuoviRicetta")
+	public String showFormRimuoviRicetta(Model model) {
+		model.addAttribute("ricettaDaRimuovere", new Ricetta());
+		model.addAttribute("cuoco", new Cuoco());
+		this.aggiungiAttributiRicette(model);
+		return "formRimuoviRicetta.html";
+	}
+	
+	@PostMapping("/rimuoviRicetta")
+	public String deleteCuoco(@Valid @ModelAttribute("ricettaDaRimuovere") Ricetta ricetta, BindingResult bindingResult, 
+			@Valid @ModelAttribute("cuoco") Cuoco cuoco, BindingResult bindingResult2, Model model) {
+		
+		
+		Cuoco cuocoAssociato = this.cuocoService.findByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita());
+		ricetta.setCuoco(cuocoAssociato);			//ricerca del cuoco associato alla ricetta 
+													//e setting del cuoco alla ricetta
+		
+		this.ricettaValidator.validate(ricetta, bindingResult);				//controllo errori
+		
+		if(bindingResult.hasErrors()) {				
+			if(bindingResult.getAllErrors().toString().contains("ricetta.duplicata")) {		//se gli errori contengono
+				this.ricettaService.delete(ricetta);								//variant duplicata, allora è giusto
+				return "redirect:elencoRicette";									//e la cancello
+			}
+			this.aggiungiAttributiRicette(model);		//se c'erano altri errori ridò la form
+			return "formRimuoviRicetta.html";
+		}
+		
+		bindingResult.reject("ricetta.nonEsiste");
+		this.aggiungiAttributiRicette(model);		//se non c'erano errori, non avevo trovato nessuna ricetta che corrisponde
+		return "formRimuoviRicetta.html";				//quindi dà errore e redirecta
+
+	}
+	
+	public void aggiungiAttributiRicette(Model model) {
+		List<String> titoliRicette = new ArrayList<String>();
+		List<String> nomiCuochi = new ArrayList<String>();
+		List<String> cognomiCuochi = new ArrayList<String>();
+		List<String> dateNascitaCuochi = new ArrayList<String>();
+		for(Cuoco c : this.cuocoService.findAll()) {
+			nomiCuochi.add(c.getNome());
+			cognomiCuochi.add(c.getCognome());
+			dateNascitaCuochi.add(c.getDataNascita().toString());
+		}
+		for (Ricetta r : this.ricettaService.findAll()) {
+			titoliRicette.add(r.getTitolo());
+		}
+		model.addAttribute("nomiCuochi", nomiCuochi);
+		model.addAttribute("cognomiCuochi", cognomiCuochi);
+		model.addAttribute("dateNascitaCuochi", dateNascitaCuochi);
+		model.addAttribute("titoliRicette", titoliRicette);
 	}
 }

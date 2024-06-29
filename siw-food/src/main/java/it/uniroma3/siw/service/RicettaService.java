@@ -37,4 +37,9 @@ public class RicettaService {
 	public boolean existsByTitoloAndCuoco(String titolo, Cuoco cuoco) {
 		return this.ricettaRepository.existsByTitoloAndCuoco(titolo, cuoco);
 	}
+	
+	public void delete(Ricetta ricetta) {
+		Ricetta ricettaDaEliminare = this.ricettaRepository.findByTitoloAndCuoco(ricetta.getTitolo(), ricetta.getCuoco());
+		this.ricettaRepository.delete(ricettaDaEliminare);
+	}
 }

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,7 +28,7 @@ public class Cuoco {
 	@Past
 	private LocalDate dataNascita;
 	private String pathFotografia;
-	@OneToMany(mappedBy = "cuoco")
+	@OneToMany(mappedBy = "cuoco", cascade = CascadeType.REMOVE)
 	private List<Ricetta> ricette;
 	
 	

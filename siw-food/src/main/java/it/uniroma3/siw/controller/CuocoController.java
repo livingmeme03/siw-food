@@ -1,5 +1,9 @@
 package it.uniroma3.siw.controller;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,5 +57,47 @@ public class CuocoController {
 			this.cuocoService.save(cuoco);
 			return "redirect:cuoco/"+cuoco.getId();
 		}
+	}
+
+	@GetMapping("/rimuoviCuoco")
+	public String showFormRimuoviCuoco(Model model) {
+		model.addAttribute("cuocoDaRimuovere", new Cuoco());
+		this.aggiungiAttributiCuochi(model);
+		return "formRimuoviCuoco.html";
+	}
+
+	@PostMapping("/rimuoviCuoco")
+	public String deleteCuoco(@Valid @ModelAttribute("cuocoDaRimuovere") Cuoco cuoco, BindingResult bindingResult, Model model) {
+
+		if(bindingResult.hasErrors()) {
+			this.aggiungiAttributiCuochi(model);
+			return "formRimuoviCuoco.html";
+		}
+		
+		this.cuocoValidator.validate(cuoco, bindingResult);
+		
+		if(bindingResult.hasErrors()) {
+			this.cuocoService.delete(cuoco);
+			return "redirect:elencoCuochi";
+		}
+		
+		bindingResult.reject("cuoco.nonEsiste");
+		this.aggiungiAttributiCuochi(model);
+		return "formRimuoviCuoco.html";
+
+	}
+	
+	public void aggiungiAttributiCuochi(Model model) {
+		List<String> nomiCuochi = new ArrayList<String>();
+		List<String> cognomiCuochi = new ArrayList<String>();
+		List<String> dateNascitaCuochi = new ArrayList<String>();
+		for(Cuoco c : this.cuocoService.findAll()) {
+			nomiCuochi.add(c.getNome());
+			cognomiCuochi.add(c.getCognome());
+			dateNascitaCuochi.add(c.getDataNascita().toString());
+		}
+		model.addAttribute("nomiCuochi", nomiCuochi);
+		model.addAttribute("cognomiCuochi", cognomiCuochi);
+		model.addAttribute("dateNascitaCuochi", dateNascitaCuochi);
 	}
 }

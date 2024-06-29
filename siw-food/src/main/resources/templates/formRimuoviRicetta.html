@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SiwFood - Pagina eliminazione ricette</title>
+</head>
+<body>
+    <h2>Rimuovi ricetta</h2>
+    <form th:action="@{/rimuoviRicetta}" method="POST" th:object="${ricettaDaRimuovere}">
+		<div th:if="${#fields.hasGlobalErrors()}">
+			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+		</div>
+		<div>
+			Titolo ricetta: <select th:field="${ricettaDaRimuovere.titolo}">
+                    	<option th:each="titoloRicetta : ${titoliRicette}" th:value = "${titoloRicetta}" th:text="${titoloRicetta}">Titolo</option>
+                   </select>
+        		<span th:if="${#fields.hasErrors('cuoco.nome')}" th:errors="{cuoco.nome}"></span>
+				<br><br>
+        	Nome cuoco: <select th:field="${cuoco.nome}">
+                    	<option th:each="nomeCuoco : ${nomiCuochi}" th:value = "${nomeCuoco}" th:text="${nomeCuoco}">Nome</option>
+                   </select>
+        		<span th:if="${#fields.hasErrors('cuoco.nome')}" th:errors="{cuoco.nome}"></span>
+				<br><br>
+			Cognome cuoco: <select th:field="${cuoco.cognome}">
+                    	<option th:each="cognomeCuoco : ${cognomiCuochi}" th:value = "${cognomeCuoco}" th:text="${cognomeCuoco}">Cognome</option>
+                   </select>
+        		<span th:if="${#fields.hasErrors('cuoco.cognome')}" th:errors="{cuoco.cognome}"></span>
+				<br><br>
+			Data di nascita cuoco:	<select th:field="${cuoco.dataNascita}">
+                    			<option th:each="dataNascita : ${dateNascitaCuochi}" th:value = "${dataNascita}" th:text="${dataNascita}">Data Nascita</option>
+                   				</select>
+        		<span th:if="${#fields.hasErrors('cuoco.dataNascita')}" th:errors="{cuoco.dataNascita}"></span>
+				<br><br>
+        </div>
+        <div>
+			<span><button type="submit">Conferma</button></span>
+		</div>
+    </form>
+</body>
+</html>

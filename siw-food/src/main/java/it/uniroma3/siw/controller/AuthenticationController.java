@@ -48,10 +48,10 @@ public class AuthenticationController {
 		
 //		BindingResult br = bindingResultCredentials;
 //		br.addAllErrors(bindingResultUser);
-		if(bindingResultUser.hasErrors() || bindingResultCredentials.hasErrors()) {
-			model.addAttribute("userErrors", bindingResultUser);
-			System.out.println(bindingResultUser.getAllErrors().toString());
-            System.out.println(bindingResultCredentials.getAllErrors().toString());
+		if(bindingResultUser.hasErrors() || bindingResultCredentials.hasErrors()) {		//aggiungi alla form gli errori dell'user
+			model.addAttribute("userErrors", bindingResultUser);				//così può stampare anche i suoi messaggi di errore
+//			System.out.println(bindingResultUser.getAllErrors().toString());	
+//            System.out.println(bindingResultCredentials.getAllErrors().toString());
 			return "formRegister.html";
 		}
 		

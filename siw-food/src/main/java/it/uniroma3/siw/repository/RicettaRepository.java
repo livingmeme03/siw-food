@@ -9,4 +9,6 @@ public interface RicettaRepository extends CrudRepository<Ricetta, Long>{
 	
 	public boolean existsByTitoloAndCuoco(String titolo, Cuoco cuoco);
 
+	public Ricetta findByTitoloAndCuoco(String titolo, Cuoco cuoco);
+
 }

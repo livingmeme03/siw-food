@@ -52,4 +52,23 @@ public class IngredienteController {
 			return "redirect:ingrediente/"+ingrediente.getId();
 		}
 	}
+	
+	@GetMapping("/rimuoviIngrediente")
+	public String showFormRimuoviIngrediente(Model model) {
+		model.addAttribute("ingredienteDaRimuovere", new Ingrediente());
+		return "formRimuoviIngrediente.html";
+	}
+	
+//	@PostMapping("/rimuoviIngrediente")
+//	public String deleteIngrediente(@Valid @ModelAttribute("ingredienteDaRimuovere") Ingrediente ingrediente, BindingResult bindingResult, Model model) {
+//		this.ingredienteValidator.validate(ingrediente, bindingResult);
+//		if(bindingResult.hasErrors()) {
+//			return "formAggiungiIngrediente.html";
+//		}
+//		else {
+//			this.ingredienteService.save(ingrediente);
+//			return "redirect:ingrediente/"+ingrediente.getId();
+//		}
+//	}
+	
 }
