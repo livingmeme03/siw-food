@@ -28,6 +28,16 @@ public class RicettaValidator implements Validator{
 		}
 
 	}
+	
+	
+	public void validateSimple(Object o, Errors errors) {
+		
+		Ricetta ricetta = (Ricetta) o;
+		if(ricetta.getTitolo()!=null && this.ricettaService.existsByTitolo(ricetta.getTitolo())) {
+			errors.reject("ricetta.duplicata");
+		}
+
+	}
 
 	@Override
 	public boolean supports(Class<?> aClass) {

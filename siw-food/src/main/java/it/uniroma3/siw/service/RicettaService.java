@@ -46,4 +46,8 @@ public class RicettaService {
 	public Iterable<Ricetta> findAllByOrderByTitoloAsc() {
 		return this.ricettaRepository.findAllByOrderByTitoloAsc();
 	}
+
+	public boolean existsByTitolo(String titolo) {
+		return this.ricettaRepository.existsByTitolo(titolo);
+	}
 }

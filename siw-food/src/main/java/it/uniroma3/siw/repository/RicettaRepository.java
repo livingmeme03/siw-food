@@ -13,4 +13,6 @@ public interface RicettaRepository extends CrudRepository<Ricetta, Long>{
 
 	public Iterable<Ricetta> findAllByOrderByTitoloAsc();
 
+	public boolean existsByTitolo(String titolo);
+
 }

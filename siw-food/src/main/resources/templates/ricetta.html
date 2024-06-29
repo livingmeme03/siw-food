@@ -9,14 +9,14 @@
 <body>
     <div th:if="${ricetta}">
          <h1 th:text="${ricetta.titolo}">Titolo ricetta </h1>
-         <span th:if = "${ricetta.pathImmagini != null && ricetta.pathImmagini != ''}">
-         	<ul>
-				<li th:each="immagine : ${ricetta.pathImmagini}">
+         <div th:if = "${ricetta.pathImmagini != null}">
+				<div th:each="immagine : ${ricetta.pathImmagini}">
+					<span th:if="${immagine != ''}">
 					<img th:src="'/' + ${immagine}">
-				</li>
-			</ul>
-         </span>	
-		 <div>
+					</span>
+				</div>
+         </div>	
+		 <div th:if="${ricetta.cuoco != null}">
 			 Ideata da:<span th:text="' ' + ${ricetta.cuoco.nome} + ' ' + ${ricetta.cuoco.cognome}"></span>
 		 </div>
          <div>

@@ -78,6 +78,28 @@ public class RicettaController {
 			return "redirect:ricetta/"+ricetta.getId();
 		}
 		
+	}	
+	
+	@GetMapping("/aggiungiRicetta")
+	public String showFormAggiungiRicetta(Model model) {
+		model.addAttribute("nuovaRicetta", new Ricetta());	
+		return "formAggiungiRicetta.html";
+	}
+
+	@PostMapping("/aggiungiRicetta")
+	public String newRicetta(@Valid @ModelAttribute("nuovaRicetta") Ricetta ricetta, BindingResult bindingResult, Model model) {
+		
+		this.ricettaValidator.validateSimple(ricetta, bindingResult);
+		if(bindingResult.hasErrors()) {
+			return "formAggiungiRicetta.html";
+		}
+		else {
+			this.ricettaService.save(ricetta);
+			return "redirect:ricetta/"+ricetta.getId();
+		}
+		
+	}	
+		
 
 		//		Lista ingredienti: <input type="text" th:field="${ingredienti}">
 		//    	<span th:if="${#fields.hasErrors('ingredienti')}" th:errors="*{ingredienti}"></span>
@@ -86,7 +108,7 @@ public class RicettaController {
 		//    	<span th:if="${#fields.hasErrors('quantitàIngredienti')}" th:errors="*{quantitàIngredienti}"></span>
 		//		<br><br>
 
-	}
+
 	
 	@GetMapping("/rimuoviRicetta")
 	public String showFormRimuoviRicetta(Model model) {
