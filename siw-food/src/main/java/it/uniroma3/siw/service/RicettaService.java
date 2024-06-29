@@ -42,4 +42,8 @@ public class RicettaService {
 		Ricetta ricettaDaEliminare = this.ricettaRepository.findByTitoloAndCuoco(ricetta.getTitolo(), ricetta.getCuoco());
 		this.ricettaRepository.delete(ricettaDaEliminare);
 	}
+	
+	public Iterable<Ricetta> findAllByOrderByTitoloAsc() {
+		return this.ricettaRepository.findAllByOrderByTitoloAsc();
+	}
 }

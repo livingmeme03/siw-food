@@ -9,4 +9,6 @@ public interface IngredienteRepository extends CrudRepository<Ingrediente, Long>
 
 	public Ingrediente findByNome(String nome);
 
+	public Iterable<Ingrediente> findAllByOrderByNomeAsc();
+
 }

@@ -50,5 +50,9 @@ public class CuocoService {
 		Cuoco cuocoDaEliminare = this.cuocoRepository.findByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita());
 		this.cuocoRepository.delete(cuocoDaEliminare);
 	}
+
+	public Iterable<Cuoco> findAllByOrderByCognomeAsc() {
+		return this.cuocoRepository.findAllByOrderByCognomeAsc();
+	}
 }
 

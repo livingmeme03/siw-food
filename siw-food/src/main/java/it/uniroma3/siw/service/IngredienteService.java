@@ -42,4 +42,8 @@ public class IngredienteService {
 		Ingrediente ingredienteDaEliminare = this.ingredienteRepository.findByNome(ingrediente.getNome());
 		this.ingredienteRepository.delete(ingredienteDaEliminare);
 	}
+
+	public Iterable<Ingrediente> findAllByOrderByNomeAsc() {
+		return this.ingredienteRepository.findAllByOrderByNomeAsc();
+	}
 }

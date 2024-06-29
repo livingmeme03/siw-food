@@ -37,7 +37,7 @@ public class RicettaController {
 
 	@GetMapping("/elencoRicette")		//non servono validazioni 
 	public String showElencoIngredienti(Model model) {
-		model.addAttribute("ricette", this.ricettaService.findAll());
+		model.addAttribute("ricette", this.ricettaService.findAllByOrderByTitoloAsc());
 		return "elencoRicette.html";
 	}
 
@@ -81,9 +81,6 @@ public class RicettaController {
 			return "redirect:ricetta/"+ricetta.getId();
 		}
 		
-		
-
-
 
 		//		Lista ingredienti: <input type="text" th:field="${ingredienti}">
 		//    	<span th:if="${#fields.hasErrors('ingredienti')}" th:errors="*{ingredienti}"></span>
@@ -133,12 +130,12 @@ public class RicettaController {
 		Set<String> nomiCuochi = new TreeSet<String>();
 		Set<String> cognomiCuochi = new TreeSet<String>();
 		Set<String> dateNascitaCuochi = new TreeSet<String>();
-		for(Cuoco c : this.cuocoService.findAll()) {
+		for(Cuoco c : this.cuocoService.findAllByOrderByCognomeAsc()) {
 			nomiCuochi.add(c.getNome());
 			cognomiCuochi.add(c.getCognome());
 			dateNascitaCuochi.add(c.getDataNascita().toString());
 		}
-		for (Ricetta r : this.ricettaService.findAll()) {
+		for (Ricetta r : this.ricettaService.findAllByOrderByTitoloAsc()) {
 			titoliRicette.add(r.getTitolo());
 		}
 		model.addAttribute("nomiCuochi", nomiCuochi);
@@ -151,7 +148,7 @@ public class RicettaController {
 		Set<String> nomiCuochi = new TreeSet<String>();
 		Set<String> cognomiCuochi = new TreeSet<String>();
 		Set<String> dateNascitaCuochi = new TreeSet<String>();
-		for(Cuoco c : this.cuocoService.findAll()) {
+		for(Cuoco c : this.cuocoService.findAllByOrderByCognomeAsc()) {
 			nomiCuochi.add(c.getNome());
 			cognomiCuochi.add(c.getCognome());
 			dateNascitaCuochi.add(c.getDataNascita().toString());

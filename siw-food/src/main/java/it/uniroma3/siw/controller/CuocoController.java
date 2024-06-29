@@ -31,7 +31,7 @@ public class CuocoController {
 
 	@GetMapping("/elencoCuochi")		//non servono validazioni 
 	public String showElencoCuochi(Model model) {
-		model.addAttribute("cuochi", this.cuocoService.findAll());
+		model.addAttribute("cuochi", this.cuocoService.findAllByOrderByCognomeAsc());
 		return "elencoCuochi.html";
 	}
 
@@ -90,7 +90,7 @@ public class CuocoController {
 		List<String> nomiCuochi = new ArrayList<String>();
 		List<String> cognomiCuochi = new ArrayList<String>();
 		List<String> dateNascitaCuochi = new ArrayList<String>();
-		for(Cuoco c : this.cuocoService.findAll()) {
+		for(Cuoco c : this.cuocoService.findAllByOrderByCognomeAsc()) {
 			nomiCuochi.add(c.getNome());
 			cognomiCuochi.add(c.getCognome());
 			dateNascitaCuochi.add(c.getDataNascita().toString());

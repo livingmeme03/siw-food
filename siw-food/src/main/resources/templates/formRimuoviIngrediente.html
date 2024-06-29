@@ -4,7 +4,7 @@
     <title>SiwFood - Pagina eliminazione ingrediente</title>
 </head>
 <body>
-    <h2>Rimuovi cuoco</h2>
+    <h2>Rimuovi ingrediente</h2>
     <form th:action="@{/rimuoviIngrediente}" method="POST" th:object="${ingredienteDaRimuovere}">
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>

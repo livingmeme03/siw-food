@@ -28,7 +28,7 @@ public class IngredienteController {
 
 	@GetMapping("/elencoIngredienti")		//non servono validazioni 
 	public String showElencoIngredienti(Model model) {
-		model.addAttribute("ingredienti", this.ingredienteService.findAll());
+		model.addAttribute("ingredienti", this.ingredienteService.findAllByOrderByNomeAsc());
 		return "elencoIngredienti.html";
 	}
 
@@ -85,7 +85,7 @@ public class IngredienteController {
 	
 	public void aggiungiAttributiIngrediente(Model model) {
 		Set<String> nomiIngredienti = new TreeSet<String>();
-		for(Ingrediente i : this.ingredienteService.findAll()) {
+		for(Ingrediente i : this.ingredienteService.findAllByOrderByNomeAsc()) {
 			nomiIngredienti.add(i.getNome());
 		}
 		model.addAttribute("nomiIngredienti", nomiIngredienti);
