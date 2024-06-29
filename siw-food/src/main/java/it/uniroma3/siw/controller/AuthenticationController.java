@@ -7,20 +7,26 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import it.uniroma3.siw.controller.validation.CredentialsValidator;
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.UserService;
+import jakarta.validation.Valid;
 
 @Controller
 public class AuthenticationController {
 
 	@Autowired
 	private CredentialsService credentialsService;
+
+	@Autowired
+	private CredentialsValidator credentialsValidator;
 
 	@Autowired
 	private UserService userService;
@@ -33,10 +39,27 @@ public class AuthenticationController {
 	}
 
 	@PostMapping("/register")
-	public String newUser(@ModelAttribute("user") User user, @ModelAttribute("credentials") Credentials credentials, Model model) {
+	public String newUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResultUser, 
+			@Valid @ModelAttribute("credentials") Credentials credentials, BindingResult bindingResultCredentials, 
+			Model model) {
+
 		credentials.setUser(user);
-		credentialsService.saveCredentials(credentials); //Role lo setto qui, anche l'hash della pwd
-		return "redirect:login"; //finito di registrare redirecto a /
+		this.credentialsValidator.validate(credentials, bindingResultCredentials);
+		
+//		BindingResult br = bindingResultCredentials;
+//		br.addAllErrors(bindingResultUser);
+		if(bindingResultUser.hasErrors() || bindingResultCredentials.hasErrors()) {
+			model.addAttribute("userErrors", bindingResultUser);
+			System.out.println(bindingResultUser.getAllErrors().toString());
+            System.out.println(bindingResultCredentials.getAllErrors().toString());
+			return "formRegister.html";
+		}
+		
+		else {
+			credentialsService.saveCredentials(credentials); //Role lo setto qui, anche l'hash della pwd
+			return "redirect:login"; //finito di registrare redirecto a /
+		}
+
 	}
 
 

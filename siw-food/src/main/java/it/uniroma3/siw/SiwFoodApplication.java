@@ -11,14 +11,15 @@ public class SiwFoodApplication {
 	}
 	
 	//TODO
-	//1. aggiungere ingredienti alle ricette (nuova form)
+	//1. aggiungere ingredienti alle ricette (nuova form) (menu a tendina con tutti gli ingredienti?)
+	//2. aggiungere unità di misura agli ingredienti (attributo e menu a tendina quando aggiungi un ingrediente)
 	//2. ricerca ricette/cuochi/ingredienti per nome/cuoco///nome/datanascita///nome
 	//3. modifica ricette/cuochi/ingredienti
 	//4. rimuovi ricette/cuochi/ingredienti
 	//5. differenziare i vari ruoli con quello che possono fare e aggiungere admin al database
-	//6. controlli da fare su authentication col binding result
-	//7. controllo duplicati sul login
-	//8. sistemare il database definitivo e dimensioni immagini
+	// FATTO 6. controlli da fare su authentication col binding result
+	// FATTO 7. controllo duplicati sul login
+	//8. sistemare il database definitivo e dimensioni immagini (aggiungere immagini a tutti gli ingredienti e i cuochi)
 	//9. css
 	//10. rest
 	//11. annotazioni transactional
