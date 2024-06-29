@@ -3,6 +3,8 @@ package it.uniroma3.siw.controller;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -58,6 +60,7 @@ public class RicettaController {
 	public String showFormAggiungiRicetta(Model model) {
 		model.addAttribute("nuovaRicetta", new Ricetta());	
 		model.addAttribute("cuoco", new Cuoco());
+		this.aggiungiAttributiCuochi(model);
 		return "formAggiungiRicetta.html";
 	}
 
@@ -67,8 +70,10 @@ public class RicettaController {
 
 		Cuoco cuocoAssociato = this.cuocoService.findByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita());
 		ricetta.setCuoco(cuocoAssociato);
+		
 		this.ricettaValidator.validate(ricetta, bindingResult);
 		if(bindingResult.hasErrors()) {
+			this.aggiungiAttributiCuochi(model);
 			return "formAggiungiRicetta.html";
 		}
 		else {
@@ -124,10 +129,10 @@ public class RicettaController {
 	}
 	
 	public void aggiungiAttributiRicette(Model model) {
-		List<String> titoliRicette = new ArrayList<String>();
-		List<String> nomiCuochi = new ArrayList<String>();
-		List<String> cognomiCuochi = new ArrayList<String>();
-		List<String> dateNascitaCuochi = new ArrayList<String>();
+		Set<String> titoliRicette = new TreeSet<String>();
+		Set<String> nomiCuochi = new TreeSet<String>();
+		Set<String> cognomiCuochi = new TreeSet<String>();
+		Set<String> dateNascitaCuochi = new TreeSet<String>();
 		for(Cuoco c : this.cuocoService.findAll()) {
 			nomiCuochi.add(c.getNome());
 			cognomiCuochi.add(c.getCognome());
@@ -140,5 +145,19 @@ public class RicettaController {
 		model.addAttribute("cognomiCuochi", cognomiCuochi);
 		model.addAttribute("dateNascitaCuochi", dateNascitaCuochi);
 		model.addAttribute("titoliRicette", titoliRicette);
+	}
+	
+	public void aggiungiAttributiCuochi(Model model) {
+		Set<String> nomiCuochi = new TreeSet<String>();
+		Set<String> cognomiCuochi = new TreeSet<String>();
+		Set<String> dateNascitaCuochi = new TreeSet<String>();
+		for(Cuoco c : this.cuocoService.findAll()) {
+			nomiCuochi.add(c.getNome());
+			cognomiCuochi.add(c.getCognome());
+			dateNascitaCuochi.add(c.getDataNascita().toString());
+		}
+		model.addAttribute("nomiCuochi", nomiCuochi);
+		model.addAttribute("cognomiCuochi", cognomiCuochi);
+		model.addAttribute("dateNascitaCuochi", dateNascitaCuochi);
 	}
 }
