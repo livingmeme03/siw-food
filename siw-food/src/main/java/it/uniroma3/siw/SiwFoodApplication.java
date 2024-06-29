@@ -12,9 +12,9 @@ public class SiwFoodApplication {
 	
 	//TODO
 	//1. aggiungere ingredienti alla ricetta (nuova form) (menu a tendina con tutti gli ingredienti?) (addactorstomovie)
-	//2. aggiungere cuoco alla ricetta	(setdirectortomovie)
+	//FATTO 2. aggiungere cuoco alla ricetta	(setdirectortomovie)
 	//3. aggiungere ricette ai cuochi	(addactorstomovie)
-	//4. aggiungere ricette solo attributi semplici		(aggiungifilm)
+	// FATTO 4. aggiungere ricette solo attributi semplici		(aggiungifilm)
 	//5. mettere unità di misura agli ingredienti (attributo e menu a tendina quando aggiungi un ingrediente)
 	//6. ricerca ricette/cuochi/ingredienti per nome/cuoco///nome/datanascita///nome		(searchmovies)
 	//7. rimuovi ingredienti da ricetta (credo sia insieme a quella per aggiungere ingredienti alla ricetta)

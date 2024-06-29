@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>SiwFood</title>
+		<link rel = "stylesheet" type = "text/css" href = "/css/stile.css">
+	</head>
+	<body>
+		<div>
+			<h1>SiwFood</h1>
+			<h2>Ricette:</h2>			
+		</div>
+		<div>
+			<div th:if="${ricette==null || ricette.isEmpty()}">Non ci sono ricette nel sistema!</div>
+				<ul>
+					<li th:each="ricetta : ${ricette}">
+						<a th:href="@{ '/ricetta' + '/' + ${ricetta.id}}" th:text="${ricetta.titolo}">Ricetta</a>
+						<a th:href="@{ '/impostaCuocoARicetta' + '/' + ${ricetta.id}}">Imposta Cuoco</a>
+						<a th:href="@{ '/aggiungiIngredientiARicetta' + '/' + ${ricetta.id}}">Aggiungi Ingredienti</a>
+					</li>	
+				</ul>
+		</div>
+	</body>	
+</html>
