@@ -11,11 +11,9 @@ public class SiwFoodApplication {
 	}
 	
 	//TODO
-	//1. aggiungere ingredienti alla ricetta (nuova form) (menu a tendina con tutti gli ingredienti?) (addactorstomovie)
 	//2. aggiungere ricette ai cuochi	(addactorstomovie)
 	//3. mettere unità di misura agli ingredienti (attributo e menu a tendina quando aggiungi un ingrediente)
 	//4. ricerca ricette/cuochi/ingredienti per nome/cuoco///nome/datanascita///nome		(searchmovies)
-	//5. rimuovi ingredienti da ricetta (credo sia insieme a quella per aggiungere ingredienti alla ricetta)
 	//6. rimuovi ingredienti in generale???
 	//7. rimuovi ricette solo per nome (come aggiornamento dati? elenco con solo get?)
 	//8. rimuovi ricette che non hanno cuoco (vedi codice, è un casino col parsing)
@@ -32,5 +30,7 @@ public class SiwFoodApplication {
 	// FATTO (da sistemare ingrediente) 4. rimuovi ricette/cuochi/ingredienti
 	// FATTO 6. controlli da fare su authentication col binding result
 	// FATTO 7. controllo duplicati sul login
+	// FATTO 5. rimuovi ingredienti da ricetta (credo sia insieme a quella per aggiungere ingredienti alla ricetta)
+	// FATTO 1. aggiungere ingredienti alla ricetta (nuova form) (menu a tendina con tutti gli ingredienti?) (addactorstomovie)
 
 }

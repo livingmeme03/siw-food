@@ -1,9 +1,11 @@
 package it.uniroma3.siw.service;
 
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import it.uniroma3.siw.repository.IngredienteRepository;
@@ -50,6 +52,19 @@ public class IngredienteService {
 	public void delete(Ingrediente ingrediente) {
 		Ingrediente ingredienteDaEliminare = this.ingredienteRepository.findByNome(ingrediente.getNome());
 		this.ingredienteRepository.delete(ingredienteDaEliminare);
+	}
+	
+	 
+	public List<Ingrediente> findAllIngredientiInRicetta(Long ricettaid) {
+		return this.ingredienteRepository.findAllIngredientiInRicetta(ricettaid);
+	}
+	
+	public void saveIngredienteInRicetta(Long ingredienteid, Long ricettaid) {
+		this.ingredienteRepository.saveIngredienteInRicetta(ingredienteid, ricettaid);
+	}
+	
+	public void deleteIngredienteInRicetta(Long ingredienteid, Long ricettaid) {
+		this.ingredienteRepository.deleteIngredienteInRicetta(ingredienteid, ricettaid);
 	}
 
 	

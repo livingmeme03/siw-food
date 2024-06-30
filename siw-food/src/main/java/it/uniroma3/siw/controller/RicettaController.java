@@ -2,6 +2,7 @@ package it.uniroma3.siw.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -21,6 +22,7 @@ import it.uniroma3.siw.model.Cuoco;
 import it.uniroma3.siw.model.Ingrediente;
 import it.uniroma3.siw.model.Ricetta;
 import it.uniroma3.siw.service.CuocoService;
+import it.uniroma3.siw.service.IngredienteService;
 import it.uniroma3.siw.service.RicettaService;
 import jakarta.validation.Valid;
 
@@ -35,6 +37,9 @@ public class RicettaController {
 
 	@Autowired 
 	private RicettaValidator ricettaValidator;
+	
+	@Autowired
+	private IngredienteService ingredienteService;
 
 	/*-------------------------------------------------------------------------------------------------------*/
 	/*-----------------------------------------ELENCO RICETTE------------------------------------------------*/
@@ -128,6 +133,8 @@ public class RicettaController {
 		model.addAttribute("ricette", this.ricettaService.findAllByOrderByTitoloAsc());
 		return "elencoAggiornaRicette.html";
 	}
+	
+	/*------------------------------------------IMPOSTAZIONE CUOCO-------------------------------------------*/
 
 	@GetMapping("/impostaCuocoARicetta/{idRicetta}") 
 	public String showImpostaCuocoARicetta(@PathVariable Long idRicetta, Model model) {
@@ -142,6 +149,27 @@ public class RicettaController {
 		ricetta.setCuoco(this.cuocoService.findById(idCuoco));
 		this.ricettaService.save(ricetta);
 		return "redirect:../../ricetta/"+ricetta.getId();
+	}
+	
+	/*------------------------------------------MODIFICA INGREDIENTI----------------------------------------*/
+	
+	@GetMapping("/modificaIngredientiRicetta/{idRicetta}") 
+	public String showModificaIngredientiRicetta(@PathVariable Long idRicetta, Model model) {
+//		List<Ingrediente> listaIngredientiPresenti = this.ingredienteService.findAllIngredientiInRicetta(idRicetta);
+		this.setUpPerModificaRicetta(model, idRicetta);
+		return "elencoIngredientiPerModificareRicetta.html";
+	}
+	
+	@GetMapping("/aggiungiIngredienteARicetta/{idRicetta}/{idIngrediente}") 
+	public String aggiungiIngredientiRicetta(@PathVariable Long idRicetta, @PathVariable Long idIngrediente, Model model) {
+		this.ingredienteService.saveIngredienteInRicetta(idIngrediente, idRicetta);
+		return "redirect:/modificaIngredientiRicetta/" + idRicetta;
+	}
+	
+	@GetMapping("/rimuoviIngredientiDaRicetta/{idRicetta}/{idIngrediente}") 
+	public String rimuoviIngredientiRicetta(@PathVariable Long idRicetta, @PathVariable Long idIngrediente, Model model) {
+		this.ingredienteService.deleteIngredienteInRicetta(idIngrediente, idRicetta);
+		return "redirect:/modificaIngredientiRicetta/" + idRicetta;
 	}
 	
 	/*-------------------------------------------------------------------------------------------------------*/
@@ -233,5 +261,18 @@ public class RicettaController {
 		model.addAttribute("nomiCuochi", nomiCuochi);
 		model.addAttribute("cognomiCuochi", cognomiCuochi);
 		model.addAttribute("dateNascitaCuochi", dateNascitaCuochi);
+	}
+	
+	public void setUpPerModificaRicetta(Model model, Long idRicetta) {
+		List<Ingrediente> listaIngredientiDaAggiungere = (List<Ingrediente>)this.ingredienteService.findAllByOrderByNomeAsc();
+		Ricetta ricetta = this.ricettaService.findById(idRicetta);
+		Set<Ingrediente> lista = ricetta.getIngredienti().keySet();
+		List<Ingrediente> listaIngredientiPresenti = new ArrayList<Ingrediente>();
+		listaIngredientiPresenti.addAll(lista);
+		listaIngredientiDaAggiungere.removeAll(listaIngredientiPresenti);
+		model.addAttribute("listaIngredientiPresenti", listaIngredientiPresenti);
+		model.addAttribute("listaIngredientiDaAggiungere", listaIngredientiDaAggiungere);
+		model.addAttribute("idRicetta", idRicetta);
+		model.addAttribute("ricetta", this.ricettaService.findById(idRicetta));
 	}
 }
