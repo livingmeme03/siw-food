@@ -73,17 +73,20 @@ public class IngredienteController {
 	/*-----------------------------------------RICERCA INGREDIENTE-------------------------------------------*/
 	/*-------------------------------------------------------------------------------------------------------*/
 
-//	@GetMapping("/cercaIngredientePerNome")
-//	public String showFormSearchIngrediente(Model model) {
-//		return "formCercaIngredienti.html";
-//	}
-//	
-//	@PostMapping("/cercaIngredientePerNome")
-//	public String showIngredientiTrovati(Model model, @RequestParam String nome) {
-//		Ingrediente ingredienteTrovato = this.ingredienteService.findByNome(nome);
-//		model.addAttribute("ingrediente", ingredienteTrovato);
-//		return "redirect:../ingrediente/"+ingredienteTrovato.getId();
-//	}	
+	@GetMapping("/cercaIngredientePerNome")
+	public String showFormSearchIngrediente(Model model) {
+		return "formCercaIngredienti.html";
+	}
+	
+	@PostMapping("/cercaIngredientePerNome")
+	public String showIngredientiTrovati(Model model, @RequestParam String nome) {
+		Ingrediente ingredienteTrovato = this.ingredienteService.findByNome(nome);
+		if(ingredienteTrovato == null) {
+			return "formCercaIngredientiErrore.html";
+		}
+		model.addAttribute("ingrediente", ingredienteTrovato);
+		return "redirect:/ingrediente/"+ingredienteTrovato.getId();
+	}	
 	
 	/*-------------------------------------------------------------------------------------------------------*/
 	/*-------------------------------------CANCELLAZIONE INGREDIENTE-----------------------------------------*/

@@ -188,7 +188,7 @@ public class RicettaController {
 	}
 	
 	@PostMapping("/cercaRicettaPerTitolo")
-	public String showRicetteTrovate(Model model, @RequestParam String titolo) {
+	public String showRicetteTrovate (@RequestParam String titolo, Model model) {
 		model.addAttribute("ricette", this.ricettaService.findByTitolo(titolo));
 		return "/elencoRicetteTrovate.html";
 	}
@@ -207,7 +207,7 @@ public class RicettaController {
 	}
 
 	@PostMapping("/rimuoviRicetta")
-	public String deleteCuoco(@Valid @ModelAttribute("ricettaDaRimuovere") Ricetta ricetta, BindingResult bindingResult, 
+	public String deleteRicetta(@Valid @ModelAttribute("ricettaDaRimuovere") Ricetta ricetta, BindingResult bindingResult, 
 			@Valid @ModelAttribute("cuoco") Cuoco cuoco, BindingResult bindingResult2, Model model) {
 		
 		

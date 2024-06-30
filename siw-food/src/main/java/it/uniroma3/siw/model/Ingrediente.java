@@ -24,6 +24,8 @@ public class Ingrediente {
 	
 	private String pathImmagine;
 	
+	private String unitàDiMisura;
+	
 	/*-------------------------------------------------------------------------------------------------------*/
 	/*------------------------------------------GETTER E SETTER----------------------------------------------*/
 	/*-------------------------------------------------------------------------------------------------------*/
@@ -45,6 +47,13 @@ public class Ingrediente {
 	}
 	public void setPathImmagine(String pathImmagine) {
 		this.pathImmagine = pathImmagine;
+	}
+	
+	public String getUnitàDiMisura() {
+		return unitàDiMisura;
+	}
+	public void setUnitàDiMisura(String unitàDiMisura) {
+		this.unitàDiMisura = unitàDiMisura;
 	}
 	
 	/*-------------------------------------------------------------------------------------------------------*/
