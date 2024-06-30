@@ -27,7 +27,10 @@
 			<ul>
 				<li th:each="ingrediente : ${listaIngredienti}">
 					<a th:href="@{'/ingrediente' + '/' + ${ingrediente.id}}" th:text="${ingrediente.nome} + ': ' "> Ingrediente Generico</a> 
-					<span th:text="${ricetta.ingredienti.get(ingrediente)} + 'g'"> </span>
+					<span th:text="${ricetta.ingredienti.get(ingrediente)}"> </span>
+					 <span th:if = "${ingrediente.unitàDiMisura != null && ingrediente.unitàDiMisura != ''}" > 
+			 			 <span th:text="${ingrediente.unitàDiMisura}"></span>
+		  			 </span>
 				</li>
 			</ul>
 		 </div>

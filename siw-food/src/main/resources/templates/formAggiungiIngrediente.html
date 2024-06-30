@@ -12,8 +12,11 @@
 		<div>
         	Nome ingrediente: <input required type="text" th:field="${nuovoIngrediente.nome}">
         	<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
-			<br><br>
+			<br>
 			Percorso file immagine: <input type="text" th:field="${nuovoIngrediente.pathImmagine}">
+			<br>
+			Unità di misura: <input type="text" th:field="${nuovoIngrediente.unitàDiMisura}">
+			<br><br>
         </div>
         <div>
 			<span><button type="submit">Conferma</button></span>

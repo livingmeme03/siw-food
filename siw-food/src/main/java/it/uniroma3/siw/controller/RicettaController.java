@@ -163,6 +163,7 @@ public class RicettaController {
 	public String scegliQuantitàPerIngrediente(@PathVariable Long idRicetta, @PathVariable Long idIngrediente, Model model) {	
 		model.addAttribute("idRicetta", idRicetta);
 		model.addAttribute("idIngrediente", idIngrediente);
+		model.addAttribute("ingrediente", this.ingredienteService.findById(idIngrediente));
 		return "formSelezionaQuantitàAggiungiIngredienteARicetta.html";
 	}
 	
