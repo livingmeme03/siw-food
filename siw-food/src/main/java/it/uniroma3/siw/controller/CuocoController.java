@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import it.uniroma3.siw.controller.validation.CuocoValidator;
 import it.uniroma3.siw.model.Cuoco;
 import it.uniroma3.siw.model.Ingrediente;
+import it.uniroma3.siw.model.Ricetta;
 import it.uniroma3.siw.service.CuocoService;
+import it.uniroma3.siw.service.RicettaService;
 import jakarta.validation.Valid;
 
 @Controller
@@ -25,6 +27,9 @@ public class CuocoController {
 
 	@Autowired
 	private CuocoService cuocoService;
+	
+	@Autowired
+	private RicettaService ricettaService;
 
 	@Autowired 
 	private CuocoValidator cuocoValidator;
@@ -69,6 +74,49 @@ public class CuocoController {
 			this.cuocoService.save(cuoco);
 			return "redirect:cuoco/"+cuoco.getId();
 		}
+	}
+	
+	/*-------------------------------------------------------------------------------------------------------*/	
+	/*------------------------------------------AGGIORNAMENTO CUOCO----------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
+
+	@GetMapping("/elencoAggiornaCuochi")		//non servono validazioni 
+	public String showElencoAggiornaCuochi(Model model) {
+		model.addAttribute("cuochi", this.cuocoService.findAllByOrderByCognomeAsc());
+		return "elencoAggiornaCuochi.html";
+	}
+	
+	@GetMapping("/modificaRicetteCuoco/{idCuoco}") 
+	public String showModificaIngredientiRicetta(@PathVariable Long idCuoco, Model model) {
+		List<Ricetta> ricetteDelCuoco = this.cuocoService.findById(idCuoco).getRicette();
+		List<Ricetta> ricetteDaAggiungere = (List<Ricetta>) this.ricettaService.findAllByOrderByTitoloAsc();
+		ricetteDaAggiungere.removeAll(ricetteDelCuoco);
+		model.addAttribute("ricetteDelCuoco", ricetteDelCuoco);
+		model.addAttribute("ricetteDaAggiungere", ricetteDaAggiungere);
+		model.addAttribute("cuoco", this.cuocoService.findById(idCuoco));
+		return "elencoRicettePerModificareCuoco.html";
+	}
+	
+	@GetMapping("/aggiungiRicettaACuoco/{idCuoco}/{idRicetta}")
+	public String aggiungiRicettaACuoco(@PathVariable Long idCuoco, @PathVariable Long idRicetta, Model model) {
+		Ricetta ricetta = this.ricettaService.findById(idRicetta);
+		Cuoco cuoco = this.cuocoService.findById(idCuoco);
+		ricetta.setCuoco(cuoco);
+		cuoco.getRicette().add(ricetta);
+		this.ricettaService.save(ricetta);
+		this.cuocoService.save(cuoco);
+		return "redirect:/modificaRicetteCuoco/" + idCuoco;
+	}
+	
+	@GetMapping("/rimuoviRicettaDaCuoco/{idCuoco}/{idRicetta}") 
+	public String rimuoviRicettaDaCuoco(@PathVariable Long idCuoco, @PathVariable Long idRicetta, Model model) {
+		Ricetta ricetta = this.ricettaService.findById(idRicetta);
+		Cuoco cuoco = this.cuocoService.findById(idCuoco);
+		ricetta.setCuoco(null);
+		cuoco.getRicette().remove(ricetta);
+		this.ricettaService.save(ricetta);
+		this.cuocoService.save(cuoco);
+		return "redirect:/modificaRicetteCuoco/" + idCuoco;
 	}
 	
 	/*-------------------------------------------------------------------------------------------------------*/

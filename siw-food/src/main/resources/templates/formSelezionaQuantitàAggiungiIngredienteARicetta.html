@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SiwFood - Pagina selezione quantità</title>
+</head>
+<body>
+    <h2>In che quantità vuoi aggiungere l'ingrediente?</h2>
+    <form th:action="@{'/aggiungiIngredienteARicetta' + '/' +${idRicetta} + '/' + ${idIngrediente}}" method="POST">
+		<div>
+        	Inserisci solo il numero: <input required type="text" th:value="${quantità}" name="quantità">
+        </div>
+        <div>
+			<span><button type="submit">Conferma</button></span>
+		</div>
+    </form>
+</body>
+</html>

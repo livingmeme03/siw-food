@@ -11,20 +11,20 @@ public class SiwFoodApplication {
 	}
 	
 	//TODO
-	//2. aggiungere ricette ai cuochi	(addactorstomovie)
-	//3. mettere unità di misura agli ingredienti (attributo e menu a tendina quando aggiungi un ingrediente)
-	//4. ricerca ricette/cuochi/ingredienti per nome/cuoco///nome/datanascita///nome		(searchmovies)
-	//6. rimuovi ingredienti in generale???
-	//7. rimuovi ricette solo per nome (come aggiornamento dati? elenco con solo get?)
-	//8. rimuovi ricette che non hanno cuoco (vedi codice, è un casino col parsing)
-	//9. differenziare i vari ruoli con quello che possono fare e aggiungere admin al database
-	//10. cuochi possono modificare/cancellare SOLO LE PROPRIE RICETTE
-	//11. sistemare il database definitivo e dimensioni immagini (aggiungere immagini a tutti gli ingredienti e i cuochi)
-	//12. css
-	//13. rest
-	//14. annotazioni transactional
-	//15. optional: deploy su cloud
-	//16. optional: annotazioni internazionali per i messaggi di errore
+	//1. mettere unità di misura agli ingredienti (attributo e menu a tendina quando aggiungi un ingrediente)
+	//2. ricerca ricette/cuochi/ingredienti per nome/cuoco///nome/datanascita///nome		(searchmovies)
+	//4. rimuovi ricette solo per nome (come aggiornamento dati? elenco con solo get?)
+	//5. rimuovi ricette che non hanno cuoco (vedi codice, è un casino col parsing)
+	//6. differenziare i vari ruoli con quello che possono fare e aggiungere admin al database
+	//7. cuochi possono modificare/cancellare SOLO LE PROPRIE RICETTE
+	//8. sistemare il database definitivo e dimensioni immagini (aggiungere immagini a tutti gli ingredienti e i cuochi)
+	//9. css
+	//10. rest
+	//11. annotazioni transactional
+	//12. optional: deploy su cloud
+	//13. optional: annotazioni internazionali per i messaggi di errore
+	// FATTO 3. rimuovi ingredienti in generale
+	// FATTO 2. aggiungere ricette ai cuochi	(addactorstomovie)
 	// FATTO 2. aggiungere cuoco alla ricetta	(setdirectortomovie)
 	// FATTO 4. aggiungere ricette solo attributi semplici		(aggiungifilm)
 	// FATTO (da sistemare ingrediente) 4. rimuovi ricette/cuochi/ingredienti

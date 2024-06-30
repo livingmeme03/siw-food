@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>SiwFood</title>
+		<link rel = "stylesheet" type = "text/css" href = "/css/stile.css">
+	</head>
+	<body>
+		<div>
+			<h1>SiwFood</h1>
+			<h2 th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}">Nome cuoco</h2>			
+		</div>
+			<h3>Ricette assegnate al cuoco:</h3>
+		<div>
+			<div th:if="${ricetteDelCuoco==null || ricetteDelCuoco.isEmpty()}">Non ci sono ricette del cuoco!</div>
+				<ul>
+					<li th:each="ricetta : ${ricetteDelCuoco}">
+						<a th:href="@{ '/rimuoviRicettaDaCuoco' + '/' +${cuoco.id} + '/' + ${ricetta.id}}" th:text="${ricetta.titolo}">Ricetta</a>
+					</li>	
+				</ul>
+		</div>
+			<h3>Ricette da assegnare al cuoco:</h3>
+		<div>
+			<div th:if="${ricetteDaAggiungere==null || ricetteDaAggiungere.isEmpty()}">Non ci sono ricette da assegnare al cuoco!</div>
+				<ul>
+					<li th:each="ricetta : ${ricetteDaAggiungere}">
+						<a th:href="@{ '/aggiungiRicettaACuoco' + '/' +${cuoco.id} + '/' + ${ricetta.id}}" th:text="${ricetta.titolo}">Ricetta</a>
+					</li>	
+				</ul>
+		</div>
+	</body>	
+</html>

@@ -87,7 +87,7 @@ public class IngredienteController {
 	
 	/*-------------------------------------------------------------------------------------------------------*/
 	/*-------------------------------------CANCELLAZIONE INGREDIENTE-----------------------------------------*/
-	/*-----------------------------------------------(wip)---------------------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
 	
 	@GetMapping("/rimuoviIngrediente")
 	public String showFormRimuoviIngrediente(Model model) {
@@ -99,12 +99,22 @@ public class IngredienteController {
 	@PostMapping("/rimuoviIngrediente")
 	public String deleteIngrediente(@Valid @ModelAttribute("ingredienteDaRimuovere") Ingrediente ingrediente, BindingResult bindingResult, Model model) {
 		
+		Ingrediente ingredienteDaRimuovere = this.ingredienteService.findByNome(ingrediente.getNome());
+		Long trovato = this.ingredienteService.findIngredienteInRicette(ingredienteDaRimuovere.getId());
+			
 		this.ingredienteValidator.validate(ingrediente, bindingResult);		//verifico errori
 		
 		if(bindingResult.hasErrors()) {				
-			if(bindingResult.getAllErrors().toString().contains("ingrediente.duplicato")) {		//se gli errori contengono
-				this.ingredienteService.delete(ingrediente);								//ingrediente duplicato, allora è giusto
-				return "redirect:elencoIngredienti";									//e lo cancello
+			if(bindingResult.getAllErrors().toString().contains("ingrediente.duplicato")) {	//ingrediente duplicato, allora è giusto
+				if(trovato == null) {		//non è in nessuna ricetta, lo cancello willy-nilly
+					this.ingredienteService.delete(ingrediente);						
+					return "redirect:elencoIngredienti";
+				}
+				else {			//è in qualche ricetta, devo prima toglierlo da quelle e poi lo elimino
+					this.ingredienteService.deleteIngredienteInAllRicette(trovato);
+					this.ingredienteService.delete(ingrediente);								
+					return "redirect:elencoIngredienti";
+				}										
 			}
 			this.aggiungiAttributiIngrediente(model);		//se c'erano altri errori ridò la form
 			return "formRimuoviIngrediente.html";

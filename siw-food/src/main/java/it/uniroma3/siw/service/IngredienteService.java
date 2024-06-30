@@ -59,13 +59,27 @@ public class IngredienteService {
 		return this.ingredienteRepository.findAllIngredientiInRicetta(ricettaid);
 	}
 	
-	public void saveIngredienteInRicetta(Long ingredienteid, Long ricettaid) {
-		this.ingredienteRepository.saveIngredienteInRicetta(ingredienteid, ricettaid);
+	public List<Ingrediente> findAllIngredientiInRicette() {
+		return this.ingredienteRepository.findAllIngredientiInRicette();
+	}
+	
+	public void saveIngredienteInRicetta(Long ingredienteid, Long ricettaid, Long quantità) {
+		this.ingredienteRepository.saveIngredienteInRicetta(ingredienteid, ricettaid, quantità);
 	}
 	
 	public void deleteIngredienteInRicetta(Long ingredienteid, Long ricettaid) {
 		this.ingredienteRepository.deleteIngredienteInRicetta(ingredienteid, ricettaid);
 	}
+	
+	public Long findIngredienteInRicette(Long ingredienteid) {
+		return this.ingredienteRepository.findIngredienteInRicette(ingredienteid);
+	}
+	
+	public void deleteIngredienteInAllRicette(Long ingredienteid) {
+		this.ingredienteRepository.deleteIngredienteInAllRicette(ingredienteid);
+	}
+	
+	
 
 	
 }

@@ -129,7 +129,7 @@ public class RicettaController {
 	/*-------------------------------------------------------------------------------------------------------*/
 
 	@GetMapping("/elencoAggiornaRicette")		//non servono validazioni 
-	public String showElencoAggiornaIngredienti(Model model) {
+	public String showElencoAggiornRicette(Model model) {
 		model.addAttribute("ricette", this.ricettaService.findAllByOrderByTitoloAsc());
 		return "elencoAggiornaRicette.html";
 	}
@@ -155,14 +155,20 @@ public class RicettaController {
 	
 	@GetMapping("/modificaIngredientiRicetta/{idRicetta}") 
 	public String showModificaIngredientiRicetta(@PathVariable Long idRicetta, Model model) {
-//		List<Ingrediente> listaIngredientiPresenti = this.ingredienteService.findAllIngredientiInRicetta(idRicetta);
 		this.setUpPerModificaRicetta(model, idRicetta);
 		return "elencoIngredientiPerModificareRicetta.html";
 	}
 	
-	@GetMapping("/aggiungiIngredienteARicetta/{idRicetta}/{idIngrediente}") 
-	public String aggiungiIngredientiRicetta(@PathVariable Long idRicetta, @PathVariable Long idIngrediente, Model model) {
-		this.ingredienteService.saveIngredienteInRicetta(idIngrediente, idRicetta);
+	@GetMapping("/aggiungiIngredienteARicetta/{idRicetta}/{idIngrediente}")
+	public String scegliQuantitàPerIngrediente(@PathVariable Long idRicetta, @PathVariable Long idIngrediente, Model model) {	
+		model.addAttribute("idRicetta", idRicetta);
+		model.addAttribute("idIngrediente", idIngrediente);
+		return "formSelezionaQuantitàAggiungiIngredienteARicetta.html";
+	}
+	
+	@PostMapping("/aggiungiIngredienteARicetta/{idRicetta}/{idIngrediente}") 
+	public String aggiungiIngredientiRicetta(@PathVariable Long idRicetta, @PathVariable Long idIngrediente, @RequestParam Long quantità, Model model) {
+		this.ingredienteService.saveIngredienteInRicetta(idIngrediente, idRicetta, quantità);
 		return "redirect:/modificaIngredientiRicetta/" + idRicetta;
 	}
 	
