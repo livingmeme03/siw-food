@@ -17,5 +17,7 @@ public interface CuocoRepository extends CrudRepository<Cuoco, Long>{
 	public Cuoco findByNomeAndCognome(String nome, String cognome);
 
 	public Iterable<Cuoco> findAllByOrderByCognomeAsc();
+
+	public Iterable<Cuoco> findByCognome(String cognome);
 }
 

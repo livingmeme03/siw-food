@@ -13,7 +13,7 @@ public interface RicettaRepository extends CrudRepository<Ricetta, Long>{
 
 	public Ricetta findByTitoloAndCuoco(String titolo, Cuoco cuoco);
 	
-	public Ricetta findByTitolo(String titolo);
+	public Iterable<Ricetta> findByTitolo(String titolo);
 
 	public Iterable<Ricetta> findAllByOrderByTitoloAsc();
 

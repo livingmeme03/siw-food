@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import it.uniroma3.siw.controller.validation.CuocoValidator;
 import it.uniroma3.siw.model.Cuoco;
@@ -69,6 +70,21 @@ public class CuocoController {
 			return "redirect:cuoco/"+cuoco.getId();
 		}
 	}
+	
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*----------------------------------------------RICERCA CUOCO------------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
+
+	@GetMapping("/cercaCuocoPerCognome")
+	public String showFormSearchCuoco(Model model) {
+		return "formCercaCuoco.html";
+	}
+	
+	@PostMapping("/cercaCuocoPerCognome")
+	public String showCuochiTrovati(Model model, @RequestParam String cognome) {
+		model.addAttribute("cuochi", this.cuocoService.findByCognome(cognome));
+		return "/elencoCuochiTrovati.html";
+	}	
 	
 	/*-------------------------------------------------------------------------------------------------------*/
 	/*-------------------------------------------CANCELLAZIONE CUOCO-----------------------------------------*/

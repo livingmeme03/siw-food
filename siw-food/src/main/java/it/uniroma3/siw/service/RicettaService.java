@@ -50,4 +50,8 @@ public class RicettaService {
 	public boolean existsByTitolo(String titolo) {
 		return this.ricettaRepository.existsByTitolo(titolo);
 	}
+	
+	public Iterable<Ricetta> findByTitolo(String titolo) {
+		return this.ricettaRepository.findByTitolo(titolo);
+	}
 }

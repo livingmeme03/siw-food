@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import it.uniroma3.siw.controller.validation.IngredienteValidator;
 import it.uniroma3.siw.model.Ingrediente;
@@ -67,6 +68,22 @@ public class IngredienteController {
 			return "redirect:ingrediente/"+ingrediente.getId();
 		}
 	}
+	
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*-----------------------------------------RICERCA INGREDIENTE-------------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
+
+//	@GetMapping("/cercaIngredientePerNome")
+//	public String showFormSearchIngrediente(Model model) {
+//		return "formCercaIngredienti.html";
+//	}
+//	
+//	@PostMapping("/cercaIngredientePerNome")
+//	public String showIngredientiTrovati(Model model, @RequestParam String nome) {
+//		Ingrediente ingredienteTrovato = this.ingredienteService.findByNome(nome);
+//		model.addAttribute("ingrediente", ingredienteTrovato);
+//		return "redirect:../ingrediente/"+ingredienteTrovato.getId();
+//	}	
 	
 	/*-------------------------------------------------------------------------------------------------------*/
 	/*-------------------------------------CANCELLAZIONE INGREDIENTE-----------------------------------------*/

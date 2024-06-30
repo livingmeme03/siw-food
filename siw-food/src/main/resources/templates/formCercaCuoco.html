@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SiwFood - Pagina ricerca cuoco per cognome</title>
+</head>
+<body>
+    <h2>Cerca cuoco per cognome</h2>
+    <form th:action="@{/cercaCuocoPerCognome}" method="POST"}>
+		<div>
+        	Cognome cuoco: <input required type="text" th:value="${cognome}" name="cognome">
+			<br><br>
+        </div>
+        <div>
+			<span><button type="submit">Conferma</button></span>
+		</div>
+    </form>
+</body>
+</html>

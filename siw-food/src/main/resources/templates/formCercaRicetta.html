@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SiwFood - Pagina ricerca ricetta per titolo</title>
+</head>
+<body>
+    <h2>Cerca ricetta per titolo</h2>
+    <form th:action="@{/cercaRicettaPerTitolo}" method="POST"}>
+		<div>
+        	Titolo ricetta: <input required type="text" th:value="${titolo}" name="titolo">
+			<br><br>
+        </div>
+        <div>
+			<span><button type="submit">Conferma</button></span>
+		</div>
+    </form>
+</body>
+</html>

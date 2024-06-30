@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import it.uniroma3.siw.controller.validation.RicettaValidator;
 import it.uniroma3.siw.model.Cuoco;
@@ -142,7 +143,22 @@ public class RicettaController {
 		this.ricettaService.save(ricetta);
 		return "redirect:../../ricetta/"+ricetta.getId();
 	}
+	
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*----------------------------------------------RICERCA RICETTA------------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
 
+	@GetMapping("/cercaRicettaPerTitolo")
+	public String showFormSearchRicetta(Model model) {
+		return "formCercaRicetta.html";
+	}
+	
+	@PostMapping("/cercaRicettaPerTitolo")
+	public String showRicetteTrovate(Model model, @RequestParam String titolo) {
+		model.addAttribute("ricette", this.ricettaService.findByTitolo(titolo));
+		return "/elencoRicetteTrovate.html";
+	}
+	
 	/*-------------------------------------------------------------------------------------------------------*/
 	/*---------------------------------------------CANCELLAZIONE RICETTA-------------------------------------*/
 	/*-------------------------------------------------------------------------------------------------------*/
