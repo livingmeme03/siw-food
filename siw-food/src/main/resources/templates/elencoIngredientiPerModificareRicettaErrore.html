@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>SiwFood</title>
+		<link rel = "stylesheet" type = "text/css" href = "/css/stile.css">
+	</head>
+	<body>
+		<div>
+			<h1>SiwFood</h1>
+			<h2 th:text="${ricetta.titolo}">Titolo ricetta </h2>
+			<div>La quantità dell'ingrediente deve essere un numero positivo!</div>			
+		</div>
+			<h3>Ingredienti della ricetta:</h3>
+		<div>
+			<div th:if="${listaIngredientiPresenti==null || listaIngredientiPresenti.isEmpty()}">Non ci sono ingredienti nella ricetta!</div>
+				<ul>
+					<li th:each="ingrediente : ${listaIngredientiPresenti}">
+						<a th:href="@{ '/rimuoviIngredientiDaRicetta' + '/' +${idRicetta} + '/' + ${ingrediente.id}}" th:text="${ingrediente.nome}">Ingrediente</a>
+					</li>	
+				</ul>
+		</div>
+			<h3>Ingredienti da aggiungere alla ricetta:</h3>
+		<div>
+			<div th:if="${listaIngredientiDaAggiungere==null || listaIngredientiDaAggiungere.isEmpty()}">Non ci sono ingredienti da aggiungere alla ricetta!</div>
+				<ul>
+					<li th:each="ingrediente : ${listaIngredientiDaAggiungere}">
+						<a th:href="@{ '/aggiungiIngredienteARicetta' + '/' +${idRicetta} + '/' + ${ingrediente.id}}" th:text="${ingrediente.nome}">Ingrediente</a>
+					</li>	
+				</ul>
+		</div>
+	</body>	
+</html>

@@ -169,8 +169,14 @@ public class RicettaController {
 	
 	@PostMapping("/aggiungiIngredienteARicetta/{idRicetta}/{idIngrediente}") 
 	public String aggiungiIngredientiRicetta(@PathVariable Long idRicetta, @PathVariable Long idIngrediente, @RequestParam Long quantità, Model model) {
-		this.ingredienteService.saveIngredienteInRicetta(idIngrediente, idRicetta, quantità);
-		return "redirect:/modificaIngredientiRicetta/" + idRicetta;
+		if(quantità>0) {
+			this.ingredienteService.saveIngredienteInRicetta(idIngrediente, idRicetta, quantità);
+			return "redirect:/modificaIngredientiRicetta/" + idRicetta;
+		}
+		else {
+			this.setUpPerModificaRicetta(model, idRicetta);
+			return "elencoIngredientiPerModificareRicettaErrore.html";
+		}
 	}
 	
 	@GetMapping("/rimuoviIngredientiDaRicetta/{idRicetta}/{idIngrediente}") 
