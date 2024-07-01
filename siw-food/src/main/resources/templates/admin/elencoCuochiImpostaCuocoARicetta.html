@@ -13,7 +13,7 @@
 			<div th:if="${listaCuochi==null || listaCuochi.isEmpty()}">Non ci sono cuochi nel sistema!</div>
 				<ul>
 					<li th:each="cuoco : ${listaCuochi}">
-						<a th:href="@{ '/impostaCuocoARicetta' + '/' +${idRicetta} + '/' + ${cuoco.id}}" th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}">Cuoco</a>
+						<a th:href="@{ '/admin/impostaCuocoARicetta' + '/' +${idRicetta} + '/' + ${cuoco.id}}" th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}">Cuoco</a>
 					</li>	
 				</ul>
 		</div>

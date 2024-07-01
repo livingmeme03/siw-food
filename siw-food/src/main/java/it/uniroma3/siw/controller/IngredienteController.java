@@ -26,38 +26,44 @@ public class IngredienteController {
 
 	@Autowired
 	private IngredienteValidator ingredienteValidator;
-	
+
 	/*-------------------------------------------------------------------------------------------------------*/
 	/*----------------------------------------ELENCO INGREDIENTI---------------------------------------------*/
 	/*-------------------------------------------------------------------------------------------------------*/
 
+	//Per tutti
 	@GetMapping("/elencoIngredienti")		//non servono validazioni 
 	public String showElencoIngredienti(Model model) {
 		model.addAttribute("ingredienti", this.ingredienteService.findAllByOrderByNomeAsc());
 		return "elencoIngredienti.html";
 	}
-	
+
 	/*-------------------------------------------------------------------------------------------------------*/
 	/*--------------------------------VISUALIZZAZIONE SINGOLO INGREDIENTE------------------------------------*/
 	/*-------------------------------------------------------------------------------------------------------*/
 
+	//Per tutti
 	@GetMapping("/ingrediente/{id}")
 	public String showIngrediente(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("ingrediente", this.ingredienteService.findById(id));
 		return "ingrediente.html";
 	}
-	
+
 	/*-------------------------------------------------------------------------------------------------------*/
 	/*---------------------------------------AGGIUNTA INGREDIENTE--------------------------------------------*/
 	/*-------------------------------------------------------------------------------------------------------*/
-
-	@GetMapping("/aggiungiIngrediente")
+	
+	/*---------------------------------------------CUOCO-----------------------------------------------------*/
+	
+	//Per cuoco
+	@GetMapping("/aggiungiIngrediente")			//non servono controlli
 	public String showFormAggiungiIngrediente(Model model) {
 		model.addAttribute("nuovoIngrediente", new Ingrediente());
 		return "formAggiungiIngrediente.html";
 	}
 
-	@PostMapping("/aggiungiIngrediente")
+	//Per cuoco
+	@PostMapping("/aggiungiIngrediente")	//non servono controlli
 	public String newIngrediente(@Valid @ModelAttribute("nuovoIngrediente") Ingrediente ingrediente, BindingResult bindingResult, Model model) {
 		this.ingredienteValidator.validate(ingrediente, bindingResult);
 		if(bindingResult.hasErrors()) {
@@ -69,15 +75,38 @@ public class IngredienteController {
 		}
 	}
 	
+	/*---------------------------------------------ADMIN-----------------------------------------------------*/
+	
+	//Per admin
+	@GetMapping("/admin/aggiungiIngrediente")
+	public String showFormAggiungiIngredienteAdmin(Model model) {
+		model.addAttribute("nuovoIngrediente", new Ingrediente());
+		return "/admin/formAggiungiIngrediente.html";
+	}
+
+	//Per admin
+	@PostMapping("/admin/aggiungiIngrediente")
+	public String newIngredienteAdmin(@Valid @ModelAttribute("nuovoIngrediente") Ingrediente ingrediente, BindingResult bindingResult, Model model) {
+		this.ingredienteValidator.validate(ingrediente, bindingResult);
+		if(bindingResult.hasErrors()) {
+			return "/admin/formAggiungiIngrediente.html";
+		}
+		else {
+			this.ingredienteService.save(ingrediente);
+			return "redirect:/ingrediente/"+ingrediente.getId();
+		}
+	}
+
 	/*-------------------------------------------------------------------------------------------------------*/
 	/*-----------------------------------------RICERCA INGREDIENTE-------------------------------------------*/
 	/*-------------------------------------------------------------------------------------------------------*/
 
+	//Per tutti
 	@GetMapping("/cercaIngredientePerNome")
 	public String showFormSearchIngrediente(Model model) {
 		return "formCercaIngredienti.html";
 	}
-	
+	//Per tutti
 	@PostMapping("/cercaIngredientePerNome")
 	public String showIngredientiTrovati(Model model, @RequestParam String nome) {
 		Ingrediente ingredienteTrovato = this.ingredienteService.findByNome(nome);
@@ -87,52 +116,55 @@ public class IngredienteController {
 		model.addAttribute("ingrediente", ingredienteTrovato);
 		return "redirect:/ingrediente/"+ingredienteTrovato.getId();
 	}	
-	
+
 	/*-------------------------------------------------------------------------------------------------------*/
 	/*-------------------------------------CANCELLAZIONE INGREDIENTE-----------------------------------------*/
 	/*-------------------------------------------------------------------------------------------------------*/
 	
-	@GetMapping("/rimuoviIngrediente")
+	/*----------------------------------------------ADMIN----------------------------------------------------*/
+	
+	//Per admin
+	@GetMapping("/admin/rimuoviIngrediente")
 	public String showFormRimuoviIngrediente(Model model) {
 		model.addAttribute("ingredienteDaRimuovere", new Ingrediente());
 		this.aggiungiAttributiIngrediente(model);
-		return "formRimuoviIngrediente.html";
+		return "/admin/formRimuoviIngrediente.html";
 	}
-	
-	@PostMapping("/rimuoviIngrediente")
+	//Per admin
+	@PostMapping("/admin/rimuoviIngrediente")
 	public String deleteIngrediente(@Valid @ModelAttribute("ingredienteDaRimuovere") Ingrediente ingrediente, BindingResult bindingResult, Model model) {
-		
+
 		Ingrediente ingredienteDaRimuovere = this.ingredienteService.findByNome(ingrediente.getNome());
 		Long trovato = this.ingredienteService.findIngredienteInRicette(ingredienteDaRimuovere.getId());
-			
+
 		this.ingredienteValidator.validate(ingrediente, bindingResult);		//verifico errori
-		
+
 		if(bindingResult.hasErrors()) {				
 			if(bindingResult.getAllErrors().toString().contains("ingrediente.duplicato")) {	//ingrediente duplicato, allora è giusto
 				if(trovato == null) {		//non è in nessuna ricetta, lo cancello willy-nilly
 					this.ingredienteService.delete(ingrediente);						
-					return "redirect:elencoIngredienti";
+					return "redirect:/elencoIngredienti";
 				}
 				else {			//è in qualche ricetta, devo prima toglierlo da quelle e poi lo elimino
 					this.ingredienteService.deleteIngredienteInAllRicette(trovato);
 					this.ingredienteService.delete(ingrediente);								
-					return "redirect:elencoIngredienti";
+					return "redirect:/elencoIngredienti";
 				}										
 			}
 			this.aggiungiAttributiIngrediente(model);		//se c'erano altri errori ridò la form
-			return "formRimuoviIngrediente.html";
+			return "/admin/formRimuoviIngrediente.html";
 		}
-		
+
 		bindingResult.reject("ingrediente.nonEsiste");
 		this.aggiungiAttributiIngrediente(model);		//se non c'erano errori, non avevo trovato nessun ingrediente che corrisponde
-		return "formRimuoviIngrediente.html";	
-		
+		return "/admin/formRimuoviIngrediente.html";	
+
 	}
-	
+
 	/*-------------------------------------------------------------------------------------------------------*/	
 	/*---------------------------------------------METODI DI SUPPORTO----------------------------------------*/
 	/*-------------------------------------------------------------------------------------------------------*/
-	
+
 	public void aggiungiAttributiIngrediente(Model model) {
 		Set<String> nomiIngredienti = new TreeSet<String>();
 		for(Ingrediente i : this.ingredienteService.findAllByOrderByNomeAsc()) {
@@ -140,5 +172,5 @@ public class IngredienteController {
 		}
 		model.addAttribute("nomiIngredienti", nomiIngredienti);
 	}
-	
+
 }

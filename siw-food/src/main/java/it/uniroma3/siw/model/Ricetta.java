@@ -104,7 +104,7 @@ public class Ricetta {
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(cuoco, ingredienti, titolo);
+		return Objects.hash(cuoco, titolo);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -117,5 +117,4 @@ public class Ricetta {
 		Ricetta other = (Ricetta) obj;
 		return Objects.equals(cuoco, other.cuoco) && Objects.equals(titolo, other.titolo);
 	}	
-	
 }

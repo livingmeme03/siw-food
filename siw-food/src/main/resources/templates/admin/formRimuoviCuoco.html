@@ -5,7 +5,7 @@
 </head>
 <body>
     <h2>Rimuovi cuoco</h2>
-    <form th:action="@{/rimuoviCuoco}" method="POST" th:object="${cuocoDaRimuovere}">
+    <form th:action="@{/admin/rimuoviCuoco}" method="POST" th:object="${cuocoDaRimuovere}">
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
 		</div>

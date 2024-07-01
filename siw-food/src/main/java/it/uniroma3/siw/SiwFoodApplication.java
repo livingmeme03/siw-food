@@ -10,10 +10,11 @@ public class SiwFoodApplication {
 		SpringApplication.run(SiwFoodApplication.class, args);
 	}
 	
+	//allora il fatto è che io vorrei sia implementare il rimuovi ricetta solo per nome aspe
+	
 	//TODO
-	//1. rimuovi ricette solo per nome (come aggiornamento dati? elenco con solo get?)
-	//2. rimuovi ricette che non hanno cuoco (vedi codice, è un casino col parsing)
-	//3. differenziare i vari ruoli con quello che possono fare e aggiungere admin al database
+	//1. rimuovi ricette solo per nome (come aggiornamento dati? elenco con solo get?) -->attenzione mapping admin
+	//2. rimuovi ricette che non hanno cuoco (vedi codice, è un casino col parsing) -->attenzione mapping admin
 	//4. cuochi possono modificare/cancellare SOLO LE PROPRIE RICETTE
 	//5. sistemare il database definitivo e dimensioni immagini (aggiungere immagini a tutti gli ingredienti e i cuochi)
 	//6. css
@@ -21,6 +22,7 @@ public class SiwFoodApplication {
 	//8. annotazioni transactional
 	//9. optional: deploy su cloud
 	//10. optional: annotazioni internazionali per i messaggi di errore
+	// FATTO 3. differenziare i vari ruoli con quello che possono fare e aggiungere admin al database
 	// FATTO 1. mettere unità di misura agli ingredienti (attributo e menu a tendina quando aggiungi un ingrediente)
 	// FATTO 2. binding result sulle unità di misura di ingredienti di modifica ricetta
 	// FATTO 2. ricerca ingredienti per nome		(searchmovies)

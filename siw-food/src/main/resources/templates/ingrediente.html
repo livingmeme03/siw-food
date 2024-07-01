@@ -9,7 +9,7 @@
 <body>
     <div th:if="${ingrediente}">
          <h1 th:text="${ingrediente.nome}">Nome ingrediente </h1>
-         <span th:if = "${ingrediente.pathImmagine != null && ingrediente.pathImmagine != ''}"> <img th:src="'/' + ${ingrediente.pathImmagine}"> </span>
+         <span th:if = "${ingrediente.pathImmagine != null && ingrediente.pathImmagine != ''}"> <img th:src="'/images' + '/' + ${ingrediente.pathImmagine}"> </span>
           <span th:if = "${ingrediente.unitàDiMisura != null && ingrediente.unitàDiMisura != ''}" > 
 			  <div th:text="'Unità di misura: ' + ${ingrediente.unitàDiMisura}"></div>
 		  </span>

@@ -12,7 +12,7 @@
          <div th:if = "${ricetta.pathImmagini != null}">
 				<div th:each="immagine : ${ricetta.pathImmagini}">
 					<span th:if="${immagine != ''}">
-					<img th:src="'/' + ${immagine}">
+					<img th:src="'/images' + '/' + ${immagine}">
 					</span>
 				</div>
          </div>	

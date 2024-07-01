@@ -14,7 +14,8 @@
 				<ul>
 					<li th:each="ricetta : ${ricette}">
 						<a th:href="@{ '/ricetta' + '/' + ${ricetta.id}}" th:text="${ricetta.titolo}">Ricetta</a>
-						<a th:href="@{ '/modificaIngredientiRicetta' + '/' + ${ricetta.id}}">Modifica Ingredienti</a>
+						<a th:href="@{ '/admin/impostaCuocoARicetta' + '/' + ${ricetta.id}}">Imposta Cuoco</a>
+						<a th:href="@{ '/admin/modificaIngredientiRicetta' + '/' + ${ricetta.id}}">Modifica Ingredienti</a>
 					</li>	
 				</ul>
 		</div>

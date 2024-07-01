@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SiwFood - Pagina selezione quantità</title>
+</head>
+<body>
+    <h2>In che quantità vuoi aggiungere l'ingrediente?</h2>
+    <form th:action="@{'/admin/aggiungiIngredienteARicetta' + '/' +${idRicetta} + '/' + ${idIngrediente}}" method="POST">
+		<div>
+        	Inserisci: <input required type="text" th:value="${quantità}" name="quantità">
+        	 <span th:if = "${ingrediente.unitàDiMisura != null && ingrediente.unitàDiMisura != ''}" > 
+			  <span th:text="${ingrediente.unitàDiMisura}"></span>
+		  	</span>
+		  	<span th:if = "${ingrediente.unitàDiMisura == null || ingrediente.unitàDiMisura == ''}" > 
+			  <span>singole unità</span>
+		  	</span>
+        </div>
+        <div>
+			<span><button type="submit">Conferma</button></span>
+		</div>
+    </form>
+</body>
+</html>

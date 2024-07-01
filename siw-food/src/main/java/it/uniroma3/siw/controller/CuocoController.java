@@ -37,7 +37,8 @@ public class CuocoController {
 	/*-------------------------------------------------------------------------------------------------------*/
 	/*------------------------------------------ELENCO CUOCHI------------------------------------------------*/
 	/*-------------------------------------------------------------------------------------------------------*/
-
+	
+	//Per tutti
 	@GetMapping("/elencoCuochi")		//non servono validazioni 
 	public String showElencoCuochi(Model model) {
 		model.addAttribute("cuochi", this.cuocoService.findAllByOrderByCognomeAsc());
@@ -48,6 +49,7 @@ public class CuocoController {
 	/*----------------------------------VISUALIZZAZIONE SINGOLO CUOCO----------------------------------------*/
 	/*-------------------------------------------------------------------------------------------------------*/
 	
+	//Per tutti
 	@GetMapping("/cuoco/{id}")
 	public String showCuoco(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("cuoco", this.cuocoService.findById(id));
@@ -58,35 +60,39 @@ public class CuocoController {
 	/*-------------------------------------------AGGIUNTA CUOCO----------------------------------------------*/
 	/*-------------------------------------------------------------------------------------------------------*/
 	
-	@GetMapping("/aggiungiCuoco")
+	//Per admin
+	@GetMapping("/admin/aggiungiCuoco")
 	public String showFormAggiungiCuoco(Model model) {
 		model.addAttribute("nuovoCuoco", new Cuoco());
-		return "formAggiungiCuoco.html";
+		return "/admin/formAggiungiCuoco.html";
 	}
-
-	@PostMapping("/aggiungiCuoco")
+	
+	//Per admin
+	@PostMapping("/admin/aggiungiCuoco")
 	public String newCuoco(@Valid @ModelAttribute("nuovoCuoco") Cuoco cuoco, BindingResult bindingResult, Model model) {
 		this.cuocoValidator.validate(cuoco, bindingResult);
 		if(bindingResult.hasErrors()) {
-			return "formAggiungiCuoco.html";
+			return "/admin/formAggiungiCuoco.html";
 		}
 		else {
 			this.cuocoService.save(cuoco);
-			return "redirect:cuoco/"+cuoco.getId();
+			return "redirect:/cuoco/"+cuoco.getId();
 		}
 	}
 	
 	/*-------------------------------------------------------------------------------------------------------*/	
 	/*------------------------------------------AGGIORNAMENTO CUOCO----------------------------------------*/
 	/*-------------------------------------------------------------------------------------------------------*/
-
-	@GetMapping("/elencoAggiornaCuochi")		//non servono validazioni 
+	
+	//Per admin
+	@GetMapping("/admin/elencoAggiornaCuochi")		//non servono validazioni 
 	public String showElencoAggiornaCuochi(Model model) {
 		model.addAttribute("cuochi", this.cuocoService.findAllByOrderByCognomeAsc());
-		return "elencoAggiornaCuochi.html";
+		return "/admin/elencoAggiornaCuochi.html";
 	}
 	
-	@GetMapping("/modificaRicetteCuoco/{idCuoco}") 
+	//Per admin
+	@GetMapping("/admin/modificaRicetteCuoco/{idCuoco}") 
 	public String showModificaIngredientiRicetta(@PathVariable Long idCuoco, Model model) {
 		List<Ricetta> ricetteDelCuoco = this.cuocoService.findById(idCuoco).getRicette();
 		List<Ricetta> ricetteDaAggiungere = (List<Ricetta>) this.ricettaService.findAllByOrderByTitoloAsc();
@@ -94,10 +100,11 @@ public class CuocoController {
 		model.addAttribute("ricetteDelCuoco", ricetteDelCuoco);
 		model.addAttribute("ricetteDaAggiungere", ricetteDaAggiungere);
 		model.addAttribute("cuoco", this.cuocoService.findById(idCuoco));
-		return "elencoRicettePerModificareCuoco.html";
+		return "/admin/elencoRicettePerModificareCuoco.html";
 	}
 	
-	@GetMapping("/aggiungiRicettaACuoco/{idCuoco}/{idRicetta}")
+	//Per admin
+	@GetMapping("/admin/aggiungiRicettaACuoco/{idCuoco}/{idRicetta}")
 	public String aggiungiRicettaACuoco(@PathVariable Long idCuoco, @PathVariable Long idRicetta, Model model) {
 		Ricetta ricetta = this.ricettaService.findById(idRicetta);
 		Cuoco cuoco = this.cuocoService.findById(idCuoco);
@@ -105,10 +112,11 @@ public class CuocoController {
 		cuoco.getRicette().add(ricetta);
 		this.ricettaService.save(ricetta);
 		this.cuocoService.save(cuoco);
-		return "redirect:/modificaRicetteCuoco/" + idCuoco;
+		return "redirect:/admin/modificaRicetteCuoco/" + idCuoco;
 	}
 	
-	@GetMapping("/rimuoviRicettaDaCuoco/{idCuoco}/{idRicetta}") 
+	//Per admin
+	@GetMapping("/admin/rimuoviRicettaDaCuoco/{idCuoco}/{idRicetta}") 
 	public String rimuoviRicettaDaCuoco(@PathVariable Long idCuoco, @PathVariable Long idRicetta, Model model) {
 		Ricetta ricetta = this.ricettaService.findById(idRicetta);
 		Cuoco cuoco = this.cuocoService.findById(idCuoco);
@@ -116,18 +124,20 @@ public class CuocoController {
 		cuoco.getRicette().remove(ricetta);
 		this.ricettaService.save(ricetta);
 		this.cuocoService.save(cuoco);
-		return "redirect:/modificaRicetteCuoco/" + idCuoco;
+		return "redirect:/admin/modificaRicetteCuoco/" + idCuoco;
 	}
 	
 	/*-------------------------------------------------------------------------------------------------------*/
 	/*----------------------------------------------RICERCA CUOCO------------------------------------------*/
 	/*-------------------------------------------------------------------------------------------------------*/
-
+	
+	//Per tutti
 	@GetMapping("/cercaCuocoPerCognome")
 	public String showFormSearchCuoco(Model model) {
 		return "formCercaCuoco.html";
 	}
 	
+	//Per tutti
 	@PostMapping("/cercaCuocoPerCognome")
 	public String showCuochiTrovati(Model model, @RequestParam String cognome) {
 		model.addAttribute("cuochi", this.cuocoService.findByCognome(cognome));
@@ -138,14 +148,16 @@ public class CuocoController {
 	/*-------------------------------------------CANCELLAZIONE CUOCO-----------------------------------------*/
 	/*-------------------------------------------------------------------------------------------------------*/
 
-	@GetMapping("/rimuoviCuoco")
+	//Per admin
+	@GetMapping("/admin/rimuoviCuoco")
 	public String showFormRimuoviCuoco(Model model) {
 		model.addAttribute("cuocoDaRimuovere", new Cuoco());
 		this.aggiungiAttributiCuochi(model);
-		return "formRimuoviCuoco.html";
+		return "/admin/formRimuoviCuoco.html";
 	}
-
-	@PostMapping("/rimuoviCuoco")
+	
+	//Per admin
+	@PostMapping("/admin/rimuoviCuoco")
 	public String deleteCuoco(@Valid @ModelAttribute("cuocoDaRimuovere") Cuoco cuoco, BindingResult bindingResult, Model model) {
 
 		this.cuocoValidator.validate(cuoco, bindingResult);		//verifico errori
@@ -153,15 +165,15 @@ public class CuocoController {
 		if(bindingResult.hasErrors()) {				
 			if(bindingResult.getAllErrors().toString().contains("cuoco.duplicato")) {	//se gli errori contengono
 				this.cuocoService.delete(cuoco);								//ingrediente duplicato, allora è giusto
-				return "redirect:elencoCuochi";									//e lo cancello
+				return "redirect:/elencoCuochi";									//e lo cancello
 			}
 			this.aggiungiAttributiCuochi(model);		//se c'erano altri errori ridò la form
-			return "formRimuoviCuoco.html";
+			return "/admin/formRimuoviCuoco.html";
 		}
 
 		bindingResult.reject("cuoco.nonEsiste");
 		this.aggiungiAttributiCuochi(model);		//se non c'erano errori, non avevo trovato nessun ingrediente che corrisponde
-		return "formRimuoviCuoco.html";	
+		return "/admin/formRimuoviCuoco.html";	
 
 	}
 	

@@ -14,7 +14,7 @@
 			<div th:if="${ricetteDelCuoco==null || ricetteDelCuoco.isEmpty()}">Non ci sono ricette del cuoco!</div>
 				<ul>
 					<li th:each="ricetta : ${ricetteDelCuoco}">
-						<a th:href="@{ '/rimuoviRicettaDaCuoco' + '/' +${cuoco.id} + '/' + ${ricetta.id}}" th:text="${ricetta.titolo}">Ricetta</a>
+						<a th:href="@{ '/admin/rimuoviRicettaDaCuoco' + '/' +${cuoco.id} + '/' + ${ricetta.id}}" th:text="${ricetta.titolo}">Ricetta</a>
 					</li>	
 				</ul>
 		</div>
@@ -23,7 +23,7 @@
 			<div th:if="${ricetteDaAggiungere==null || ricetteDaAggiungere.isEmpty()}">Non ci sono ricette da assegnare al cuoco!</div>
 				<ul>
 					<li th:each="ricetta : ${ricetteDaAggiungere}">
-						<a th:href="@{ '/aggiungiRicettaACuoco' + '/' +${cuoco.id} + '/' + ${ricetta.id}}" th:text="${ricetta.titolo}">Ricetta</a>
+						<a th:href="@{ '/admin/aggiungiRicettaACuoco' + '/' +${cuoco.id} + '/' + ${ricetta.id}}" th:text="${ricetta.titolo}">Ricetta</a>
 					</li>	
 				</ul>
 		</div>
