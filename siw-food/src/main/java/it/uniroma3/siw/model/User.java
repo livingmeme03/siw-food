@@ -2,10 +2,12 @@ package it.uniroma3.siw.model;
 
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -25,10 +27,13 @@ public class User {
 	private String nome;
 	@NotBlank
 	private String cognome;
+	@OneToOne(cascade = CascadeType.PERSIST)
+	private Cuoco cuoco;
 	
 	/*-------------------------------------------------------------------------------------------------------*/
 	/*------------------------------------------GETTER E SETTER----------------------------------------------*/
 	/*-------------------------------------------------------------------------------------------------------*/
+	
 	
 	public Long getId() {
 		return id;
@@ -47,6 +52,12 @@ public class User {
 	}
 	public void setCognome(String cognome) {
 		this.cognome = cognome;
+	}
+	public Cuoco getCuoco() {
+		return cuoco;
+	}
+	public void setCuoco(Cuoco cuoco) {
+		this.cuoco = cuoco;
 	}
 	
 	/*-------------------------------------------------------------------------------------------------------*/

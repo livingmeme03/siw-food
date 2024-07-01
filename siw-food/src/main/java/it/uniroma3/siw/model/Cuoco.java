@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
@@ -34,6 +35,7 @@ public class Cuoco {
 	private String pathFotografia;
 	@OneToMany(mappedBy = "cuoco", cascade = CascadeType.REMOVE)
 	private List<Ricetta> ricette;
+	
 	
 	/*-------------------------------------------------------------------------------------------------------*/
 	/*------------------------------------------GETTER E SETTER----------------------------------------------*/

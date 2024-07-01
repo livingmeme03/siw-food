@@ -51,7 +51,11 @@ public class RicettaService {
 		return this.ricettaRepository.existsByTitolo(titolo);
 	}
 	
-	public Iterable<Ricetta> findByTitolo(String titolo) {
+	public Ricetta findByTitolo(String titolo) {
 		return this.ricettaRepository.findByTitolo(titolo);
+	}
+
+	public Iterable<Ricetta> findAllByCuocoOrderByTitoloAsc(Cuoco cuoco) {
+		return this.ricettaRepository.findAllByCuocoOrderByTitoloAsc(cuoco);
 	}
 }

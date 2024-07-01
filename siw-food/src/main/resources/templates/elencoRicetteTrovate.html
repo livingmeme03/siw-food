@@ -10,12 +10,8 @@
 			<h2>Ricette trovate:</h2>			
 		</div>
 		<div>
-			<div th:if="${ricette==null || ricette.isEmpty()}">Non ci sono ricette con questo titolo nel sistema!</div>
-				<ul>
-					<li th:each="ricetta : ${ricette}">
+			<div th:if="${ricetta==null}">Non ci sono ricette con questo titolo nel sistema!</div>
 						<a th:href="@{ '/ricetta' + '/' + ${ricetta.id}}" th:text="${ricetta.titolo}">Ricetta</a>
-					</li>	
-				</ul>
 		</div>
 	</body>	
 </html>

@@ -5,13 +5,13 @@
 </head>
 <body>
     <h2>Rimuovi ricetta</h2>
-    <form th:action="@{/rimuoviRicetta}" method="POST" th:object="${ricettaDaRimuovere}">
+    <form th:action="@{/admin/rimuoviRicetta}" method="POST" th:object="${ricettaDaRimuovere}">
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
 		</div>
 		<div>
 			Titolo ricetta: <select th:field="${ricettaDaRimuovere.titolo}">
-                    		<option th:each="titoloRicetta : ${titoliRicetteCuoco}" th:value = "${titoloRicetta}" th:text="${titoloRicetta}">Titolo</option>
+                    		<option th:each="titoloRicetta : ${titoliRicette}" th:value = "${titoloRicetta}" th:text="${titoloRicetta}">Titolo</option>
                    			</select>
         </div>
         <div>

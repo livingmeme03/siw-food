@@ -21,6 +21,7 @@ import it.uniroma3.siw.controller.validation.RicettaValidator;
 import it.uniroma3.siw.model.Cuoco;
 import it.uniroma3.siw.model.Ingrediente;
 import it.uniroma3.siw.model.Ricetta;
+import it.uniroma3.siw.repository.CredentialsRepository;
 import it.uniroma3.siw.service.CuocoService;
 import it.uniroma3.siw.service.IngredienteService;
 import it.uniroma3.siw.service.RicettaService;
@@ -40,6 +41,9 @@ public class RicettaController {
 
 	@Autowired
 	private IngredienteService ingredienteService;
+	
+	@Autowired
+	private AuthenticationController authenticationController;
 
 	/*-------------------------------------------------------------------------------------------------------*/
 	/*-----------------------------------------ELENCO RICETTE------------------------------------------------*/
@@ -75,7 +79,7 @@ public class RicettaController {
 	
 	/*-----------------------------------------------CUOCO---------------------------------------------------*/
 	
-	//Per cuoco  //TODO DA FARE CONTROLLI
+	//Per cuoco 
 	@GetMapping("/aggiungiRicetta")
 	public String showFormAggiungiRicetta(Model model) {
 		model.addAttribute("nuovaRicetta", new Ricetta());	
@@ -92,6 +96,8 @@ public class RicettaController {
 			return "formAggiungiRicetta.html";
 		}
 		else {
+			Cuoco curr = this.authenticationController.getCuocoSessioneCorrente();	//prendi il cuoco della sessione corrente
+			ricetta.setCuoco(curr);					//(aka io) e mettimi come proprietario della ricetta
 			this.ricettaService.save(ricetta);
 			return "redirect:ricetta/"+ricetta.getId();
 		}
@@ -163,10 +169,11 @@ public class RicettaController {
 
 	/*-----------------------------------------------CUOCO---------------------------------------------------*/
 	
-	//Per cuoco  //TODO DA FARE CONTROLLI CUOCO
+	//Per cuoco
 	@GetMapping("/elencoAggiornaRicette")		//non servono validazioni 
-	public String showElencoAggiornRicette(Model model) {
-		model.addAttribute("ricette", this.ricettaService.findAllByOrderByTitoloAsc());
+	public String showElencoAggiornaRicette(Model model) {
+		Cuoco curr = this.authenticationController.getCuocoSessioneCorrente();
+		model.addAttribute("ricette", this.ricettaService.findAllByCuocoOrderByTitoloAsc(curr));
 		return "elencoAggiornaRicette.html";
 	}
 
@@ -174,7 +181,7 @@ public class RicettaController {
 	
 	//Per admin 
 	@GetMapping("/admin/elencoAggiornaRicette")		//non servono validazioni 
-	public String showElencoAggiornRicetteAdmin(Model model) {
+	public String showElencoAggiornaRicetteAdmin(Model model) {
 		model.addAttribute("ricette", this.ricettaService.findAllByOrderByTitoloAsc());
 		return "/admin/elencoAggiornaRicette.html";
 	}
@@ -202,14 +209,21 @@ public class RicettaController {
 
 	/*-----------------------------------------------CUOCO---------------------------------------------------*/
 	
-	//Per cuoco //TODO DA SDOPPIARE CON CONTROLLI SU CUOCO
+	//Per cuoco
 	@GetMapping("/modificaIngredientiRicetta/{idRicetta}") 
 	public String showModificaIngredientiRicetta(@PathVariable Long idRicetta, Model model) {
-		this.setUpPerModificaRicetta(model, idRicetta);
-		return "elencoIngredientiPerModificareRicetta.html";
+		Cuoco curr = this.authenticationController.getCuocoSessioneCorrente();
+		Ricetta ricetta = this.ricettaService.findById(idRicetta);
+		Cuoco cuocoRicetta = ricetta.getCuoco();
+		if(curr.equals(cuocoRicetta)) {
+			this.setUpPerModificaRicetta(model, idRicetta);
+			return "elencoIngredientiPerModificareRicetta.html";
+		}
+		model.addAttribute("ricette", this.ricettaService.findAllByCuocoOrderByTitoloAsc(curr));
+		return "elencoAggiornaRicette.html";
 	}
 
-	//Per cuoco //TODO DA SDOPPIARE CON CONTROLLI SU CUOCO
+	//Per cuoco 
 	@GetMapping("/aggiungiIngredienteARicetta/{idRicetta}/{idIngrediente}")
 	public String scegliQuantitàPerIngrediente(@PathVariable Long idRicetta, @PathVariable Long idIngrediente, Model model) {	
 		model.addAttribute("idRicetta", idRicetta);
@@ -218,7 +232,7 @@ public class RicettaController {
 		return "formSelezionaQuantitàAggiungiIngredienteARicetta.html";
 	}
 
-	//Per cuoco //TODO DA SDOPPIARE CON CONTROLLI SU CUOCO
+	//Per cuoco 
 	@PostMapping("/aggiungiIngredienteARicetta/{idRicetta}/{idIngrediente}") 
 	public String aggiungiIngredientiRicetta(@PathVariable Long idRicetta, @PathVariable Long idIngrediente, @RequestParam Long quantità, Model model) {
 		if(quantità>0) {
@@ -231,7 +245,7 @@ public class RicettaController {
 		}
 	}
 
-	//Per cuoco //TODO DA SDOPPIARE CON CONTROLLI SU CUOCO
+	//Per cuoco 
 	@GetMapping("/rimuoviIngredientiDaRicetta/{idRicetta}/{idIngrediente}") 
 	public String rimuoviIngredientiRicetta(@PathVariable Long idRicetta, @PathVariable Long idIngrediente, Model model) {
 		this.ingredienteService.deleteIngredienteInRicetta(idIngrediente, idRicetta);
@@ -289,45 +303,73 @@ public class RicettaController {
 	//Per tutti
 	@PostMapping("/cercaRicettaPerTitolo")
 	public String showRicetteTrovate (@RequestParam String titolo, Model model) {
-		model.addAttribute("ricette", this.ricettaService.findByTitolo(titolo));
-		return "/elencoRicetteTrovate.html";
+		model.addAttribute("ricetta", this.ricettaService.findByTitolo(titolo));
+		return "elencoRicetteTrovate.html";
 	}
 
 	/*-------------------------------------------------------------------------------------------------------*/
 	/*---------------------------------------------CANCELLAZIONE RICETTA-------------------------------------*/
 	/*-------------------------------------------------------------------------------------------------------*/
-	//TODO da finire, rimuovere solo per nome!
-	//Per admin e cuoco //TODO DA SDOPPIARE CON CONTROLLI SU CUOCO
-	@GetMapping("/rimuoviRicetta")
-	public String showFormRimuoviRicetta(Model model) {
+	
+	/*-----------------------------------------------ADMIN---------------------------------------------------*/
+	
+	@GetMapping("/admin/rimuoviRicetta")
+	public String showFormRimuoviRicettaAdmin(Model model) {
 		model.addAttribute("ricettaDaRimuovere", new Ricetta());
-		model.addAttribute("cuoco", new Cuoco());
-		this.aggiungiAttributiRicette(model);
-		return "formRimuoviRicetta.html";
+		this.aggiungiAttributiRicetteDaRimuovere(model);
+		return "/admin/formRimuoviRicetta.html";
 	}
-	//Per admin e cuoco //TODO DA SDOPPIARE CON CONTROLLI SU CUOCO
-	@PostMapping("/rimuoviRicetta")
-	public String deleteRicetta(@Valid @ModelAttribute("ricettaDaRimuovere") Ricetta ricetta, BindingResult bindingResult, 
-			@Valid @ModelAttribute("cuoco") Cuoco cuoco, BindingResult bindingResult2, Model model) {
+	
+	@PostMapping("/admin/rimuoviRicetta")
+	public String deleteRicettaAdmin(@Valid @ModelAttribute("ricettaDaRimuovere") Ricetta ricetta, BindingResult bindingResult, Model model) {
 
-
-		Cuoco cuocoAssociato = this.cuocoService.findByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita());
-		ricetta.setCuoco(cuocoAssociato);			//ricerca del cuoco associato alla ricetta 
-		//e setting del cuoco alla ricetta
-
-		this.ricettaValidator.validate(ricetta, bindingResult);				//controllo errori
+		this.ricettaValidator.validateSimple(ricetta, bindingResult);				//controllo errori
 
 		if(bindingResult.hasErrors()) {				
 			if(bindingResult.getAllErrors().toString().contains("ricetta.duplicata")) {		//se gli errori contengono
-				this.ricettaService.delete(ricetta);								//ricetta duplicata, allora è giusto
+				this.ricettaService.delete(this.ricettaService.findByTitolo(ricetta.getTitolo()));								//ricetta duplicata, allora è giusto
+				System.out.println("CE L'HO FATTA MAMMA");
+				return "redirect:/elencoRicette";									//e la cancello
+			}
+			this.aggiungiAttributiRicetteDaRimuovere(model);					//se c'erano altri errori ridò la form
+			System.out.println("ALTRI ERRORI");
+			return "/admin/formRimuoviRicetta.html";
+		}
+
+		bindingResult.reject("ricetta.nonEsiste");
+		System.out.println("RICETTA NON ESISTE");
+		this.aggiungiAttributiRicetteDaRimuovere(model);		//se non c'erano errori, non avevo trovato nessuna ricetta che corrisponde
+		return "/admin/formRimuoviRicetta.html";		//quindi dà errore e redirecta
+
+	}
+	
+	/*-----------------------------------------------CUOCO---------------------------------------------------*/
+	
+	@GetMapping("/rimuoviRicetta")
+	public String showFormRimuoviRicetta(Model model) {
+		model.addAttribute("ricettaDaRimuovere", new Ricetta());
+		Cuoco curr = this.authenticationController.getCuocoSessioneCorrente();
+		this.aggiungiAttributiRicetteDaRimuovereConCuoco(model, curr);
+		return "formRimuoviRicetta.html";
+	}
+	
+	//Per admin e cuoco //TODO DA SDOPPIARE CON CONTROLLI SU CUOCO
+	@PostMapping("/rimuoviRicetta")
+	public String deleteRicetta(@Valid @ModelAttribute("ricettaDaRimuovere") Ricetta ricetta, BindingResult bindingResult, Model model) {
+		Cuoco curr = this.authenticationController.getCuocoSessioneCorrente();
+		this.ricettaValidator.validateSimple(ricetta, bindingResult);				//controllo errori
+
+		if(bindingResult.hasErrors()) {				
+			if(bindingResult.getAllErrors().toString().contains("ricetta.duplicata")) {		//se gli errori contengono
+				this.ricettaService.delete(this.ricettaService.findByTitolo(ricetta.getTitolo()));								//ricetta duplicata, allora è giusto
 				return "redirect:elencoRicette";									//e la cancello
 			}
-			this.aggiungiAttributiRicette(model);		//se c'erano altri errori ridò la form
+			this.aggiungiAttributiRicetteDaRimuovereConCuoco(model, curr);					//se c'erano altri errori ridò la form
 			return "formRimuoviRicetta.html";
 		}
 
 		bindingResult.reject("ricetta.nonEsiste");
-		this.aggiungiAttributiRicette(model);	//se non c'erano errori, non avevo trovato nessuna ricetta che corrisponde
+		this.aggiungiAttributiRicetteDaRimuovereConCuoco(model, curr);			//se non c'erano errori, non avevo trovato nessuna ricetta che corrisponde
 		return "formRimuoviRicetta.html";		//quindi dà errore e redirecta
 
 	}
@@ -380,5 +422,21 @@ public class RicettaController {
 		model.addAttribute("listaIngredientiDaAggiungere", listaIngredientiDaAggiungere);
 		model.addAttribute("idRicetta", idRicetta);
 		model.addAttribute("ricetta", this.ricettaService.findById(idRicetta));
+	}
+	
+	public void aggiungiAttributiRicetteDaRimuovere(Model model) {
+		Set<String> titoliRicette = new TreeSet<String>();
+		for (Ricetta r : this.ricettaService.findAllByOrderByTitoloAsc()) {
+			titoliRicette.add(r.getTitolo());
+		}
+		model.addAttribute("titoliRicette", titoliRicette);
+	}
+	
+	public void aggiungiAttributiRicetteDaRimuovereConCuoco(Model model, Cuoco cuoco) {
+		Set<String> titoliRicetteCuoco = new TreeSet<String>();
+		for (Ricetta r : this.ricettaService.findAllByCuocoOrderByTitoloAsc(cuoco)) {
+			titoliRicetteCuoco.add(r.getTitolo());
+		}
+		model.addAttribute("titoliRicetteCuoco", titoliRicetteCuoco);
 	}
 }

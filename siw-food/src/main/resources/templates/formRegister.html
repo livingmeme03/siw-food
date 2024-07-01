@@ -19,12 +19,16 @@
 			<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
 				<br><br>
 			<label for="nome">Nome:</label><br>
-			<input type = "text" th:field="${user.nome}" required>
-			<span th:if="${userErrors != null and userErrors.hasFieldErrors('nome')}" th:errors="${user.nome}"></span>
+			<input type = "text" th:field="${cuoco.nome}" required>
+			<span th:if="${cuocoErrors != null and cuocoErrors.hasFieldErrors('nome')}" th:errors="${cuoco.nome}"></span>
 				<br><br>
 			<label for="cognome">Cognome:</label><br>
-			<input type = "text" th:field="${user.cognome}" required>
-			<span th:if="${userErrors != null and userErrors.hasFieldErrors('cognome')}" th:errors="${user.cognome}"></span>
+			<input type = "text" th:field="${cuoco.cognome}" required>
+			<span th:if="${cuocoErrors != null and cuocoErrors.hasFieldErrors('cognome')}" th:errors="${cuoco.cognome}"></span>
+				<br><br>
+			<label for="dataNascita">Data di nascita:</label><br>
+			<input type = "date" th:field="${cuoco.dataNascita}" required>
+			<span th:if="${cuocoErrors != null and cuocoErrors.hasFieldErrors('dataNascita')}" th:errors="${cuoco.dataNascita}"></span>
 				<br><br>
 			<input type = "submit" value = "Registrati">		
 		</form>

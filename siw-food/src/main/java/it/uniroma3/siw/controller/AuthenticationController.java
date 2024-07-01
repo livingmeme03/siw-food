@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import it.uniroma3.siw.controller.validation.CredentialsValidator;
 import it.uniroma3.siw.model.Credentials;
+import it.uniroma3.siw.model.Cuoco;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.service.CredentialsService;
+import it.uniroma3.siw.service.CuocoService;
 import it.uniroma3.siw.service.UserService;
 import jakarta.validation.Valid;
 
@@ -29,36 +31,46 @@ public class AuthenticationController {
 	private CredentialsValidator credentialsValidator;
 
 	@Autowired
+	private CuocoService cuocoService;
+
+	@Autowired
 	private UserService userService;
-	
+
 	/*-------------------------------------------------------------------------------------------------------*/
 	/*------------------------------------------REGISTRAZIONE------------------------------------------------*/
 	/*-------------------------------------------------------------------------------------------------------*/
 
 	@GetMapping("/register")
 	public String showRegisterForm(Model model) {
-		model.addAttribute("user", new User());
+		//	model.addAttribute("user", new User());
 		model.addAttribute("credentials", new Credentials());
+		model.addAttribute("cuoco", new Cuoco());
 		return "formRegister.html";
 	}
 
 	@PostMapping("/register")
-	public String newUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResultUser, 
+	public String newUser(/*@Valid @ModelAttribute("user") User user, BindingResult bindingResultUser, */
 			@Valid @ModelAttribute("credentials") Credentials credentials, BindingResult bindingResultCredentials, 
+			@Valid @ModelAttribute("cuoco") Cuoco cuoco, BindingResult bindingResultCuoco, 
 			Model model) {
-
+		User user = new User();
+		user.setNome(cuoco.getNome());
+		user.setCognome(cuoco.getCognome());
+		if(this.cuocoService.existsByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita())) {
+			user.setCuoco(this.cuocoService.findByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita()));
+		}
+		else {	
+			user.setCuoco(cuoco);
+		}
 		credentials.setUser(user);
 		this.credentialsValidator.validate(credentials, bindingResultCredentials);
-		
-//		BindingResult br = bindingResultCredentials;
-//		br.addAllErrors(bindingResultUser);
-		if(bindingResultUser.hasErrors() || bindingResultCredentials.hasErrors()) {		//aggiungi alla form gli errori dell'user
-			model.addAttribute("userErrors", bindingResultUser);				//così può stampare anche i suoi messaggi di errore
-//			System.out.println(bindingResultUser.getAllErrors().toString());	
-//            System.out.println(bindingResultCredentials.getAllErrors().toString());
-			return "formRegister.html";
+
+
+		if(bindingResultCredentials.hasErrors() || bindingResultCuoco.hasErrors()) {		//aggiungi alla form gli errori dell'user			
+			model.addAttribute("cuocoErrors", bindingResultCuoco);	
+			return "formRegister.html";																	//così può stampare anche i suoi messaggi di errore	
 		}
-		
+
 		else {
 			credentialsService.saveCredentials(credentials); //Role lo setto qui, anche l'hash della pwd
 			return "redirect:login"; //finito di registrare redirecto a /
@@ -86,7 +98,7 @@ public class AuthenticationController {
 		}
 
 	}
-	
+
 	/*-------------------------------------------------------------------------------------------------------*/
 	/*----------------------------------------MOSTRA FORM LOGIN----------------------------------------------*/
 	/*-------------------------------------------------------------------------------------------------------*/
@@ -94,6 +106,17 @@ public class AuthenticationController {
 	@GetMapping("/login")
 	public String showLoginForm(Model model) {
 		return "login.html";
+	}
+
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*----------------------------------------METODI DI SUPPORTO---------------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
+
+	public Cuoco getCuocoSessioneCorrente() {
+		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Credentials utenteSessioneCorrente = this.credentialsService.findByUsername(user.getUsername());
+		Cuoco cuoco = utenteSessioneCorrente.getUser().getCuoco();
+		return cuoco;
 	}
 
 }
