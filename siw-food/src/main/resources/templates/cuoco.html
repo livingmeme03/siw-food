@@ -10,18 +10,20 @@
 	<nav>
 	</nav>
 	<header>
-		<h1>SiwFood</h1>
+		<a href = "/"><h1>SiwFood</h1></a>
 	</header>
     <div th:if="${cuoco}">
-         <h2 th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}">Nome cuoco </h2>
-         <span th:if = "${cuoco.pathFotografia != '' && cuoco.pathFotografia != null}"> 
-			 <img th:src="'/images' + '/' + ${cuoco.pathFotografia}" width="20%"> 
-			 </span>
-         <div>
-			 Data di nascita:<span th:text="${cuoco.dataNascita}"></span>
+		<h2 th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}">Nome cuoco </h2>
+		<div id="flex-container-1-image">
+		<div id ="flex-container-2-light-withbookimage">
+			 <span class="titolo-flexbox">Data di nascita</span>
+			 <span class="testo-flexbox-centrato"th:text="${cuoco.dataNascita}"></span>
 		 </div>
-		 <div>
-			Ricette:
+         <span id="flex-container-2-imageCuoco" th:if = "${cuoco.pathFotografia != '' && cuoco.pathFotografia != null}"> 
+			 <img th:src="'/images' + '/' + ${cuoco.pathFotografia}"> 
+			 </span>
+		 <div id="flex-container-2-light-withbookimage">
+			<span class="titolo-flexbox">Ricette:</span>
 			<ul>
 				<li th:each="ricetta : ${cuoco.ricette}">
 					<a th:href="@{'/ricetta' + '/' + ${ricetta.id}}" th:text="${ricetta.titolo}"> Ricetta Generica</a>

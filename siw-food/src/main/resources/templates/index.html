@@ -8,31 +8,37 @@
 		<nav>
 		</nav>
 		<header>
-			<h1>SiwFood</h1>
+			<a href = "/"><h1>SiwFood</h1></a>
 		</header>
-		<h2>Benvenuto!</h2>
-		<div>
-		<br><br>
-			Cuochi:
+		<h4>Benvenuto!</h4>
+		<div id="flex-container-1">
+		<div id="flex-container-2">
+			<span class="titolo-flexbox">Cuochi:</span>
 			<br>
 			<a th:href="@{/elencoCuochi}">Elenco cuochi</a>
 			<br>
 			<a th:href="@{/cercaCuocoPerCognome}">Cerca cuochi per cognome</a>
 			<br>
-			<br><br>
-			Ricette:
+		</div>
+		<div id="flex-container-2-light-withbookimage">
+			<span class="titolo-flexbox">Ricette:</span>
 			<br>
 			<a th:href="@{/elencoRicette}">Elenco ricette</a>
 			<br>
 			<a th:href="@{/cercaRicettaPerTitolo}">Cerca ricette</a>
 			<br><br>
-			Gestione ingredienti:
+		</div>
+		<div id="flex-container-2">
+			<span class="titolo-flexbox">Ingredienti:</span>
 			<br>
 			<a th:href="@{/elencoIngredienti}">Elenco ingredienti</a>
 			<br>
 			<a th:href="@{/cercaIngredientePerNome}">Cerca ingredienti per nome</a>
-			<br><br>
-			<br><br>
+		</div>
+		</div>
+		<div id = "flex-container-1-2">
+		<div id="flex-container-3">
+			<br>
 			Registrati!
 			<br>
 			<a th:href="@{/register}">Clicca qui per registrarti</a>
@@ -41,6 +47,7 @@
 			<br>
 			<a th:href="@{/login}">Accedi</a>
 			<br><br>
+		</div>
 		</div>
 	</body>	
 </html>

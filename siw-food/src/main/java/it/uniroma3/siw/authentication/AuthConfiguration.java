@@ -50,7 +50,7 @@ public class AuthConfiguration {
 			  "/elencoIngredienti", "/ingrediente/**", "/cercaIngredientePerNome", 			//ingrediente
 			  "/elencoCuochi", "/cuoco/**", "/cercaCuocoPerCognome",						//cuoco
 			  "/elencoRicette", "/ricetta/**", "/cercaRicettaPerTitolo",
-			  "/rest/**").permitAll()		//ricetta
+			  "/rest/**", "/error/**").permitAll()		//ricetta
 	  // chiunque (autenticato o no) può mandare richieste POST al punto di accesso per login e register 
 	  .requestMatchers(HttpMethod.POST,"/register", "/login", 
 			  "/cercaIngredientePerNome", "/cercaCuocoPerCognome", "/cercaRicettaPerTitolo").permitAll()

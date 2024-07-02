@@ -8,12 +8,12 @@
 		<nav>
 		</nav>
 		<header>
-			<h1>SiwFood</h1>
+			<a href = "/"><h1>SiwFood</h1></a>
 		</header>
-		<h2>Benvenuto, amministratore!</h2>
-		<div>
-			<br><br>
-			Gestione cuochi:
+		<h4>Benvenuto, amministratore!</h4>
+		<div id="flex-container-1">
+		<div id="flex-container-2">
+			<span class="titolo-flexbox">Gestione cuochi:</span>
 			<br>
 			<a th:href="@{/elencoCuochi}">Elenco cuochi</a>
 			<br>
@@ -25,7 +25,9 @@
 			<br>
 			<a th:href="@{/admin/rimuoviCuoco}">Rimuovi cuochi</a>
 			<br><br>
-			Gestione ricette:
+		</div>
+		<div id="flex-container-2-light-withbookimage">
+			<span class="titolo-flexbox">Gestione ricette:</span>
 			<br>
 			<a th:href="@{/elencoRicette}">Elenco ricette</a>
 			<br>
@@ -39,7 +41,9 @@
 			<br>
 			<a th:href="@{/admin/rimuoviRicetta}">Rimuovi ricette</a>
 			<br><br>
-			Gestione ingredienti:
+		</div>
+		<div id="flex-container-2">
+			<span class="titolo-flexbox">Gestione ingredienti:</span>
 			<br>
 			<a th:href="@{/elencoIngredienti}">Elenco ingredienti</a>
 			<br>
@@ -49,6 +53,7 @@
 			<br>
 			<a th:href="@{/admin/rimuoviIngrediente}">Rimuovi ingredienti</a>
 			<br><br>
+		</div>
 		</div>
 	</body>	
 </html>

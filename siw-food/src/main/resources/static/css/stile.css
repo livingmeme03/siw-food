@@ -4,9 +4,19 @@
 
 
 body {
+	background-image: url(../images/gnam_gnam.jpg);
+	background-size: cover;
 	font-family: "Georgia";
-	background-color: rgb(252, 240, 207);
+	font-size: 20px;
 	color: rgb(43,29,23);
+}
+
+header h1 {
+	opacity: 100%;
+	font-size: 50px;
+	padding: 20px;
+	color: rgb(79, 17, 6);
+	text-align: center;
 }
 
 h1 {
@@ -17,12 +27,21 @@ h1 {
 }
 
 h2 {
+	text-align: center;
+	margin: 8px;
 	color: rgb(79, 17, 6);
 }
 
+h4 {
+	margin: 8px;
+	color: rgb(79, 17, 6);
+}
+
+
 header {
+	opacity:90%;
 	margin-bottom: 20px;
-	background-color: rgb(224, 111, 94);
+	background-color: rgb(223, 134, 84);
 	height: 100px
 }
 
@@ -31,4 +50,142 @@ nav {
 	top: 0;
 	background-color: rgb(87, 39, 8);
 	height: 50px;
+}
+
+span {
+	margin: 8px;
+}
+
+div {
+	margin: 8px;
+}
+
+#flex-container-1 {
+	display: flex;
+	justify-content: flex-start;
+	height: 400px;
+	padding: 70px;
+	margin: 10px;
+}
+
+#flex-container-1-image {
+	display: flex;
+	justify-content: center;
+	padding: 20px;
+	margin: 10px;
+}
+
+#flex-container-1-2 {
+	display: flex;
+	justify-content: flex-start;
+	height: 200px;
+	padding: 70px;
+	margin: 10px;
+}
+
+#flex-container-2 {
+	border-color:  rgb(37, 27, 16);
+	border-radius: 10px;
+	background-color: rgb(223, 166, 99);
+	display: flex;
+	justify-content: flex-start;
+	height: 340px;
+	width: 300px;
+	padding: 30px;
+	margin: 10px;
+	flex-direction: column;
+}
+
+#flex-container-2-light {
+	background-color: rgb(225, 201, 163);
+	border-radius: 10px;
+	display: flex;
+	justify-content: flex-start;
+	height: 340px;
+	width: 300px;
+	padding: 30px;
+	margin: 10px;
+	flex-direction: column;
+}
+
+#flex-container-2-light-withbookimage {
+	background-image: url(../images/oldbook.png);
+	border-radius: 10px;
+	display: flex;
+	justify-content: flex-start;
+	height: 340px;
+	width: 300px;
+	padding: 30px;
+	margin: 10px;
+	flex-direction: column;
+}
+
+#flex-container-2-imageCuoco {
+	border-color:  rgb(37, 27, 16);
+	border-radius: 10px;
+	background-color: rgb(59, 23, 17);
+	display: flex;
+	justify-content: center;
+	height: 320px;
+	width: 300px;
+	padding: 10px;
+	margin-top: 20px;
+	margin: 10px;
+	flex-direction: column;
+}
+
+#flex-container-3 {
+	border-radius: 10px;
+	background-color: rgb(223, 166, 99);
+	display: flex;
+	justify-content: flex-start;
+	height: 150px;
+	width: 300px;
+	padding: 10px;
+	margin: 10px;
+	flex-direction: column;
+}
+
+div.flex-item {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+span.flex-item-title {
+	text-align: center;
+}
+
+span.titolo-flexbox {
+	text-align: center;
+	color: rgb(66, 24, 10);
+	padding: 5px;
+	border-bottom-color: brown;
+	border-bottom-style: solid;
+	border-width: 3px;
+	font-size: 25px;
+}
+
+span.testo-flexbox-centrato {
+	text-align: center;
+}
+
+header a {
+	text-decoration: none;
+}
+
+a:link {
+	color:rgb(76, 40, 12);
+}
+
+a:visited {
+	color:rgb(95, 50, 15);
+}
+
+a:hover {
+	color: crimson;
+}
+
+a:active {
+	color: coral;
 }
