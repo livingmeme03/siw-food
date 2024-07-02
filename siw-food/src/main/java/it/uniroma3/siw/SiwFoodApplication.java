@@ -13,14 +13,14 @@ public class SiwFoodApplication {
 	
 	//TODO
 	//1. css
-	//2. fare un link perenne all'index su tutte le pagine
 	//3. sistemare il database definitivo e dimensioni immagini (aggiungere immagini a tutti gli ingredienti e i cuochi)
 	//4. username in alto a dx su tutte le pagine
 	//5. annotazioni transactional
 	//6. pulsante di logout 
-	//8. sistemare messaggi di errore (not blank!)
 	//9. optional: deploy su cloud
 	//10. optional: annotazioni internazionali per i messaggi di errore
+	// FATTO 8. sistemare messaggi di errore (not blank!)
+	// FATTO 2. fare un link perenne all'index su tutte le pagine
 	// MORTO 7. aggiungere errore se viene messa una lettera al posto della quantità dell'ingrediente
 	// FATTO 1. rest
 	// FATTO 4. ricerca ricetta per nome sbagliata mi porta al login??

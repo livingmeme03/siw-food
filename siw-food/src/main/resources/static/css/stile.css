@@ -68,6 +68,14 @@ div {
 	margin: 10px;
 }
 
+#flex-container-1-centered {
+	display: flex;
+	justify-content: center;
+	height: 400px;
+	padding: 70px;
+	margin: 10px;
+}
+
 #flex-container-1-image {
 	display: flex;
 	justify-content: center;
@@ -77,7 +85,7 @@ div {
 
 #flex-container-1-2 {
 	display: flex;
-	justify-content: flex-start;
+	justify-content: center;
 	height: 200px;
 	padding: 70px;
 	margin: 10px;
@@ -110,6 +118,31 @@ div {
 
 #flex-container-2-light-withbookimage {
 	background-image: url(../images/oldbook.png);
+	border-radius: 10px;
+	display: flex;
+	justify-content: flex-start;
+	height: 340px;
+	width: 300px;
+	padding: 30px;
+	margin: 10px;
+	flex-direction: column;
+}
+
+#flex-container-2-light-withcuocoimage {
+	background-image: url(../images/cuoco-pattern-for-flexbox.png);
+	border-radius: 10px;
+	display: flex;
+	justify-content: flex-start;
+	height: 340px;
+	width: 300px;
+	padding: 30px;
+	margin: 10px;
+	flex-direction: column;
+}
+
+#flex-container-2-light-withfoodimage {
+	background-image: url(../images/food-pattern-for-flexbox-2.png);
+	background-size: cover;
 	border-radius: 10px;
 	display: flex;
 	justify-content: flex-start;

@@ -12,8 +12,8 @@
 		</header>
 		<h4>Benvenuto, chef<span th:text="${userDetails.username} + '!'"></span></h4>
 
-		<div id="flex-container-1">
-		<div id="flex-container-2">
+		<div id="flex-container-1-centered">
+		<div id="flex-container-2-light-withbookimage">
 			<span class="titolo-flexbox">Cuochi:</span>
 			<br>
 			<a th:href="@{/elencoCuochi}">Elenco cuochi</a>
@@ -34,7 +34,7 @@
 			<br>
 			<a th:href="@{/rimuoviRicetta}">Rimuovi ricette</a>
 		</div>
-		<div id="flex-container-2">
+		<div id="flex-container-2-light-withbookimage">
 			<span class="titolo-flexbox">Gestione ingredienti:</span>
 			<br>
 			<a th:href="@{/elencoIngredienti}">Elenco ingredienti</a>

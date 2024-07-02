@@ -11,8 +11,8 @@
 			<a href = "/"><h1>SiwFood</h1></a>
 		</header>
 		<h4>Benvenuto!</h4>
-		<div id="flex-container-1">
-		<div id="flex-container-2">
+		<div id="flex-container-1-centered">
+		<div id="flex-container-2-light-withbookimage">
 			<span class="titolo-flexbox">Cuochi:</span>
 			<br>
 			<a th:href="@{/elencoCuochi}">Elenco cuochi</a>
@@ -28,7 +28,7 @@
 			<a th:href="@{/cercaRicettaPerTitolo}">Cerca ricette</a>
 			<br><br>
 		</div>
-		<div id="flex-container-2">
+		<div id="flex-container-2-light-withbookimage">
 			<span class="titolo-flexbox">Ingredienti:</span>
 			<br>
 			<a th:href="@{/elencoIngredienti}">Elenco ingredienti</a>
@@ -38,15 +38,17 @@
 		</div>
 		<div id = "flex-container-1-2">
 		<div id="flex-container-3">
-			<br>
-			Registrati!
+			<span class="testo-flexbox-centrato">Registrati!
 			<br>
 			<a th:href="@{/register}">Clicca qui per registrarti</a>
 			<br>
+			</span>
+			<span class="testo-flexbox-centrato">
 			Accedi!
 			<br>
 			<a th:href="@{/login}">Accedi</a>
-			<br><br>
+			</span>
+			<br>
 		</div>
 		</div>
 	</body>	
