@@ -10,8 +10,12 @@
 			<h2>Ricette trovate:</h2>			
 		</div>
 		<div>
-			<div th:if="${ricetta==null}">Non ci sono ricette con questo titolo nel sistema!</div>
-						<a th:href="@{ '/ricetta' + '/' + ${ricetta.id}}" th:text="${ricetta.titolo}">Ricetta</a>
+			<div th:if="${ricetta!=null}">
+				<a th:href="@{ '/ricetta' + '/' + ${ricetta.id}}" th:text="${ricetta.titolo}">Ricetta</a>
+			</div>
+			<div th:if="${ricetta==null}">
+				<span>Non ci sono ricette con questo titolo nel sistema! </span>
+			</div>
 		</div>
 	</body>	
 </html>

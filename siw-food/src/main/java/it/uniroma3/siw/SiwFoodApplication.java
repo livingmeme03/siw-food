@@ -12,7 +12,6 @@ public class SiwFoodApplication {
 	
 	
 	//TODO
-	//1. rest
 	//2. css
 	//3. fare un link perenne all'index su tutte le pagine
 	//4. reindirizzamento quando si clicca su risorsa proibita
@@ -20,9 +19,14 @@ public class SiwFoodApplication {
 	//6. dare una schermata d'errore quando fallisce il login
 	//7. username in alto a dx su tutte le pagine
 	//8. annotazioni transactional
+	//9. pulsante di logout 
+	//10. aggiungere errore se viene messa una lettera al posto della quantità dell'ingrediente
+	//11. sistemare messaggi di errore (not blank!)
 	//9. optional: deploy su cloud
 	//10. optional: annotazioni internazionali per i messaggi di errore
 	//11. optional: fare la roba antihacker su modifica ingredienti di una ricetta (del cuoco)
+	// FATTO 1. rest
+	// FATTO 4. ricerca ricetta per nome sbagliata mi porta al login??
 	// FATTO 1. rimuovi ricette solo per nome (come aggiornamento dati? elenco con solo get?) -->attenzione mapping admin
 	// MORTO 2. rimuovi ricette che non hanno cuoco (vedi codice, è un casino col parsing) -->attenzione mapping admin
 	// FATTO 4. cuochi possono modificare/cancellare SOLO LE PROPRIE RICETTE

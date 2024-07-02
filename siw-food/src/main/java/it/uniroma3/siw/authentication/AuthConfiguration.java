@@ -49,7 +49,8 @@ public class AuthConfiguration {
 	  .requestMatchers(HttpMethod.GET,"/","/index","/register","/css/**", "/images/**", "favicon.ico", 
 			  "/elencoIngredienti", "/ingrediente/**", "/cercaIngredientePerNome", 			//ingrediente
 			  "/elencoCuochi", "/cuoco/**", "/cercaCuocoPerCognome",						//cuoco
-			  "/elencoRicette", "/ricetta/**", "/cercaRicettaPerTitolo").permitAll()		//ricetta
+			  "/elencoRicette", "/ricetta/**", "/cercaRicettaPerTitolo",
+			  "/rest/**").permitAll()		//ricetta
 	  // chiunque (autenticato o no) può mandare richieste POST al punto di accesso per login e register 
 	  .requestMatchers(HttpMethod.POST,"/register", "/login", 
 			  "/cercaIngredientePerNome", "/cercaCuocoPerCognome", "/cercaRicettaPerTitolo").permitAll()
