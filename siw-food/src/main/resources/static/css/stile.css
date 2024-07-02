@@ -1,8 +1,34 @@
+* {
+	margin: 0;
+}
+
+
 body {
 	font-family: "Georgia";
-	color: rgb(43,29,23)
+	background-color: rgb(252, 240, 207);
+	color: rgb(43,29,23);
 }
 
 h1 {
-	color: rgb(117,25,8)
+	font-size: 50px;
+	padding: 20px;
+	color: rgb(79, 17, 6);
+	text-align: center;
+}
+
+h2 {
+	color: rgb(79, 17, 6);
+}
+
+header {
+	margin-bottom: 20px;
+	background-color: rgb(224, 111, 94);
+	height: 100px
+}
+
+nav {
+	position: sticky;
+	top: 0;
+	background-color: rgb(87, 39, 8);
+	height: 50px;
 }

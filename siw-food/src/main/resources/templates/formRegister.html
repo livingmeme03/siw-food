@@ -5,6 +5,11 @@
 		<link rel = "stylesheet" type = "text/css" href = "/css/stile.css">
 	</head>
 	<body>
+	<nav>
+	</nav>
+	<header>
+		<h1>SiwFood</h1>
+	</header>
 		<h2>Registrazione nuovo utente:</h2>
 		<form th:action="@{/register}" method="POST" th:object="${credentials}"> 
 			<div th:if="${#fields.hasGlobalErrors()}">

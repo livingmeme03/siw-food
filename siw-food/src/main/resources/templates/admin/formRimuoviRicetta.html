@@ -2,8 +2,14 @@
 <html>
 <head>
     <title>SiwFood - Pagina eliminazione ricette</title>
+    <link rel="stylesheet" href="/css/stile.css" />
 </head>
 <body>
+	<nav>
+	</nav>
+	<header>
+		<h1>SiwFood</h1>
+	</header>
     <h2>Rimuovi ricetta</h2>
     <form th:action="@{/admin/rimuoviRicetta}" method="POST" th:object="${ricettaDaRimuovere}">
 		<div th:if="${#fields.hasGlobalErrors()}">

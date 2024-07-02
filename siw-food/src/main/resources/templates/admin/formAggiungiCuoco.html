@@ -2,8 +2,14 @@
 <html>
 <head>
     <title>SiwFood - Pagina nuovo cuoco</title>
+    <link rel="stylesheet" href="/css/stile.css" />
 </head>
 <body>
+	<nav>
+	</nav>
+	<header>
+		<h1>SiwFood</h1>
+	</header>
     <h2>Aggiungi nuovo cuoco</h2>
     <form th:action="@{/admin/aggiungiCuoco}" method="POST" th:object="${nuovoCuoco}">
 		<div th:if="${#fields.hasGlobalErrors()}">

@@ -7,8 +7,13 @@
 </head>
 
 <body>
+	<nav>
+	</nav>
+	<header>
+		<h1>SiwFood</h1>
+	</header>
     <div th:if="${cuoco}">
-         <h1 th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}">Nome cuoco </h1>
+         <h2 th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}">Nome cuoco </h2>
          <span th:if = "${cuoco.pathFotografia != '' && cuoco.pathFotografia != null}"> 
 			 <img th:src="'/images' + '/' + ${cuoco.pathFotografia}" width="20%"> 
 			 </span>

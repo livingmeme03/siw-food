@@ -7,8 +7,13 @@
 </head>
 
 <body>
+	<nav>
+	</nav>
+	<header>
+		<h1>SiwFood</h1>
+	</header>
     <div th:if="${ricetta}">
-         <h1 th:text="${ricetta.titolo}">Titolo ricetta </h1>
+         <h2 th:text="${ricetta.titolo}">Titolo ricetta </h2>
          <div th:if = "${ricetta.pathImmagini != null}">
 				<div th:each="immagine : ${ricetta.pathImmagini}">
 					<span th:if="${immagine != ''}">

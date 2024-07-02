@@ -5,10 +5,12 @@
 		<link rel = "stylesheet" type = "text/css" href = "/css/stile.css">
 	</head>
 	<body>
-		<div>
+		<nav>
+		</nav>
+		<header>
 			<h1>SiwFood</h1>
-			<h2>Ricette:</h2>			
-		</div>
+		</header>
+		<h2>Gestione dati Ricette:</h2>			
 		<div>
 			<div th:if="${ricette==null || ricette.isEmpty()}">Non ci sono ricette nel sistema!</div>
 				<ul>

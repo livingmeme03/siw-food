@@ -5,11 +5,13 @@
 		<link rel = "stylesheet" type = "text/css" href = "/css/stile.css">
 	</head>
 	<body>
-		<div>
-			<h1>SiwFood</h1>
+	<nav>
+	</nav>
+	<header>
+		<h1>SiwFood</h1>
+	</header>
 			<h2 th:text="${ricetta.titolo}">Titolo ricetta </h2>
 			<div>La quantità dell'ingrediente deve essere un numero positivo!</div>			
-		</div>
 			<h3>Ingredienti della ricetta:</h3>
 		<div>
 			<div th:if="${listaIngredientiPresenti==null || listaIngredientiPresenti.isEmpty()}">Non ci sono ingredienti nella ricetta!</div>

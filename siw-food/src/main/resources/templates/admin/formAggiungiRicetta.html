@@ -2,8 +2,14 @@
 <html>
 <head>
     <title>SiwFood - Pagina nuova ricetta</title>
+    <link rel="stylesheet" href="/css/stile.css" />
 </head>
 <body>
+	<nav>
+	</nav>
+	<header>
+		<h1>SiwFood</h1>
+	</header>
     <h2>Aggiungi nuova ricetta</h2>
     <form th:action="@{/admin/aggiungiRicetta}" method="POST" th:object="${nuovaRicetta}">
 		<div th:if="${#fields.hasGlobalErrors()}">

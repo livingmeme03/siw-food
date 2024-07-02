@@ -2,8 +2,14 @@
 <html>
 <head>
     <title>SiwFood - Pagina eliminazione cuoco</title>
+    <link rel="stylesheet" href="/css/stile.css" />
 </head>
 <body>
+	<nav>
+	</nav>
+	<header>
+		<h1>SiwFood</h1>
+	</header>
     <h2>Rimuovi cuoco</h2>
     <form th:action="@{/admin/rimuoviCuoco}" method="POST" th:object="${cuocoDaRimuovere}">
 		<div th:if="${#fields.hasGlobalErrors()}">

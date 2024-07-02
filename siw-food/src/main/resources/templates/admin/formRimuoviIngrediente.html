@@ -2,8 +2,14 @@
 <html>
 <head>
     <title>SiwFood - Pagina eliminazione ingrediente</title>
+    <link rel="stylesheet" href="/css/stile.css" />
 </head>
 <body>
+	<nav>
+	</nav>
+	<header>
+		<h1>SiwFood</h1>
+	</header>
     <h2>Rimuovi ingrediente</h2>
     <form th:action="@{/admin/rimuoviIngrediente}" method="POST" th:object="${ingredienteDaRimuovere}">
 		<div th:if="${#fields.hasGlobalErrors()}">
