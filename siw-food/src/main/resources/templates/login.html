@@ -11,6 +11,8 @@
 		<a href = "/"><h1>SiwFood</h1></a>
 	</header>
 		<h2>Login utente:</h2>
+		<div id = "flex-container-1-centered">
+		<div id = "flex-container-2-light-withbookimage-medium">
 		<form th:action="@{/login}" method="POST"> 
 			<label for="username">Username:</label><br>
 			<input type = "text" id="username" name="username" required>
@@ -23,7 +25,9 @@
 					<span>Username o password errati!</span>
 				</span>
 			</div>	
-			<input type = "submit" value = "Accedi">		
+			<input type = "submit" value = "Accedi">
+			</div>
+			</div>	
 		</form>
 	</body>	
 </html>

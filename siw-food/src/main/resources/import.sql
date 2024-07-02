@@ -10,7 +10,7 @@ insert into ingrediente(id, nome, unità_di_misura) values(nextval('ingrediente_
 insert into ingrediente(id, nome, path_immagine, unità_di_misura) values(nextval('ingrediente_seq'), 'Burro', 'burro.jpg', 'g')
 insert into ingrediente(id, nome, path_immagine) values(nextval('ingrediente_seq'), 'Uova', 'uova.jpg')
 insert into cuoco(id, data_nascita, cognome, nome, path_fotografia) values(nextval('cuoco_seq'), '1965-10-8', 'Cracco', 'Carlo', 'cracco.png')
-insert into ricetta(id, cuoco_id, descrizione, titolo) values(nextval('ricetta_seq'), (SELECT id FROM cuoco WHERE nome = 'Carlo'), 'Davvero un bellissimo uovo', 'Uovo')
+insert into ricetta(id, cuoco_id, descrizione, titolo, tutti_path_delle_immagini) values(nextval('ricetta_seq'), (SELECT id FROM cuoco WHERE nome = 'Carlo'), 'Davvero un bellissimo uovo', 'Uovo', 'pizza_bella.jpg,pizza_molto_bella.jpg')
 insert into cuoco(id, data_nascita, cognome, nome, path_fotografia) values(nextval('cuoco_seq'), '1962-01-12', 'Barbieri', 'Bruno', 'barbieri.jpg')
 insert into ricetta(id, cuoco_id, descrizione, titolo) values(nextval('ricetta_seq'), (SELECT id FROM cuoco WHERE nome = 'Carlo'), 'Ottima pizza, 10/10', 'Pizza')
 insert into cuoco(id, data_nascita, cognome, nome, path_fotografia) values(nextval('cuoco_seq'), '1975-04-16', 'Cannavacciuolo', 'Antonino', 'cannavacciuolo.jpg')

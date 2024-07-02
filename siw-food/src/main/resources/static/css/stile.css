@@ -32,6 +32,12 @@ h2 {
 	color: rgb(79, 17, 6);
 }
 
+#h2-sopra-elenco {
+	text-align: left;
+	margin: 8px;
+	color: rgb(79, 17, 6);
+}
+
 h4 {
 	margin: 8px;
 	color: rgb(79, 17, 6);
@@ -72,6 +78,15 @@ div {
 	display: flex;
 	justify-content: center;
 	height: 400px;
+	padding: 10px;
+	margin: 10px;
+}
+
+#flex-container-1-separatore-generico {
+	background-color: antiquewhite;
+	display: flex;
+	justify-content: center;
+	height: 30px;
 	padding: 70px;
 	margin: 10px;
 }
@@ -81,6 +96,14 @@ div {
 	justify-content: center;
 	padding: 20px;
 	margin: 10px;
+}
+
+#flex-container-1-image-column {
+	display: flex;
+	justify-content: center;
+	padding: 20px;
+	margin: 10px;
+	flex-direction: column;
 }
 
 #flex-container-1-2 {
@@ -124,6 +147,89 @@ div {
 	height: 340px;
 	width: 300px;
 	padding: 30px;
+	margin: 10px;
+	flex-direction: column;
+}
+
+#flex-container-2-light-withbookimage-medium {
+	background-image: url(../images/oldbook.png);
+	border-radius: 10px;
+	display: flex;
+	justify-content: flex-start;
+	height: 360px;
+	width: 450px;
+	padding: 30px;
+	margin: 10px;
+	flex-direction: column;
+}
+
+#flex-container-2-light-withbookimage-very-short-but-wide {
+	background-image: url(../images/oldbook.png);
+	border-radius: 10px;
+	display: flex;
+	justify-content: flex-start;
+	height: 120px;
+	width: 600px;
+	padding: 30px;
+	margin: 10px;
+	flex-direction: column;
+}
+
+#flex-container-2-light-withbookimage-short-but-wide {
+	background-image: url(../images/oldbook.png);
+	border-radius: 10px;
+	display: flex;
+	justify-content: flex-start;
+	height: 170px;
+	width: 600px;
+	padding: 30px;
+	margin: 10px;
+	flex-direction: column;
+}
+
+#flex-container-2-light-withbookimage-large {
+	background-image: url(../images/oldbook.png);
+	border-radius: 10px;
+	display: flex;
+	justify-content: flex-start;
+	height: 360px;
+	width: 500px;
+	padding: 30px;
+	margin: 10px;
+	flex-direction: column;
+}
+
+#flex-container-2-light-very-large {
+	background-image: url(../images/oldbook.png);
+	border-radius: 10px;
+	display: flex;
+	justify-content: flex-start;
+	height: 400px;
+	width: 950px;
+	padding: 30px;
+	margin: 10px;
+}
+
+#flex-container-enormous {
+	background-image: url(../images/oldbook.png);
+	border-radius: 10px;
+	display: flex;
+	justify-content: center;
+	height: 700px;
+	width: 950px;
+	padding: 30px;
+	margin: 10px;
+}
+
+
+#flex-container-2-light-withbookimage-short {
+	background-image: url(../images/oldbook.png);
+	border-radius: 10px;
+	display: flex;
+	justify-content: flex-start;
+	height: 320px;
+	width: 300px;
+	padding: 10px;
 	margin: 10px;
 	flex-direction: column;
 }
@@ -179,10 +285,22 @@ div {
 	flex-direction: column;
 }
 
+#centered {
+	text-align:center;
+}
+
 div.flex-item {
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
+}
+
+div.testo-centrato {
+	text-align: center;
+}
+
+a.testo-centrato {
+	text-align: center;
 }
 
 span.flex-item-title {
@@ -201,6 +319,11 @@ span.titolo-flexbox {
 
 span.testo-flexbox-centrato {
 	text-align: center;
+}
+
+span.testo-ingrediente-senza-spazio {
+	margin: 0;
+	padding: 0;
 }
 
 header a {

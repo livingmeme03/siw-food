@@ -11,6 +11,8 @@
 		<a href = "/"><h1>SiwFood</h1></a>
 	</header>
     <h2>Cerca ricetta per titolo</h2>
+    <div id = "flex-container-1-centered">
+	<div id = "flex-container-2-light-withbookimage-very-short-but-wide">
     <form th:action="@{/cercaRicettaPerTitolo}" method="POST"}>
 		<div>
         	Titolo ricetta: <input required type="text" th:value="${titolo}" name="titolo">
@@ -18,6 +20,8 @@
         </div>
         <div>
 			<span><button type="submit">Conferma</button></span>
+		</div>
+		</div>
 		</div>
     </form>
 </body>

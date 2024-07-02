@@ -12,6 +12,8 @@
 	</header>
     <h2>Cerca ingrediente per nome</h2>
     <br>
+    <div id = "flex-container-1-centered">
+	<div id = "flex-container-2-light-withbookimage-very-short-but-wide">
     <span>L'ingrediente che hai cercato non esiste!</span>
     <form th:action="@{/cercaIngredientePerNome}" method="POST"}>
 		<div>
@@ -20,6 +22,8 @@
         </div>
         <div>
 			<span><button type="submit">Conferma</button></span>
+		</div>
+		</div>
 		</div>
     </form>
 </body>

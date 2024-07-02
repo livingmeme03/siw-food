@@ -14,13 +14,17 @@
 	</header>
     <div th:if="${ingrediente}">
          <h2 th:text="${ingrediente.nome}">Nome ingrediente </h2> 
-         <span th:if = "${ingrediente.pathImmagine != null && ingrediente.pathImmagine != ''}"> <img th:src="'/images' + '/' + ${ingrediente.pathImmagine}"> </span>
+         <div id="flex-container-1-image">
+         <span id="flex-container-2-imageCuoco" th:if = "${ingrediente.pathImmagine != null && ingrediente.pathImmagine != ''}"> <img th:src="'/images' + '/' + ${ingrediente.pathImmagine}"> </span>
+         <div id="flex-container-2-light-withbookimage-short"> 
           <span th:if = "${ingrediente.unitàDiMisura != null && ingrediente.unitàDiMisura != ''}" > 
 			  <div th:text="'Unità di misura: ' + ${ingrediente.unitàDiMisura}"></div>
 		  </span>
 		  <span th:if = "${ingrediente.unitàDiMisura == null || ingrediente.unitàDiMisura == ''}" > 
 			  <div th:text="'Unità di misura: singole unità'"></div>
 		  </span>
+		  </div>
+		</div>
     </div>
     <div th:unless="${ingrediente}">Questo ingrediente non è presente nel sistema!</div>
 </body>
