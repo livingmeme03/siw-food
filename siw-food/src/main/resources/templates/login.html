@@ -13,6 +13,11 @@
 			<label for="password">Password:</label><br>
 			<input type = "password" id="password" name="password" required>
 				<br><br>
+			<div>
+				<span th:if="${param.error != null}">
+					<span>Username o password errati!</span>
+				</span>
+			</div>	
 			<input type = "submit" value = "Accedi">		
 		</form>
 	</body>	

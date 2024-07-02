@@ -225,11 +225,18 @@ public class RicettaController {
 
 	//Per cuoco 
 	@GetMapping("/aggiungiIngredienteARicetta/{idRicetta}/{idIngrediente}")
-	public String scegliQuantitàPerIngrediente(@PathVariable Long idRicetta, @PathVariable Long idIngrediente, Model model) {	
-		model.addAttribute("idRicetta", idRicetta);
-		model.addAttribute("idIngrediente", idIngrediente);
-		model.addAttribute("ingrediente", this.ingredienteService.findById(idIngrediente));
-		return "formSelezionaQuantitàAggiungiIngredienteARicetta.html";
+	public String scegliQuantitàPerIngrediente(@PathVariable Long idRicetta, @PathVariable Long idIngrediente, Model model) {
+		Cuoco curr = this.authenticationController.getCuocoSessioneCorrente();
+		Ricetta ricetta = this.ricettaService.findById(idRicetta);
+		Cuoco cuocoRicetta = ricetta.getCuoco();
+		if(curr.equals(cuocoRicetta)) {
+			model.addAttribute("idRicetta", idRicetta);
+			model.addAttribute("idIngrediente", idIngrediente);
+			model.addAttribute("ingrediente", this.ingredienteService.findById(idIngrediente));
+			return "formSelezionaQuantitàAggiungiIngredienteARicetta.html";
+		}
+		model.addAttribute("ricette", this.ricettaService.findAllByCuocoOrderByTitoloAsc(curr));
+		return "elencoAggiornaRicette.html";
 	}
 
 	//Per cuoco 
@@ -248,7 +255,13 @@ public class RicettaController {
 	//Per cuoco 
 	@GetMapping("/rimuoviIngredientiDaRicetta/{idRicetta}/{idIngrediente}") 
 	public String rimuoviIngredientiRicetta(@PathVariable Long idRicetta, @PathVariable Long idIngrediente, Model model) {
-		this.ingredienteService.deleteIngredienteInRicetta(idIngrediente, idRicetta);
+		Cuoco curr = this.authenticationController.getCuocoSessioneCorrente();
+		Ricetta ricetta = this.ricettaService.findById(idRicetta);
+		Cuoco cuocoRicetta = ricetta.getCuoco();
+		if(curr.equals(cuocoRicetta)) {
+			this.ingredienteService.deleteIngredienteInRicetta(idIngrediente, idRicetta);
+			return "redirect:/modificaIngredientiRicetta/" + idRicetta;
+		}
 		return "redirect:/modificaIngredientiRicetta/" + idRicetta;
 	}
 	
