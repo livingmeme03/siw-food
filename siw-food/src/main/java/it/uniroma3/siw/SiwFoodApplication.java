@@ -15,9 +15,9 @@ public class SiwFoodApplication {
 	//1. finire css
 	//3. sistemare il database definitivo e dimensioni immagini (aggiungere immagini a tutti gli ingredienti e i cuochi)
 	//5. annotazioni transactional
-	//6. pulsante di logout 
 	//9. optional: deploy su cloud
 	//10. optional: annotazioni internazionali per i messaggi di errore
+	// FATTO 6. pulsante di logout 
 	// FATTO 4. username in alto a dx su tutte le pagine
 	// FATTO 8. sistemare messaggi di errore (not blank!)
 	// FATTO 2. fare un link perenne all'index su tutte le pagine
