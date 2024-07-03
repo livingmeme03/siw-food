@@ -19,6 +19,19 @@ header h1 {
 	text-align: center;
 }
 
+footer {
+	background-color: rgb(87, 39, 8);
+	height: 100px;
+}
+
+footer a {
+	color: burlywood;
+}
+
+ul {
+	list-style-type: circle;
+}
+
 h1 {
 	font-size: 50px;
 	padding: 20px;
@@ -347,7 +360,7 @@ a.testo-centrato {
 }
 
 span.username-in-alto {
-	color:burlywood;
+	color: burlywood;
 }
 
 span.flex-item-title {
@@ -375,6 +388,26 @@ span.testo-ingrediente-senza-spazio {
 
 header a {
 	text-decoration: none;
+}
+
+nav a:visited {
+	text-align: end;
+	color: rgb(177, 108, 78);
+}
+
+nav a:link {
+	text-align: end;
+	color: burlywood;
+}
+
+nav a:hover {
+	text-align: end;
+	color: crimson;
+}
+
+nav a:active {
+	text-align: end;
+	color: coral;
 }
 
 a:link {
