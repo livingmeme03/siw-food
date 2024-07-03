@@ -11,15 +11,17 @@
 			<a href = "/"><h1>SiwFood</h1></a>
 		</header>
 		<h2>Gestione dati Ricette:</h2>			
-		<div>
+		<div id = "flex-container-1-centered">
+		<div id = "flex-container-2-light-withbookimage-medium-but-wide">
 			<div th:if="${ricette==null || ricette.isEmpty()}">Non ci sono ricette nel sistema!</div>
 				<ul>
 					<li th:each="ricetta : ${ricette}">
-						<a th:href="@{ '/ricetta' + '/' + ${ricetta.id}}" th:text="${ricetta.titolo}">Ricetta</a>
+						<a th:href="@{ '/ricetta' + '/' + ${ricetta.id}}" th:text="${ricetta.titolo} + ': '">Ricetta</a>
 						<a th:href="@{ '/admin/impostaCuocoARicetta' + '/' + ${ricetta.id}}">Imposta Cuoco</a>
 						<a th:href="@{ '/admin/modificaIngredientiRicetta' + '/' + ${ricetta.id}}">Modifica Ingredienti</a>
 					</li>	
 				</ul>
+		</div>
 		</div>
 	</body>	
 </html>

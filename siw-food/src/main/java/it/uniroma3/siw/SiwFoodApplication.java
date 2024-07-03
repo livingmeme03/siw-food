@@ -12,7 +12,7 @@ public class SiwFoodApplication {
 	
 	
 	//TODO
-	//1. css
+	//1. finire css
 	//3. sistemare il database definitivo e dimensioni immagini (aggiungere immagini a tutti gli ingredienti e i cuochi)
 	//4. username in alto a dx su tutte le pagine
 	//5. annotazioni transactional

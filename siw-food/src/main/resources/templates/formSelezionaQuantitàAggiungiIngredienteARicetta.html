@@ -10,7 +10,9 @@
 	<header>
 		<a href = "/"><h1>SiwFood</h1></a>
 	</header>
-    <h2>In che quantità vuoi aggiungere l'ingrediente?</h2>
+	<div id = "flex-container-1-centered">
+	<div id = "flex-container-2-light-withbookimage-very-short-but-wide">
+    <h4>In che quantità vuoi aggiungere l'ingrediente?</h4>
     <form th:action="@{'/aggiungiIngredienteARicetta' + '/' +${idRicetta} + '/' + ${idIngrediente}}" method="POST">
 		<div>
         	Inserisci: <input required type="text" th:value="${quantità}" name="quantità">
@@ -25,5 +27,7 @@
 			<span><button type="submit">Conferma</button></span>
 		</div>
     </form>
+    </div>
+    </div>
 </body>
 </html>

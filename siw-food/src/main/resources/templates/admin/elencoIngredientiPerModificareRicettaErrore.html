@@ -13,6 +13,7 @@
 			<h2 th:text="${ricetta.titolo}">Titolo ricetta </h2>
 			<div>La quantità dell'ingrediente deve essere un numero positivo!</div>			
 			<h3>Ingredienti della ricetta:</h3>
+			<div>Clicca su un ingrediente per rimuoverlo!</div>
 		<div>
 			<div th:if="${listaIngredientiPresenti==null || listaIngredientiPresenti.isEmpty()}">Non ci sono ingredienti nella ricetta!</div>
 				<ul>
@@ -21,7 +22,9 @@
 					</li>	
 				</ul>
 		</div>
+		<br>
 			<h3>Ingredienti da aggiungere alla ricetta:</h3>
+			<div>Clicca su un ingrediente per aggiungerlo!</div>
 		<div>
 			<div th:if="${listaIngredientiDaAggiungere==null || listaIngredientiDaAggiungere.isEmpty()}">Non ci sono ingredienti da aggiungere alla ricetta!</div>
 				<ul>

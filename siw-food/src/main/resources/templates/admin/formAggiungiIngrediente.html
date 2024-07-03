@@ -11,6 +11,8 @@
 		<a href = "/"><h1>SiwFood</h1></a>
 	</header>
     <h2>Aggiungi nuovo ingrediente</h2>
+    <div id = "flex-container-1-centered">
+	<div id = "flex-container-2-light-withbookimage-short-but-wide">
     <form th:action="@{/admin/aggiungiIngrediente}" method="POST" th:object="${nuovoIngrediente}">
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
@@ -18,9 +20,9 @@
 		<div>
         	Nome ingrediente: <input required type="text" th:field="${nuovoIngrediente.nome}">
         	<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
-			<br>
+			<br><br>
 			Percorso file immagine: <input type="text" th:field="${nuovoIngrediente.pathImmagine}">
-			<br>
+			<br><br>
 			Unità di misura: <input type="text" th:field="${nuovoIngrediente.unitàDiMisura}">
 			<br><br>
         </div>
@@ -28,5 +30,7 @@
 			<span><button type="submit">Conferma</button></span>
 		</div>
     </form>
+    </div>
+    </div>
 </body>
 </html>

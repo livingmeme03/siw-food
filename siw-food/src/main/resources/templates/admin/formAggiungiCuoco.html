@@ -11,6 +11,8 @@
 		<a href = "/"><h1>SiwFood</h1></a>
 	</header>
     <h2>Aggiungi nuovo cuoco</h2>
+    <div id = "flex-container-1-centered">
+	<div id = "flex-container-2-light-withbookimage-medium-but-wide">
     <form th:action="@{/admin/aggiungiCuoco}" method="POST" th:object="${nuovoCuoco}">
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
@@ -31,5 +33,7 @@
 			<span><button type="submit">Conferma</button></span>
 		</div>
     </form>
+    </div>
+    </div>
 </body>
 </html>

@@ -11,6 +11,8 @@
 		<a href = "/"><h1>SiwFood</h1></a>
 	</header>
     <h2>Rimuovi ingrediente</h2>
+    <div id = "flex-container-1-centered">
+	<div id = "flex-container-2-light-withbookimage-very-short-but-wide">
     <form th:action="@{/admin/rimuoviIngrediente}" method="POST" th:object="${ingredienteDaRimuovere}">
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
@@ -26,5 +28,7 @@
 			<span><button type="submit">Conferma</button></span>
 		</div>
     </form>
+    </div>
+    </div>
 </body>
 </html>

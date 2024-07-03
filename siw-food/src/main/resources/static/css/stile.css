@@ -32,6 +32,13 @@ h2 {
 	color: rgb(79, 17, 6);
 }
 
+
+h3 {
+	font-size: 26px;
+	margin: 8px;
+	color: rgb(79, 17, 6);
+}
+
 #h2-sopra-elenco {
 	text-align: left;
 	margin: 8px;
@@ -187,6 +194,30 @@ div {
 	flex-direction: column;
 }
 
+#flex-container-2-light-withbookimage-medium-but-wide {
+	background-image: url(../images/oldbook.png);
+	border-radius: 10px;
+	display: flex;
+	justify-content: flex-start;
+	height: 240px;
+	width: 600px;
+	padding: 30px;
+	margin: 10px;
+	flex-direction: column;
+}
+
+#flex-container-2-light-withbookimage-large-but-wide {
+	background-image: url(../images/oldbook.png);
+	border-radius: 10px;
+	display: flex;
+	justify-content: flex-start;
+	height: 330px;
+	width: 600px;
+	padding: 30px;
+	margin: 10px;
+	flex-direction: column;
+}
+
 #flex-container-2-light-withbookimage-large {
 	background-image: url(../images/oldbook.png);
 	border-radius: 10px;
@@ -203,7 +234,7 @@ div {
 	background-image: url(../images/oldbook.png);
 	border-radius: 10px;
 	display: flex;
-	justify-content: flex-start;
+	justify-content: center;
 	height: 400px;
 	width: 950px;
 	padding: 30px;
@@ -276,6 +307,18 @@ div {
 #flex-container-3 {
 	border-radius: 10px;
 	background-color: rgb(223, 166, 99);
+	display: flex;
+	justify-content: flex-start;
+	height: 150px;
+	width: 300px;
+	padding: 10px;
+	margin: 10px;
+	flex-direction: column;
+}
+
+#flex-container-3-same-as-banner {
+	border-radius: 10px;
+	background-color: rgb(223, 134, 84);
 	display: flex;
 	justify-content: flex-start;
 	height: 150px;
