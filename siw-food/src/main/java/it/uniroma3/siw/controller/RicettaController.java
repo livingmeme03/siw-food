@@ -29,6 +29,12 @@ import jakarta.validation.Valid;
 
 @Controller
 public class RicettaController {
+	
+	/*=======================================================================================================*/
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*----------------------------------------SERVICE E VALIDATOR--------------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*=======================================================================================================*/
 
 	@Autowired
 	private RicettaService ricettaService;
@@ -44,23 +50,25 @@ public class RicettaController {
 	
 	@Autowired
 	private AuthenticationController authenticationController;
-
+	
+	/*=======================================================================================================*/
 	/*-------------------------------------------------------------------------------------------------------*/
 	/*-----------------------------------------ELENCO RICETTE------------------------------------------------*/
-	/*-------------------------------------------------------------------------------------------------------*/
-
-	//Per tutti
+	/*-------------------------------------------(Per tutti)-------------------------------------------------*/
+	/*=======================================================================================================*/
+	
 	@GetMapping("/elencoRicette")		//non servono validazioni 
 	public String showElencoRicette(Model model) {
 		model.addAttribute("ricette", this.ricettaService.findAllByOrderByTitoloAsc());
 		return "elencoRicette.html";
 	}
-
+	
+	/*=======================================================================================================*/
 	/*-------------------------------------------------------------------------------------------------------*/
 	/*----------------------------------VISUALIZZAZIONE SINGOLA RICETTA--------------------------------------*/
-	/*-------------------------------------------------------------------------------------------------------*/
-
-	//Per tutti
+	/*-------------------------------------------(Per tutti)-------------------------------------------------*/
+	/*=======================================================================================================*/
+	
 	@GetMapping("/ricetta/{id}") 
 	public String showRicetta(@PathVariable("id") Long id, Model model) {
 		Ricetta ricetta =  this.ricettaService.findById(id);
@@ -72,21 +80,21 @@ public class RicettaController {
 
 		return "ricetta.html";
 	}
-
+	
+	/*=======================================================================================================*/
 	/*-------------------------------------------------------------------------------------------------------*/
 	/*------------------------------------------AGGIUNTA RICETTA---------------------------------------------*/
 	/*-------------------------------------------------------------------------------------------------------*/
+	/*=======================================================================================================*/
 	
 	/*-----------------------------------------------CUOCO---------------------------------------------------*/
 	
-	//Per cuoco 
 	@GetMapping("/aggiungiRicetta")
 	public String showFormAggiungiRicetta(Model model) {
 		model.addAttribute("nuovaRicetta", new Ricetta());	
 		return "formAggiungiRicetta.html";
 	}
 
-	//Per cuoco
 	@PostMapping("/aggiungiRicetta")
 	public String newRicetta(@Valid @ModelAttribute("nuovaRicetta") Ricetta ricetta, BindingResult bindingResult, 
 			Model model) {
@@ -106,14 +114,12 @@ public class RicettaController {
 	
 	/*-----------------------------------------------ADMIN---------------------------------------------------*/
 
-	//Per admin
 	@GetMapping("/admin/aggiungiRicetta")
 	public String showFormAggiungiRicettaAdmin(Model model) {
 		model.addAttribute("nuovaRicetta", new Ricetta());	
 		return "/admin/formAggiungiRicetta.html";
 	}
 
-	//Per admin
 	@PostMapping("/admin/aggiungiRicetta")
 	public String newRicettaAdmin(@Valid @ModelAttribute("nuovaRicetta") Ricetta ricetta, BindingResult bindingResult, 
 			Model model) {
@@ -128,12 +134,13 @@ public class RicettaController {
 		}
 
 	}
-
+	
+	/*=======================================================================================================*/
 	/*-------------------------------------------------------------------------------------------------------*/
 	/*---------------------------------AGGIUNTA RICETTA CON CUOCO ASSOCIATO----------------------------------*/
-	/*-------------------------------------------------------------------------------------------------------*/
+	/*--------------------------------------------(Per admin)------------------------------------------------*/
+	/*=======================================================================================================*/
 
-	//Per admin
 	@GetMapping("/admin/aggiungiRicettaCompleta")
 	public String showFormAggiungiRicettaCompleta(Model model) {
 		model.addAttribute("nuovaRicetta", new Ricetta());	
@@ -142,7 +149,6 @@ public class RicettaController {
 		return "/admin/formAggiungiRicettaCompleta.html";
 	}
 
-	//Per admin
 	@PostMapping("/admin/aggiungiRicettaCompleta")
 	public String newRicettaCompleta(@Valid @ModelAttribute("nuovaRicetta") Ricetta ricetta, BindingResult bindingResult, 
 			@ModelAttribute("cuoco") Cuoco cuoco, Model model) {
@@ -162,33 +168,38 @@ public class RicettaController {
 		}
 
 	}
-
+	
+	/*=======================================================================================================*/
 	/*-------------------------------------------------------------------------------------------------------*/	
 	/*------------------------------------------AGGIORNAMENTO RICETTA----------------------------------------*/
 	/*-------------------------------------------------------------------------------------------------------*/
-
-	/*-----------------------------------------------CUOCO---------------------------------------------------*/
+	/*=======================================================================================================*/
 	
-	//Per cuoco
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*----------------------------------------VISUALIZZA ELENCO RICETTE--------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
+	
+	/*-----------------------------------------------CUOCO---------------------------------------------------*/
+
 	@GetMapping("/elencoAggiornaRicette")		//non servono validazioni 
 	public String showElencoAggiornaRicette(Model model) {
 		Cuoco curr = this.authenticationController.getCuocoSessioneCorrente();
 		model.addAttribute("ricette", this.ricettaService.findAllByCuocoOrderByTitoloAsc(curr));
 		return "elencoAggiornaRicette.html";
 	}
-
-	/*-----------------------------------------------ADMIN---------------------------------------------------*/
 	
-	//Per admin 
+	/*-----------------------------------------------ADMIN---------------------------------------------------*/
+
 	@GetMapping("/admin/elencoAggiornaRicette")		//non servono validazioni 
 	public String showElencoAggiornaRicetteAdmin(Model model) {
 		model.addAttribute("ricette", this.ricettaService.findAllByOrderByTitoloAsc());
 		return "/admin/elencoAggiornaRicette.html";
 	}
-
+	
+	/*-------------------------------------------------------------------------------------------------------*/
 	/*------------------------------------------IMPOSTAZIONE CUOCO-------------------------------------------*/
+	/*---------------------------------------------(Per admin)-----------------------------------------------*/
 
-	//Per admin
 	@GetMapping("/admin/impostaCuocoARicetta/{idRicetta}") 
 	public String showImpostaCuocoARicetta(@PathVariable Long idRicetta, Model model) {
 		model.addAttribute("listaCuochi", this.cuocoService.findAllByOrderByCognomeAsc());
@@ -196,7 +207,6 @@ public class RicettaController {
 		return "/admin/elencoCuochiImpostaCuocoARicetta.html";
 	}
 
-	//Per admin
 	@GetMapping("/admin/impostaCuocoARicetta/{idRicetta}/{idCuoco}") 
 	public String impostaCuocoARicetta(@PathVariable Long idRicetta, @PathVariable Long idCuoco, Model model) {
 		Ricetta ricetta = this.ricettaService.findById(idRicetta);
@@ -204,12 +214,13 @@ public class RicettaController {
 		this.ricettaService.save(ricetta);
 		return "redirect:/ricetta/"+ricetta.getId();
 	}
-
-	/*------------------------------------------MODIFICA INGREDIENTI----------------------------------------*/
-
+	
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*-----------------------------------------MODIFICA INGREDIENTI------------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
+	
 	/*-----------------------------------------------CUOCO---------------------------------------------------*/
 	
-	//Per cuoco
 	@GetMapping("/modificaIngredientiRicetta/{idRicetta}") 
 	public String showModificaIngredientiRicetta(@PathVariable Long idRicetta, Model model) {
 		Cuoco curr = this.authenticationController.getCuocoSessioneCorrente();
@@ -223,7 +234,6 @@ public class RicettaController {
 		return "elencoAggiornaRicette.html";
 	}
 
-	//Per cuoco 
 	@GetMapping("/aggiungiIngredienteARicetta/{idRicetta}/{idIngrediente}")
 	public String scegliQuantitàPerIngrediente(@PathVariable Long idRicetta, @PathVariable Long idIngrediente, Model model) {
 		Cuoco curr = this.authenticationController.getCuocoSessioneCorrente();
@@ -239,7 +249,6 @@ public class RicettaController {
 		return "elencoAggiornaRicette.html";
 	}
 
-	//Per cuoco 
 	@PostMapping("/aggiungiIngredienteARicetta/{idRicetta}/{idIngrediente}") 
 	public String aggiungiIngredientiRicetta(@PathVariable Long idRicetta, @PathVariable Long idIngrediente, @RequestParam Long quantità, Model model) {
 		if(quantità>0) {
@@ -252,7 +261,6 @@ public class RicettaController {
 		}
 	}
 
-	//Per cuoco 
 	@GetMapping("/rimuoviIngredientiDaRicetta/{idRicetta}/{idIngrediente}") 
 	public String rimuoviIngredientiRicetta(@PathVariable Long idRicetta, @PathVariable Long idIngrediente, Model model) {
 		Cuoco curr = this.authenticationController.getCuocoSessioneCorrente();
@@ -267,14 +275,12 @@ public class RicettaController {
 	
 	/*-----------------------------------------------ADMIN---------------------------------------------------*/
 
-	//Per admin
 	@GetMapping("/admin/modificaIngredientiRicetta/{idRicetta}") 
 	public String showModificaIngredientiRicettaAdmin(@PathVariable Long idRicetta, Model model) {
 		this.setUpPerModificaRicetta(model, idRicetta);
 		return "/admin/elencoIngredientiPerModificareRicetta.html";
 	}
 
-	//Per admin
 	@GetMapping("/admin/aggiungiIngredienteARicetta/{idRicetta}/{idIngrediente}")
 	public String scegliQuantitàPerIngredienteAdmin(@PathVariable Long idRicetta, @PathVariable Long idIngrediente, Model model) {	
 		model.addAttribute("idRicetta", idRicetta);
@@ -283,7 +289,6 @@ public class RicettaController {
 		return "/admin/formSelezionaQuantitàAggiungiIngredienteARicetta.html";
 	}
 
-	//Per admin
 	@PostMapping("/admin/aggiungiIngredienteARicetta/{idRicetta}/{idIngrediente}") 
 	public String aggiungiIngredientiRicettaAdmin(@PathVariable Long idRicetta, @PathVariable Long idIngrediente, @RequestParam Long quantità, Model model) {
 		if(quantità>0) {
@@ -296,33 +301,34 @@ public class RicettaController {
 		}
 	}
 
-	//Per admin
 	@GetMapping("/admin/rimuoviIngredientiDaRicetta/{idRicetta}/{idIngrediente}") 
 	public String rimuoviIngredientiRicettaAdmin(@PathVariable Long idRicetta, @PathVariable Long idIngrediente, Model model) {
 		this.ingredienteService.deleteIngredienteInRicetta(idIngrediente, idRicetta);
 		return "redirect:/admin/modificaIngredientiRicetta/" + idRicetta;
 	}
-
+	
+	/*=======================================================================================================*/
 	/*-------------------------------------------------------------------------------------------------------*/
-	/*----------------------------------------------RICERCA RICETTA------------------------------------------*/
-	/*-------------------------------------------------------------------------------------------------------*/
-
-	//Per tutti
+	/*-------------------------------------------RICERCA RICETTA---------------------------------------------*/
+	/*---------------------------------------------(Per tutti)-----------------------------------------------*/
+	/*=======================================================================================================*/
+	
 	@GetMapping("/cercaRicettaPerTitolo")
 	public String showFormSearchRicetta(Model model) {
 		return "formCercaRicetta.html";
 	}
 
-	//Per tutti
 	@PostMapping("/cercaRicettaPerTitolo")
 	public String showRicetteTrovate (@RequestParam String titolo, Model model) {
 		model.addAttribute("ricetta", this.ricettaService.findByTitolo(titolo));
 		return "elencoRicetteTrovate.html";
 	}
 
+	/*=======================================================================================================*/
 	/*-------------------------------------------------------------------------------------------------------*/
-	/*---------------------------------------------CANCELLAZIONE RICETTA-------------------------------------*/
+	/*-----------------------------------------CANCELLAZIONE RICETTA-----------------------------------------*/
 	/*-------------------------------------------------------------------------------------------------------*/
+	/*=======================================================================================================*/
 	
 	/*-----------------------------------------------ADMIN---------------------------------------------------*/
 	
@@ -386,11 +392,13 @@ public class RicettaController {
 		return "formRimuoviRicetta.html";		//quindi dà errore e redirecta
 
 	}
-
+	
+	/*=======================================================================================================*/
 	/*-------------------------------------------------------------------------------------------------------*/	
-	/*---------------------------------------------METODI DI SUPPORTO----------------------------------------*/
+	/*-------------------------------------------METODI DI SUPPORTO------------------------------------------*/
 	/*-------------------------------------------------------------------------------------------------------*/
-
+	/*=======================================================================================================*/
+	
 	public void aggiungiAttributiRicette(Model model) {
 		Set<String> titoliRicette = new TreeSet<String>();
 		Set<String> nomiCuochi = new TreeSet<String>();

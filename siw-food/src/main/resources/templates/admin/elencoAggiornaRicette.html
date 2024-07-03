@@ -19,7 +19,7 @@
 			<div th:if="${ricette==null || ricette.isEmpty()}">Non ci sono ricette nel sistema!</div>
 				<ul>
 					<li th:each="ricetta : ${ricette}">
-						<a th:href="@{ '/ricetta' + '/' + ${ricetta.id}}" th:text="${ricetta.titolo} + ': '">Ricetta</a>
+						<strong><a th:href="@{ '/ricetta' + '/' + ${ricetta.id}}" th:text="${ricetta.titolo} + ': '">Ricetta</a></strong>
 						<a th:href="@{ '/admin/impostaCuocoARicetta' + '/' + ${ricetta.id}}">Imposta Cuoco</a>
 						<a th:href="@{ '/admin/modificaIngredientiRicetta' + '/' + ${ricetta.id}}">Modifica Ingredienti</a>
 					</li>	

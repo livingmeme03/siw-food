@@ -24,6 +24,12 @@ import jakarta.validation.Valid;
 
 @Controller
 public class CuocoController {
+	
+	/*=======================================================================================================*/
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*----------------------------------------SERVICE E VALIDATOR--------------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*=======================================================================================================*/
 
 	@Autowired
 	private CuocoService cuocoService;
@@ -34,40 +40,42 @@ public class CuocoController {
 	@Autowired 
 	private CuocoValidator cuocoValidator;
 	
+	/*=======================================================================================================*/
 	/*-------------------------------------------------------------------------------------------------------*/
 	/*------------------------------------------ELENCO CUOCHI------------------------------------------------*/
-	/*-------------------------------------------------------------------------------------------------------*/
+	/*-------------------------------------------(Per tutti)-------------------------------------------------*/
+	/*=======================================================================================================*/
 	
-	//Per tutti
-	@GetMapping("/elencoCuochi")		//non servono validazioni 
+	@GetMapping("/elencoCuochi")
 	public String showElencoCuochi(Model model) {
 		model.addAttribute("cuochi", this.cuocoService.findAllByOrderByCognomeAsc());
 		return "elencoCuochi.html";
 	}
-
+	
+	/*=======================================================================================================*/
 	/*-------------------------------------------------------------------------------------------------------*/
 	/*----------------------------------VISUALIZZAZIONE SINGOLO CUOCO----------------------------------------*/
-	/*-------------------------------------------------------------------------------------------------------*/
+	/*-------------------------------------------(Per tutti)-------------------------------------------------*/
+	/*=======================================================================================================*/
 	
-	//Per tutti
 	@GetMapping("/cuoco/{id}")
 	public String showCuoco(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("cuoco", this.cuocoService.findById(id));
 		return "cuoco.html";
 	}
 	
+	/*=======================================================================================================*/
 	/*-------------------------------------------------------------------------------------------------------*/
 	/*-------------------------------------------AGGIUNTA CUOCO----------------------------------------------*/
-	/*-------------------------------------------------------------------------------------------------------*/
+	/*---------------------------------------------(Per admin)-----------------------------------------------*/
+	/*=======================================================================================================*/
 	
-	//Per admin
 	@GetMapping("/admin/aggiungiCuoco")
 	public String showFormAggiungiCuoco(Model model) {
 		model.addAttribute("nuovoCuoco", new Cuoco());
 		return "/admin/formAggiungiCuoco.html";
 	}
 	
-	//Per admin
 	@PostMapping("/admin/aggiungiCuoco")
 	public String newCuoco(@Valid @ModelAttribute("nuovoCuoco") Cuoco cuoco, BindingResult bindingResult, Model model) {
 		this.cuocoValidator.validate(cuoco, bindingResult);
@@ -80,18 +88,18 @@ public class CuocoController {
 		}
 	}
 	
+	/*=======================================================================================================*/
 	/*-------------------------------------------------------------------------------------------------------*/	
-	/*------------------------------------------AGGIORNAMENTO CUOCO----------------------------------------*/
-	/*-------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------AGGIORNAMENTO CUOCO------------------------------------------*/
+	/*----------------------------------------------(Per admin)----------------------------------------------*/
+	/*=======================================================================================================*/
 	
-	//Per admin
 	@GetMapping("/admin/elencoAggiornaCuochi")		//non servono validazioni 
 	public String showElencoAggiornaCuochi(Model model) {
 		model.addAttribute("cuochi", this.cuocoService.findAllByOrderByCognomeAsc());
 		return "/admin/elencoAggiornaCuochi.html";
 	}
 	
-	//Per admin
 	@GetMapping("/admin/modificaRicetteCuoco/{idCuoco}") 
 	public String showModificaIngredientiRicetta(@PathVariable Long idCuoco, Model model) {
 		List<Ricetta> ricetteDelCuoco = this.cuocoService.findById(idCuoco).getRicette();
@@ -103,7 +111,6 @@ public class CuocoController {
 		return "/admin/elencoRicettePerModificareCuoco.html";
 	}
 	
-	//Per admin
 	@GetMapping("/admin/aggiungiRicettaACuoco/{idCuoco}/{idRicetta}")
 	public String aggiungiRicettaACuoco(@PathVariable Long idCuoco, @PathVariable Long idRicetta, Model model) {
 		Ricetta ricetta = this.ricettaService.findById(idRicetta);
@@ -115,7 +122,6 @@ public class CuocoController {
 		return "redirect:/admin/modificaRicetteCuoco/" + idCuoco;
 	}
 	
-	//Per admin
 	@GetMapping("/admin/rimuoviRicettaDaCuoco/{idCuoco}/{idRicetta}") 
 	public String rimuoviRicettaDaCuoco(@PathVariable Long idCuoco, @PathVariable Long idRicetta, Model model) {
 		Ricetta ricetta = this.ricettaService.findById(idRicetta);
@@ -127,28 +133,29 @@ public class CuocoController {
 		return "redirect:/admin/modificaRicetteCuoco/" + idCuoco;
 	}
 	
+	/*=======================================================================================================*/
 	/*-------------------------------------------------------------------------------------------------------*/
-	/*----------------------------------------------RICERCA CUOCO------------------------------------------*/
-	/*-------------------------------------------------------------------------------------------------------*/
+	/*----------------------------------------------RICERCA CUOCO--------------------------------------------*/
+	/*-----------------------------------------------(Per tutti)---------------------------------------------*/
+	/*=======================================================================================================*/
 	
-	//Per tutti
 	@GetMapping("/cercaCuocoPerCognome")
 	public String showFormSearchCuoco(Model model) {
 		return "formCercaCuoco.html";
 	}
 	
-	//Per tutti
 	@PostMapping("/cercaCuocoPerCognome")
 	public String showCuochiTrovati(Model model, @RequestParam String cognome) {
 		model.addAttribute("cuochi", this.cuocoService.findByCognome(cognome));
 		return "/elencoCuochiTrovati.html";
 	}	
 	
+	/*=======================================================================================================*/
 	/*-------------------------------------------------------------------------------------------------------*/
 	/*-------------------------------------------CANCELLAZIONE CUOCO-----------------------------------------*/
-	/*-------------------------------------------------------------------------------------------------------*/
-
-	//Per admin
+	/*-----------------------------------------------(Per admin)---------------------------------------------*/
+	/*=======================================================================================================*/
+	
 	@GetMapping("/admin/rimuoviCuoco")
 	public String showFormRimuoviCuoco(Model model) {
 		model.addAttribute("cuocoDaRimuovere", new Cuoco());
@@ -156,7 +163,7 @@ public class CuocoController {
 		return "/admin/formRimuoviCuoco.html";
 	}
 	
-	//Per admin
+	
 	@PostMapping("/admin/rimuoviCuoco")
 	public String deleteCuoco(@Valid @ModelAttribute("cuocoDaRimuovere") Cuoco cuoco, BindingResult bindingResult, Model model) {
 
@@ -177,9 +184,11 @@ public class CuocoController {
 
 	}
 	
+	/*=======================================================================================================*/
 	/*-------------------------------------------------------------------------------------------------------*/	
 	/*---------------------------------------------METODI DI SUPPORTO----------------------------------------*/
 	/*-------------------------------------------------------------------------------------------------------*/
+	/*=======================================================================================================*/
 	
 	public void aggiungiAttributiCuochi(Model model) {
 		List<String> nomiCuochi = new ArrayList<String>();

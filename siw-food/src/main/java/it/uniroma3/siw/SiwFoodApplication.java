@@ -17,6 +17,8 @@ public class SiwFoodApplication {
 	//5. annotazioni transactional
 	//9. optional: deploy su cloud
 	//10. optional: annotazioni internazionali per i messaggi di errore
+	// FATTO 5. mettere commenti utili nel codice sennò non si capisce niente
+	// FATTO 4. mettere in grassetto i nomi delle cose negli elenchi con i link 
 	// FATTO 6. pulsante di logout 
 	// FATTO 4. username in alto a dx su tutte le pagine
 	// FATTO 8. sistemare messaggi di errore (not blank!)

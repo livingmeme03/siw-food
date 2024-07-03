@@ -20,49 +20,57 @@ import jakarta.validation.Valid;
 
 @Controller
 public class IngredienteController {
+	
+	/*=======================================================================================================*/
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*----------------------------------------SERVICE E VALIDATOR--------------------------------------------*/
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*=======================================================================================================*/
 
 	@Autowired
 	private IngredienteService ingredienteService;
 
 	@Autowired
 	private IngredienteValidator ingredienteValidator;
-
+	
+	/*=======================================================================================================*/
 	/*-------------------------------------------------------------------------------------------------------*/
 	/*----------------------------------------ELENCO INGREDIENTI---------------------------------------------*/
-	/*-------------------------------------------------------------------------------------------------------*/
-
-	//Per tutti
+	/*-------------------------------------------(Per tutti)-------------------------------------------------*/
+	/*=======================================================================================================*/
+	
 	@GetMapping("/elencoIngredienti")		//non servono validazioni 
 	public String showElencoIngredienti(Model model) {
 		model.addAttribute("ingredienti", this.ingredienteService.findAllByOrderByNomeAsc());
 		return "elencoIngredienti.html";
 	}
-
+	
+	/*=======================================================================================================*/
 	/*-------------------------------------------------------------------------------------------------------*/
 	/*--------------------------------VISUALIZZAZIONE SINGOLO INGREDIENTE------------------------------------*/
-	/*-------------------------------------------------------------------------------------------------------*/
-
-	//Per tutti
+	/*-------------------------------------------(Per tutti)-------------------------------------------------*/
+	/*=======================================================================================================*/
+	
 	@GetMapping("/ingrediente/{id}")
 	public String showIngrediente(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("ingrediente", this.ingredienteService.findById(id));
 		return "ingrediente.html";
 	}
-
+	
+	/*=======================================================================================================*/
 	/*-------------------------------------------------------------------------------------------------------*/
 	/*---------------------------------------AGGIUNTA INGREDIENTE--------------------------------------------*/
 	/*-------------------------------------------------------------------------------------------------------*/
+	/*=======================================================================================================*/
 	
 	/*---------------------------------------------CUOCO-----------------------------------------------------*/
 	
-	//Per cuoco
 	@GetMapping("/aggiungiIngrediente")			//non servono controlli
 	public String showFormAggiungiIngrediente(Model model) {
 		model.addAttribute("nuovoIngrediente", new Ingrediente());
 		return "formAggiungiIngrediente.html";
 	}
 
-	//Per cuoco
 	@PostMapping("/aggiungiIngrediente")	//non servono controlli
 	public String newIngrediente(@Valid @ModelAttribute("nuovoIngrediente") Ingrediente ingrediente, BindingResult bindingResult, Model model) {
 		this.ingredienteValidator.validate(ingrediente, bindingResult);
@@ -77,14 +85,12 @@ public class IngredienteController {
 	
 	/*---------------------------------------------ADMIN-----------------------------------------------------*/
 	
-	//Per admin
 	@GetMapping("/admin/aggiungiIngrediente")
 	public String showFormAggiungiIngredienteAdmin(Model model) {
 		model.addAttribute("nuovoIngrediente", new Ingrediente());
 		return "/admin/formAggiungiIngrediente.html";
 	}
 
-	//Per admin
 	@PostMapping("/admin/aggiungiIngrediente")
 	public String newIngredienteAdmin(@Valid @ModelAttribute("nuovoIngrediente") Ingrediente ingrediente, BindingResult bindingResult, Model model) {
 		this.ingredienteValidator.validate(ingrediente, bindingResult);
@@ -96,17 +102,18 @@ public class IngredienteController {
 			return "redirect:/ingrediente/"+ingrediente.getId();
 		}
 	}
-
+	
+	/*=======================================================================================================*/
 	/*-------------------------------------------------------------------------------------------------------*/
 	/*-----------------------------------------RICERCA INGREDIENTE-------------------------------------------*/
-	/*-------------------------------------------------------------------------------------------------------*/
-
-	//Per tutti
+	/*---------------------------------------------(Per tutti)-----------------------------------------------*/
+	/*=======================================================================================================*/
+	
 	@GetMapping("/cercaIngredientePerNome")
 	public String showFormSearchIngrediente(Model model) {
 		return "formCercaIngredienti.html";
 	}
-	//Per tutti
+	
 	@PostMapping("/cercaIngredientePerNome")
 	public String showIngredientiTrovati(Model model, @RequestParam String nome) {
 		Ingrediente ingredienteTrovato = this.ingredienteService.findByNome(nome);
@@ -116,21 +123,20 @@ public class IngredienteController {
 		model.addAttribute("ingrediente", ingredienteTrovato);
 		return "redirect:/ingrediente/"+ingredienteTrovato.getId();
 	}	
-
+	
+	/*=======================================================================================================*/
 	/*-------------------------------------------------------------------------------------------------------*/
 	/*-------------------------------------CANCELLAZIONE INGREDIENTE-----------------------------------------*/
-	/*-------------------------------------------------------------------------------------------------------*/
+	/*--------------------------------------------(Per admin)------------------------------------------------*/
+	/*=======================================================================================================*/
 	
-	/*----------------------------------------------ADMIN----------------------------------------------------*/
-	
-	//Per admin
 	@GetMapping("/admin/rimuoviIngrediente")
 	public String showFormRimuoviIngrediente(Model model) {
 		model.addAttribute("ingredienteDaRimuovere", new Ingrediente());
 		this.aggiungiAttributiIngrediente(model);
 		return "/admin/formRimuoviIngrediente.html";
 	}
-	//Per admin
+
 	@PostMapping("/admin/rimuoviIngrediente")
 	public String deleteIngrediente(@Valid @ModelAttribute("ingredienteDaRimuovere") Ingrediente ingrediente, BindingResult bindingResult, Model model) {
 
@@ -160,11 +166,13 @@ public class IngredienteController {
 		return "/admin/formRimuoviIngrediente.html";	
 
 	}
-
+	
+	/*=======================================================================================================*/
 	/*-------------------------------------------------------------------------------------------------------*/	
 	/*---------------------------------------------METODI DI SUPPORTO----------------------------------------*/
 	/*-------------------------------------------------------------------------------------------------------*/
-
+	/*=======================================================================================================*/
+	
 	public void aggiungiAttributiIngrediente(Model model) {
 		Set<String> nomiIngredienti = new TreeSet<String>();
 		for(Ingrediente i : this.ingredienteService.findAllByOrderByNomeAsc()) {
