@@ -116,6 +116,17 @@ button.submit {
 	cursor: pointer;
 }
 
+select {
+	border: 2px rgb(237, 185, 134) outset;
+	border-radius: 10%;
+	background-color: rgb(245, 205, 172);
+	color: rgb(66, 47, 39);
+	font-weight: bold;
+	font-size: 18px;
+	padding: 8px 20px;
+	cursor: pointer;
+}
+
 
 div {
 	margin: 8px;
@@ -272,6 +283,20 @@ form.loginform {
 	border-style: double;
 	border-color: rgb(39, 26, 8);
 	
+}
+
+#flex-container-2-light-withbookimage-medium-centered {
+	background-image: url(../images/oldbook.png);
+	border-radius: 10px;
+	display: flex;
+	justify-content: flex-start;
+	height: 240px;
+	width: 400px;
+	padding: 30px;
+	margin: 10px;
+	flex-direction: column;
+	border-style: double;
+	border-color: rgb(39, 26, 8);
 }
 
 #flex-container-2-light-withbookimage-medium-but-wide {
