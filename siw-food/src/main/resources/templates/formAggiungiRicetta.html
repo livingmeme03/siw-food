@@ -15,11 +15,8 @@
 	</header>
     <h2>Aggiungi nuova ricetta</h2>
     <div id = "flex-container-1-centered">
-	<div id = "flex-container-2-light-withbookimage-short-but-wide">
-    <form th:action="@{/aggiungiRicetta}" method="POST" th:object="${nuovaRicetta}">
-		<div th:if="${#fields.hasGlobalErrors()}">
-			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
-		</div>
+	<div id = "flex-container-2-light-withbookimage-medium-but-wide">
+    <form class="loginform" th:action="@{/aggiungiRicetta}" method="POST" th:object="${nuovaRicetta}">
 		<div>
 			Titolo: <input required type="text" th:field="${nuovaRicetta.titolo}">
     		<span th:if="${#fields.hasErrors('titolo')}" th:errors="*{titolo}"></span>
@@ -27,10 +24,13 @@
 			Descrizione: <input type="text" th:field="${nuovaRicetta.descrizione}">
 			<br><br>
 			Percorsi file immagini: <input type="text" th:field="${nuovaRicetta.tuttiPathDelleImmagini}">
-			<br><br>			
+			<br><br>
+			<div th:if="${#fields.hasGlobalErrors()}">
+			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+		</div>		
         </div>
         <div>
-			<span><button type="submit">Conferma</button></span>
+			<span><button class="submit" type="submit">Conferma</button></span>
 		</div>
     </form>
 	</div>

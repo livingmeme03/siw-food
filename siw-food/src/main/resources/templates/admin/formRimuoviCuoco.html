@@ -15,11 +15,8 @@
 	</header>
     <h2>Rimuovi cuoco</h2>
     <div id = "flex-container-1-centered">
-	<div id = "flex-container-2-light-withbookimage-short-but-wide">
-    <form th:action="@{/admin/rimuoviCuoco}" method="POST" th:object="${cuocoDaRimuovere}">
-		<div th:if="${#fields.hasGlobalErrors()}">
-			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
-		</div>
+	<div id = "flex-container-2-light-withbookimage-medium-but-wide">
+    <form class="loginform" th:action="@{/admin/rimuoviCuoco}" method="POST" th:object="${cuocoDaRimuovere}">
 		<div>
         	Nome: <select th:field="${cuocoDaRimuovere.nome}">
                     	<option th:each="nomeCuoco : ${nomiCuochi}" th:value = "${nomeCuoco}" th:text="${nomeCuoco}">Nome</option>
@@ -37,8 +34,11 @@
         		<span th:if="${#fields.hasErrors('dataNascita')}" th:errors="*{dataNascita}"></span>
 				<br><br>
         </div>
+        <div th:if="${#fields.hasGlobalErrors()}">
+			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+		</div>
         <div>
-			<span><button type="submit">Conferma</button></span>
+			<span><button class="submit" type="submit">Conferma</button></span>
 		</div>
     </form>
     </div>

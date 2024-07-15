@@ -78,12 +78,51 @@ nav {
 	height: 50px;
 }
 
+nav a {
+	text-decoration: none;
+}
+
 span {
 	margin: 8px;
 }
 
+input {
+	border-radius: 10%;
+	border-style: inset;
+	background-color: antiquewhite;
+	font-family: Georgia;
+	font-size: 15px;
+}
+
+input.submit {
+	border: 2px rgb(237, 185, 134) outset;
+	border-radius: 10%;
+	background-color: rgb(245, 205, 172);
+	color: rgb(66, 47, 39);
+	font-weight: bold;
+	font-size: 18px;
+	padding: 8px 20px;
+	cursor: pointer;
+}
+
+button.submit {
+	border: 2px rgb(237, 185, 134) outset;
+	border-radius: 10%;
+	background-color: rgb(245, 205, 172);
+	color: rgb(66, 47, 39);
+	font-weight: bold;
+	font-size: 18px;
+	padding: 8px 20px;
+	cursor: pointer;
+}
+
+
 div {
 	margin: 8px;
+}
+
+form.loginform {
+	text-align: center;
 }
 
 #flex-container-1 {
@@ -157,6 +196,8 @@ div {
 	padding: 30px;
 	margin: 10px;
 	flex-direction: column;
+	border-style: solid;
+	border-color: maroon;
 }
 
 #flex-container-2-light-withbookimage {
@@ -169,6 +210,8 @@ div {
 	padding: 30px;
 	margin: 10px;
 	flex-direction: column;
+	border-style: solid;
+	border-color: maroon;
 }
 
 #flex-container-2-light-withbookimage-medium {
@@ -176,11 +219,29 @@ div {
 	border-radius: 10px;
 	display: flex;
 	justify-content: flex-start;
+	align-items: flex-start;
 	height: 360px;
 	width: 450px;
 	padding: 30px;
 	margin: 10px;
 	flex-direction: column;
+	border: 5px;
+	border-style: double;
+	border-color: rgb(39, 26, 8);
+}
+
+#flex-container-2-light-withbookimage-medium-login {
+	background-image: url(../images/oldbook.png);
+	border-radius: 10px;
+	display: flex;
+	height: 250px;
+	width: 300px;
+	padding: 30px;
+	margin: 10px;
+	flex-direction: column;
+	border: 5px;
+	border-style: double;
+	border-color: rgb(39, 26, 8);
 }
 
 #flex-container-2-light-withbookimage-very-short-but-wide {
@@ -189,10 +250,13 @@ div {
 	display: flex;
 	justify-content: flex-start;
 	height: 120px;
-	width: 600px;
+	width: 500px;
 	padding: 30px;
 	margin: 10px;
 	flex-direction: column;
+	border: 4px;
+	border-style: double;
+	border-color: rgb(39, 26, 8);
 }
 
 #flex-container-2-light-withbookimage-short-but-wide {
@@ -205,6 +269,9 @@ div {
 	padding: 30px;
 	margin: 10px;
 	flex-direction: column;
+	border-style: double;
+	border-color: rgb(39, 26, 8);
+	
 }
 
 #flex-container-2-light-withbookimage-medium-but-wide {
@@ -217,6 +284,8 @@ div {
 	padding: 30px;
 	margin: 10px;
 	flex-direction: column;
+	border-style: double;
+	border-color: rgb(39, 26, 8);
 }
 
 #flex-container-2-light-withbookimage-large-but-wide {
@@ -229,6 +298,8 @@ div {
 	padding: 30px;
 	margin: 10px;
 	flex-direction: column;
+	border-style: double;
+	border-color: rgb(39, 26, 8);
 }
 
 #flex-container-2-light-withbookimage-large {
@@ -241,6 +312,22 @@ div {
 	padding: 30px;
 	margin: 10px;
 	flex-direction: column;
+	border-style: double;
+	border-color: rgb(39, 26, 8);
+}
+
+#flex-container-2-light-withbookimage-large-register {
+	background-image: url(../images/oldbook.png);
+	border-radius: 10px;
+	display: flex;
+	justify-content: flex-start;
+	height: 400px;
+	width: 300px;
+	padding: 30px;
+	margin: 10px;
+	flex-direction: column;
+	border-style: double;
+	border-color: rgb(39, 26, 8);
 }
 
 #flex-container-2-light-very-large {
@@ -248,10 +335,13 @@ div {
 	border-radius: 10px;
 	display: flex;
 	justify-content: center;
-	height: 400px;
+	height: 420px;
 	width: 950px;
 	padding: 30px;
 	margin: 10px;
+	border: 4px;
+	border-style: groove;
+	border-color: rgb(39, 26, 8);
 }
 
 #flex-container-enormous {
@@ -263,6 +353,9 @@ div {
 	width: 950px;
 	padding: 30px;
 	margin: 10px;
+	border: 4px;
+	border-style: double;
+	border-color: rgb(39, 26, 8);
 }
 
 
@@ -276,6 +369,9 @@ div {
 	padding: 10px;
 	margin: 10px;
 	flex-direction: column;
+	border: 5px;
+	border-style: solid;
+	border-color: maroon;
 }
 
 #flex-container-2-light-withcuocoimage {

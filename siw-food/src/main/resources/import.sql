@@ -7,7 +7,7 @@ insert into ingrediente(id, nome, unità_di_misura, path_immagine) values(nextva
 insert into ingrediente(id, nome, path_immagine) values(nextval('ingrediente_seq'), 'Amore di mamma', 'amoredimamma.jpeg')
 insert into ingrediente(id, nome, unità_di_misura, path_immagine) values(nextval('ingrediente_seq'), 'Sale', 'g', 'sale.png')
 insert into ingrediente(id, nome, unità_di_misura, path_immagine) values(nextval('ingrediente_seq'), 'Mozzarella', 'g', 'mozzarella.png')
-insert into ingrediente(id, nome, unità_di_misura, path_immagine) values(nextval('ingrediente_seq'), 'Burro', 'g', 'burro.jpg')
+insert into ingrediente(id, nome, unità_di_misura, path_immagine) values(nextval('ingrediente_seq'), 'Burro', 'g', 'burrobellissimo.jpg')
 insert into ingrediente(id, nome, path_immagine) values(nextval('ingrediente_seq'), 'Uova', 'uova.jpg')
 insert into ingrediente(id, nome, unità_di_misura, path_immagine) values(nextval('ingrediente_seq'), 'Lievito per dolci', 'g', 'lievitoperdolci.png')
 insert into ingrediente(id, nome, unità_di_misura, path_immagine) values(nextval('ingrediente_seq'), 'Yogurt greco', 'g', 'yogurtgreco.jpeg')

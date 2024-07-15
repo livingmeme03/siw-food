@@ -72,12 +72,14 @@ public class RicettaController {
 	@GetMapping("/ricetta/{id}") 
 	public String showRicetta(@PathVariable("id") Long id, Model model) {
 		Ricetta ricetta =  this.ricettaService.findById(id);
-		if(ricetta.getTuttiPathDelleImmagini()!=null) {						//questo if si può togliere se tutte le 
+		if(ricetta != null && ricetta.getTuttiPathDelleImmagini()!=null) {						//questo if si può togliere se tutte le 
 			ricetta.setPathImmagini(ricetta.getTuttiPathDelleImmagini());	//ricette nel db hanno immagini associate
 		}
 		model.addAttribute("ricetta", ricetta);
-		model.addAttribute("listaIngredienti", this.ricettaService.findById(id).getListaIngredienti());
-
+		
+		if(ricetta != null) {
+			model.addAttribute("listaIngredienti", ricetta.getListaIngredienti());
+		}
 		return "ricetta.html";
 	}
 	
@@ -202,6 +204,9 @@ public class RicettaController {
 
 	@GetMapping("/admin/impostaCuocoARicetta/{idRicetta}") 
 	public String showImpostaCuocoARicetta(@PathVariable Long idRicetta, Model model) {
+		if(this.ricettaService.findById(idRicetta) == null) {
+			return "redirect:/admin/elencoAggiornaRicette";
+		}
 		model.addAttribute("listaCuochi", this.cuocoService.findAllByOrderByCognomeAsc());
 		model.addAttribute("idRicetta", idRicetta);
 		return "/admin/elencoCuochiImpostaCuocoARicetta.html";
@@ -210,7 +215,14 @@ public class RicettaController {
 	@GetMapping("/admin/impostaCuocoARicetta/{idRicetta}/{idCuoco}") 
 	public String impostaCuocoARicetta(@PathVariable Long idRicetta, @PathVariable Long idCuoco, Model model) {
 		Ricetta ricetta = this.ricettaService.findById(idRicetta);
-		ricetta.setCuoco(this.cuocoService.findById(idCuoco));
+		Cuoco cuoco = this.cuocoService.findById(idCuoco);
+		if(ricetta == null) {
+			return "redirect:/admin/elencoAggiornaRicette";
+		}
+		if(cuoco == null) {
+			return "redirect:/admin/impostaCuocoARicetta/" + idRicetta;
+		}
+		ricetta.setCuoco(cuoco);
 		this.ricettaService.save(ricetta);
 		return "redirect:/ricetta/"+ricetta.getId();
 	}
@@ -225,6 +237,9 @@ public class RicettaController {
 	public String showModificaIngredientiRicetta(@PathVariable Long idRicetta, Model model) {
 		Cuoco curr = this.authenticationController.getCuocoSessioneCorrente();
 		Ricetta ricetta = this.ricettaService.findById(idRicetta);
+		if(ricetta == null) {
+			return "redirect:/elencoAggiornaRicette";
+		}
 		Cuoco cuocoRicetta = ricetta.getCuoco();
 		if(curr.equals(cuocoRicetta)) {
 			this.setUpPerModificaRicetta(model, idRicetta);
@@ -238,11 +253,18 @@ public class RicettaController {
 	public String scegliQuantitàPerIngrediente(@PathVariable Long idRicetta, @PathVariable Long idIngrediente, Model model) {
 		Cuoco curr = this.authenticationController.getCuocoSessioneCorrente();
 		Ricetta ricetta = this.ricettaService.findById(idRicetta);
+		if(ricetta == null) {			//controllo anti path meddlers
+			return "redirect:/elencoAggiornaRicette";
+		}
 		Cuoco cuocoRicetta = ricetta.getCuoco();
 		if(curr.equals(cuocoRicetta)) {
+			Ingrediente ingrediente = this.ingredienteService.findById(idIngrediente);
+			if(ingrediente == null) {			//controllo anti path meddlers
+				return "redirect:/modificaIngredientiRicetta/" + idRicetta;
+			}
 			model.addAttribute("idRicetta", idRicetta);
 			model.addAttribute("idIngrediente", idIngrediente);
-			model.addAttribute("ingrediente", this.ingredienteService.findById(idIngrediente));
+			model.addAttribute("ingrediente", ingrediente);
 			return "formSelezionaQuantitàAggiungiIngredienteARicetta.html";
 		}
 		model.addAttribute("ricette", this.ricettaService.findAllByCuocoOrderByTitoloAsc(curr));
@@ -265,6 +287,12 @@ public class RicettaController {
 	public String rimuoviIngredientiRicetta(@PathVariable Long idRicetta, @PathVariable Long idIngrediente, Model model) {
 		Cuoco curr = this.authenticationController.getCuocoSessioneCorrente();
 		Ricetta ricetta = this.ricettaService.findById(idRicetta);
+		if(ricetta == null) {
+			return "redirect:/elencoAggiornaRicette";
+		}
+		if(this.ingredienteService.findById(idIngrediente)==null) {
+			return "redirect:/modificaIngredientiRicetta/" + idRicetta;
+		}
 		Cuoco cuocoRicetta = ricetta.getCuoco();
 		if(curr.equals(cuocoRicetta)) {
 			this.ingredienteService.deleteIngredienteInRicetta(idIngrediente, idRicetta);
@@ -277,12 +305,21 @@ public class RicettaController {
 
 	@GetMapping("/admin/modificaIngredientiRicetta/{idRicetta}") 
 	public String showModificaIngredientiRicettaAdmin(@PathVariable Long idRicetta, Model model) {
+		if(this.ricettaService.findById(idRicetta)==null) {
+			return "redirect:/admin/elencoAggiornaRicette";
+		}
 		this.setUpPerModificaRicetta(model, idRicetta);
 		return "/admin/elencoIngredientiPerModificareRicetta.html";
 	}
 
 	@GetMapping("/admin/aggiungiIngredienteARicetta/{idRicetta}/{idIngrediente}")
-	public String scegliQuantitàPerIngredienteAdmin(@PathVariable Long idRicetta, @PathVariable Long idIngrediente, Model model) {	
+	public String scegliQuantitàPerIngredienteAdmin(@PathVariable Long idRicetta, @PathVariable Long idIngrediente, Model model) {
+		if(this.ricettaService.findById(idRicetta)==null) {
+			return "redirect:/admin/elencoAggiornaRicette";
+		}
+		if(this.ingredienteService.findById(idIngrediente)==null) {
+			return "redirect:/admin/modificaIngredientiRicetta" + idRicetta;
+		}
 		model.addAttribute("idRicetta", idRicetta);
 		model.addAttribute("idIngrediente", idIngrediente);
 		model.addAttribute("ingrediente", this.ingredienteService.findById(idIngrediente));
@@ -291,6 +328,12 @@ public class RicettaController {
 
 	@PostMapping("/admin/aggiungiIngredienteARicetta/{idRicetta}/{idIngrediente}") 
 	public String aggiungiIngredientiRicettaAdmin(@PathVariable Long idRicetta, @PathVariable Long idIngrediente, @RequestParam Long quantità, Model model) {
+		if(this.ricettaService.findById(idRicetta)==null) {
+			return "redirect:/admin/elencoAggiornaRicette";
+		}
+		if(this.ingredienteService.findById(idIngrediente)==null) {
+			return "redirect:/admin/modificaIngredientiRicetta" + idRicetta;
+		}
 		if(quantità>0) {
 			this.ingredienteService.saveIngredienteInRicetta(idIngrediente, idRicetta, quantità);
 			return "redirect:/admin/modificaIngredientiRicetta/" + idRicetta;
@@ -303,6 +346,12 @@ public class RicettaController {
 
 	@GetMapping("/admin/rimuoviIngredientiDaRicetta/{idRicetta}/{idIngrediente}") 
 	public String rimuoviIngredientiRicettaAdmin(@PathVariable Long idRicetta, @PathVariable Long idIngrediente, Model model) {
+		if(this.ricettaService.findById(idRicetta)==null) {
+			return "redirect:/admin/elencoAggiornaRicette";
+		}
+		if(this.ingredienteService.findById(idIngrediente)==null) {
+			return "redirect:/admin/modificaIngredientiRicetta" + idRicetta;
+		}
 		this.ingredienteService.deleteIngredienteInRicetta(idIngrediente, idRicetta);
 		return "redirect:/admin/modificaIngredientiRicetta/" + idRicetta;
 	}

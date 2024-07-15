@@ -102,7 +102,12 @@ public class CuocoController {
 	
 	@GetMapping("/admin/modificaRicetteCuoco/{idCuoco}") 
 	public String showModificaIngredientiRicetta(@PathVariable Long idCuoco, Model model) {
-		List<Ricetta> ricetteDelCuoco = this.cuocoService.findById(idCuoco).getRicette();
+		//Controlli anti path meddlers
+		Cuoco cuoco = this.cuocoService.findById(idCuoco);
+		if(cuoco == null) {
+			return "redirect:/admin/elencoAggiornaCuochi";
+		}
+		List<Ricetta> ricetteDelCuoco = cuoco.getRicette();
 		List<Ricetta> ricetteDaAggiungere = (List<Ricetta>) this.ricettaService.findAllByOrderByTitoloAsc();
 		ricetteDaAggiungere.removeAll(ricetteDelCuoco);
 		model.addAttribute("ricetteDelCuoco", ricetteDelCuoco);
@@ -113,8 +118,15 @@ public class CuocoController {
 	
 	@GetMapping("/admin/aggiungiRicettaACuoco/{idCuoco}/{idRicetta}")
 	public String aggiungiRicettaACuoco(@PathVariable Long idCuoco, @PathVariable Long idRicetta, Model model) {
+		//Controlli anti path meddlers
 		Ricetta ricetta = this.ricettaService.findById(idRicetta);
 		Cuoco cuoco = this.cuocoService.findById(idCuoco);
+		if(cuoco == null) {
+			return "redirect:/admin/elencoAggiornaCuochi";
+		}
+		if(ricetta == null) {
+			return "redirect:/admin/modificaRicetteCuoco/" + idCuoco;
+		}
 		ricetta.setCuoco(cuoco);
 		cuoco.getRicette().add(ricetta);
 		this.ricettaService.save(ricetta);
@@ -126,6 +138,12 @@ public class CuocoController {
 	public String rimuoviRicettaDaCuoco(@PathVariable Long idCuoco, @PathVariable Long idRicetta, Model model) {
 		Ricetta ricetta = this.ricettaService.findById(idRicetta);
 		Cuoco cuoco = this.cuocoService.findById(idCuoco);
+		if(cuoco == null) {
+			return "redirect:/admin/elencoAggiornaCuochi";
+		}
+		if(ricetta == null) {
+			return "redirect:/admin/modificaRicetteCuoco/" + idCuoco;
+		}
 		ricetta.setCuoco(null);
 		cuoco.getRicette().remove(ricetta);
 		this.ricettaService.save(ricetta);
@@ -179,7 +197,7 @@ public class CuocoController {
 		}
 
 		bindingResult.reject("cuoco.nonEsiste");
-		this.aggiungiAttributiCuochi(model);		//se non c'erano errori, non avevo trovato nessun ingrediente che corrisponde
+		this.aggiungiAttributiCuochi(model);		//se non c'erano errori, non avevo trovato nessun cuoco che corrisponde
 		return "/admin/formRimuoviCuoco.html";	
 
 	}

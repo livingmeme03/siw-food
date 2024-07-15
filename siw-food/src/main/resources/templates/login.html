@@ -15,20 +15,19 @@
 	</header>
 		<h2>Login utente:</h2>
 		<div id = "flex-container-1-centered">
-		<div id = "flex-container-2-light-withbookimage-medium">
-		<form th:action="@{/login}" method="POST"> 
+		<div id = "flex-container-2-light-withbookimage-medium-login">
+		<form class="loginform" th:action="@{/login}" method="POST"> 
 			<label for="username">Username:</label><br>
 			<input type = "text" id="username" name="username" required>
 				<br><br>
 			<label for="password">Password:</label><br>
 			<input type = "password" id="password" name="password" required>
-				<br><br>
-			<div>
-				<span th:if="${param.error != null}">
-					<span>Username o password errati!</span>
-				</span>
-			</div>	
-			<input type = "submit" value = "Accedi">
+				<br>
+				<br>
+			<input class="submit" type = "submit" value = "Accedi">
+			<br>
+			<br>
+			<span th:if="${param.error != null}">Username o password errati!</span>
 			</div>
 			</div>	
 		</form>

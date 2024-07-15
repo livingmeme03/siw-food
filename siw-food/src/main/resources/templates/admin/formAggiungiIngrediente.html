@@ -16,10 +16,7 @@
     <h2>Aggiungi nuovo ingrediente</h2>
     <div id = "flex-container-1-centered">
 	<div id = "flex-container-2-light-withbookimage-short-but-wide">
-    <form th:action="@{/admin/aggiungiIngrediente}" method="POST" th:object="${nuovoIngrediente}">
-		<div th:if="${#fields.hasGlobalErrors()}">
-			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
-		</div>
+    <form class="loginform" th:action="@{/admin/aggiungiIngrediente}" method="POST" th:object="${nuovoIngrediente}">
 		<div>
         	Nome ingrediente: <input required type="text" th:field="${nuovoIngrediente.nome}">
         	<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
@@ -29,8 +26,11 @@
 			Unità di misura: <input type="text" th:field="${nuovoIngrediente.unitàDiMisura}">
 			<br><br>
         </div>
+        <div th:if="${#fields.hasGlobalErrors()}">
+			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+		</div>
         <div>
-			<span><button type="submit">Conferma</button></span>
+			<span><button class="submit" type="submit">Conferma</button></span>
 		</div>
     </form>
     </div>
