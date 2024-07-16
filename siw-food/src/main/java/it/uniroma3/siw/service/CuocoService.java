@@ -56,7 +56,6 @@ public class CuocoService {
 	}
 
 	public Iterable<Cuoco> findByCognome(String cognome) {
-		// TODO Auto-generated method stub
 		return this.cuocoRepository.findByCognome(cognome);
 	}
 }

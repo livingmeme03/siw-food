@@ -42,7 +42,7 @@ public class Ricetta {
 	@ElementCollection
 	@CollectionTable(name = "ricette_ingredienti_quantità", joinColumns = @JoinColumn(name = "ricetta_id"))
 	@MapKeyColumn(name = "nome")
-	@Column(name = "quantità")			//cascadetype remove? per togliere gli ingredienti?
+	@Column(name = "quantità")			
 	private Map<Ingrediente, Integer> ingredienti;
 	@ManyToOne
 	private Cuoco cuoco;
