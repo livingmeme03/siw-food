@@ -45,7 +45,8 @@ public class AuthConfiguration {
 	  .csrf().and().cors().disable()
 	  .authorizeHttpRequests()
 	  // .requestMatchers("/**").permitAll()
-	  // chiunque (autenticato o no) può accedere alle pagine index, login, register, ai css e alle immagini
+	  // chiunque (autenticato o no) può accedere alle pagine index, login, register, a css e immagini, 
+	  //e visualizzare info su ricette e cuochi
 	  .requestMatchers(HttpMethod.GET,"/","/index","/register","/css/**", "/images/**", "favicon.ico", 
 			  "/elencoIngredienti", "/ingrediente/**", "/cercaIngredientePerNome", 			//ingrediente
 			  "/elencoCuochi", "/cuoco/**", "/cercaCuocoPerCognome",						//cuoco
