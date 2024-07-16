@@ -14,13 +14,17 @@
 		<a href = "/"><h1>SiwFood</h1></a>
 	</header>
 			<h2 id="h2-sopra-elenco">Ricette:</h2>			
-		<div>
+		<div id="flex-container-1-list">
+			<div class="content">
 			<div th:if="${ricette==null || ricette.isEmpty()}">Non ci sono ricette nel sistema!</div>
 				<ul>
+					<div><br></div>
 					<li th:each="ricetta : ${ricette}">
 						<a th:href="@{ '/ricetta' + '/' + ${ricetta.id}}" th:text="${ricetta.titolo}">Ricetta</a>
+						<div><br></div>
 					</li>	
 				</ul>
+			</div>
 		</div>
 	</body>	
 </html>

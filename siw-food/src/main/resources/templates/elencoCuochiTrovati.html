@@ -14,13 +14,17 @@
 		<a href = "/"><h1>SiwFood</h1></a>
 	</header>
 			<h2 id="h2-sopra-elenco">Cuochi trovati:</h2>			
-		<div>
+		<div id="flex-container-1-list">
+			<div class="content">
 			<div th:if="${cuochi==null || cuochi.isEmpty()}">Non ci sono cuochi con questo cognome nel sistema!</div>
 				<ul>
+					<div><br></div>
 					<li th:each="cuoco : ${cuochi}">
 						<a th:href="@{ '/cuoco' + '/' + ${cuoco.id}}" th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}">Cuoco</a>
+					<div><br></div>
 					</li>	
 				</ul>
+			</div>
 		</div>
 	</body>	
 </html>

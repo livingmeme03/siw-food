@@ -16,24 +16,32 @@
 			<h2 th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}">Nome cuoco</h2>			
 			<h3>Ricette assegnate al cuoco:</h3>
 			<div>Clicca su una ricetta per rimuoverla!</div>
-		<div>
-			<div th:if="${ricetteDelCuoco==null || ricetteDelCuoco.isEmpty()}">Non ci sono ricette del cuoco!</div>
+		<div id = "flex-container-1-list">
+		<div class="content">
+			<div th:if="${ricetteDelCuoco==null || ricetteDelCuoco.isEmpty()}">Non ci sono ricette di questo cuoco!</div>
 				<ul>
+					<div><br></div>
 					<li th:each="ricetta : ${ricetteDelCuoco}">
 						<strong><a th:href="@{ '/admin/rimuoviRicettaDaCuoco' + '/' +${cuoco.id} + '/' + ${ricetta.id}}" th:text="${ricetta.titolo}">Ricetta</a></strong>
-					</li>	
+					<div><br></div>
+					</li>
 				</ul>
+			</div>
 		</div>
 		<br>
 			<h3>Ricette da assegnare al cuoco:</h3>
 			<div>Clicca su una ricetta per assegnarla al cuoco!</div>
-		<div>
+		<div id = "flex-container-1-list">
+		<div class="content">
 			<div th:if="${ricetteDaAggiungere==null || ricetteDaAggiungere.isEmpty()}">Non ci sono ricette da assegnare al cuoco!</div>
 				<ul>
+					<div><br></div>
 					<li th:each="ricetta : ${ricetteDaAggiungere}">
 						<strong><a th:href="@{ '/admin/aggiungiRicettaACuoco' + '/' +${cuoco.id} + '/' + ${ricetta.id}}" th:text="${ricetta.titolo}">Ricetta</a></strong>
-					</li>	
+					<div><br></div>
+					</li>
 				</ul>
+			</div>
 		</div>
 	</body>	
 </html>

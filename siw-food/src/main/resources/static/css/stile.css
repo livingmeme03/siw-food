@@ -144,6 +144,35 @@ form.loginform {
 	margin: 10px;
 }
 
+#flex-container-1-list {
+	margin: 0;
+    justify-content: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    height: auto;
+    overflow: hidden;
+ }
+
+#flex-container-1-list::before {
+	margin: 0;
+    content: ""; 
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url(../images/oldbook.png);
+    background-size: cover;
+    opacity: 60%;
+    z-index: 0; 
+    border-radius: 12px; 
+ }
+ 
+ .content {
+	 position: relative;
+	 z-index: 1;
+ }
+
 #flex-container-1-centered {
 	display: flex;
 	justify-content: center;
@@ -299,12 +328,41 @@ form.loginform {
 	border-color: rgb(39, 26, 8);
 }
 
+
+#flex-container-2-light-withbookimage-large-centered {
+	background-image: url(../images/oldbook.png);
+	border-radius: 10px;
+	display: flex;
+	justify-content: flex-start;
+	height: 280px;
+	width: 400px;
+	padding: 30px;
+	margin: 10px;
+	flex-direction: column;
+	border-style: double;
+	border-color: rgb(39, 26, 8);
+}
+
 #flex-container-2-light-withbookimage-medium-but-wide {
 	background-image: url(../images/oldbook.png);
 	border-radius: 10px;
 	display: flex;
 	justify-content: flex-start;
 	height: 240px;
+	width: 600px;
+	padding: 30px;
+	margin: 10px;
+	flex-direction: column;
+	border-style: double;
+	border-color: rgb(39, 26, 8);
+}
+
+#flex-container-2-light-withbookimage-slightly-larger-but-wide {
+	background-image: url(../images/oldbook.png);
+	border-radius: 10px;
+	display: flex;
+	justify-content: flex-start;
+	height: 280px;
 	width: 600px;
 	padding: 30px;
 	margin: 10px;
@@ -333,6 +391,20 @@ form.loginform {
 	display: flex;
 	justify-content: flex-start;
 	height: 360px;
+	width: 500px;
+	padding: 30px;
+	margin: 10px;
+	flex-direction: column;
+	border-style: double;
+	border-color: rgb(39, 26, 8);
+}
+
+#flex-container-2-light-withbookimage-very-large {
+	background-image: url(../images/oldbook.png);
+	border-radius: 10px;
+	display: flex;
+	justify-content: flex-start;
+	height: 400px;
 	width: 500px;
 	padding: 30px;
 	margin: 10px;

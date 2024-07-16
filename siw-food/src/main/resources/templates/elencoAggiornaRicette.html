@@ -14,13 +14,15 @@
 		<a href = "/"><h1>SiwFood</h1></a>
 	</header>
 			<h2>Gestione delle tue ricette:</h2>			
-		<div id = "flex-container-1-centered">
-		<div id = "flex-container-2-light-withbookimage-short-but-wide">
+		<div id = "flex-container-1-list">
+		<div class="content">
 			<div th:if="${ricette==null || ricette.isEmpty()}">Non ci sono ricette nel sistema!</div>
 				<ul>
+					<div><br></div>
 					<li th:each="ricetta : ${ricette}">
 						<strong><a th:href="@{ '/ricetta' + '/' + ${ricetta.id}}" th:text="${ricetta.titolo} + ': '">Ricetta</a></strong>
 						<a th:href="@{ '/modificaIngredientiRicetta' + '/' + ${ricetta.id}}">Modifica Ingredienti</a>
+					<div><br></div>
 					</li>	
 				</ul>
 		</div>

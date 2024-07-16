@@ -17,23 +17,27 @@
 			<div>La quantità dell'ingrediente deve essere un numero positivo!</div>			
 			<h3>Ingredienti della ricetta:</h3>
 			<div>Clicca su un ingrediente per rimuoverlo!</div>
-		<div>
+		<div id="flex-container-1-list">
+			<div class="content">
 			<div th:if="${listaIngredientiPresenti==null || listaIngredientiPresenti.isEmpty()}">Non ci sono ingredienti nella ricetta!</div>
 				<ul>
 					<li th:each="ingrediente : ${listaIngredientiPresenti}">
 						<a th:href="@{ '/rimuoviIngredientiDaRicetta' + '/' +${idRicetta} + '/' + ${ingrediente.id}}" th:text="${ingrediente.nome}">Ingrediente</a>
 					</li>	
 				</ul>
+			</div>
 		</div>
 			<h3>Ingredienti da aggiungere alla ricetta:</h3>
 			<div>Clicca su un ingrediente per aggiungerlo!</div>
-		<div>
+		<div id="flex-container-1-list">
+			<div class="content">
 			<div th:if="${listaIngredientiDaAggiungere==null || listaIngredientiDaAggiungere.isEmpty()}">Non ci sono ingredienti da aggiungere alla ricetta!</div>
 				<ul>
 					<li th:each="ingrediente : ${listaIngredientiDaAggiungere}">
 						<a th:href="@{ '/aggiungiIngredienteARicetta' + '/' +${idRicetta} + '/' + ${ingrediente.id}}" th:text="${ingrediente.nome}">Ingrediente</a>
 					</li>	
 				</ul>
+			</div>
 		</div>
 	</body>	
 </html>

@@ -15,7 +15,7 @@
 	</header>
     <h2>Aggiungi nuovo cuoco</h2>
     <div id = "flex-container-1-centered">
-	<div id = "flex-container-2-light-withbookimage-medium-but-wide">
+	<div id = "flex-container-2-light-withbookimage-slightly-larger-but-wide">
     <form class="loginform" th:action="@{/admin/aggiungiCuoco}" method="POST" th:object="${nuovoCuoco}">
 		<div>
         	Nome: <input required type="text" th:field="${nuovoCuoco.nome}">
@@ -32,6 +32,7 @@
         <div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
 		</div>
+		<br>
         <div>
 			<span><button class="submit" type="submit">Conferma</button></span>
 		</div>
