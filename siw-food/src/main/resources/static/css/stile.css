@@ -95,23 +95,25 @@ input {
 }
 
 input.submit {
-	border: 2px rgb(237, 185, 134) outset;
+	border: 2px rgb(245, 205, 172) outset;
 	border-radius: 10%;
 	background-color: rgb(245, 205, 172);
 	color: rgb(66, 47, 39);
 	font-weight: bold;
 	font-size: 18px;
+	font-family: 'Georgia';
 	padding: 8px 20px;
 	cursor: pointer;
 }
 
 button.submit {
-	border: 2px rgb(237, 185, 134) outset;
+	border: 2px rgb(245, 205, 172) outset;
 	border-radius: 10%;
 	background-color: rgb(245, 205, 172);
 	color: rgb(66, 47, 39);
 	font-weight: bold;
 	font-size: 18px;
+	font-family: 'Georgia';
 	padding: 8px 20px;
 	cursor: pointer;
 }
@@ -121,8 +123,8 @@ select {
 	border-radius: 10%;
 	background-color: antiquewhite;
 	color: rgb(66, 47, 39);
-	font-weight: bold;
 	font-size: 18px;
+	font-family: 'Georgia';
 	padding: 8px 20px;
 	cursor: pointer;
 }
