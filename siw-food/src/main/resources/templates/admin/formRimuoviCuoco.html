@@ -1,47 +1,60 @@
 <!DOCTYPE html>
 <html>
+	
 <head>
     <title>SiwFood - Pagina eliminazione cuoco</title>
     <link rel="stylesheet" href="/css/stile.css" />
 </head>
+
 <body>
+	
 	<nav>
-	<span class="username-in-alto" th:text="${userDetails.username}"></span>
-	<br>
-	<span><a href = "/logout">Logout</a></span>
+		<span class="username-in-alto" th:text="${userDetails.username}"></span>
+		<br>
+		<span><a href = "/logout">Logout</a></span>
 	</nav>
+	
 	<header>
 		<a href = "/"><h1>SiwFood</h1></a>
 	</header>
+	
     <h2>Rimuovi cuoco</h2>
     <div id = "flex-container-1-centered">
-	<div id = "flex-container-2-light-withbookimage-large-centered">
-    <form class="loginform" th:action="@{/admin/rimuoviCuoco}" method="POST" th:object="${cuocoDaRimuovere}">
-		<div>
-        	Nome: <select th:field="${cuocoDaRimuovere.nome}">
-                    	<option th:each="nomeCuoco : ${nomiCuochi}" th:value = "${nomeCuoco}" th:text="${nomeCuoco}">Nome</option>
-                   </select>
-        		<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
-				<br><br>
-			Cognome: <select th:field="${cuocoDaRimuovere.cognome}">
-                    	<option th:each="cognomeCuoco : ${cognomiCuochi}" th:value = "${cognomeCuoco}" th:text="${cognomeCuoco}">Cognome</option>
-                   </select>
-        		<span th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}"></span>
-				<br><br>
-			Data di nascita:	<select th:field="${cuocoDaRimuovere.dataNascita}">
-                    			<option th:each="dataNascita : ${dateNascitaCuochi}" th:value = "${dataNascita}" th:text="${dataNascita}">Data Nascita</option>
-                   				</select>
-        		<span th:if="${#fields.hasErrors('dataNascita')}" th:errors="*{dataNascita}"></span>
-				<br><br>
-        </div>
-        <div th:if="${#fields.hasGlobalErrors()}">
-			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
-		</div>
-        <div>
-			<span><button class="submit" type="submit">Conferma</button></span>
-		</div>
-    </form>
+		<div id = "flex-container-2-light-withbookimage-large-centered">
+    		<form class="loginform" th:action="@{/admin/rimuoviCuoco}" method="POST" th:object="${cuocoDaRimuovere}">
+		
+				<div>
+					
+        			Nome: <select th:field="${cuocoDaRimuovere.nome}">
+                    		<option th:each="nomeCuoco : ${nomiCuochi}" th:value = "${nomeCuoco}" th:text="${nomeCuoco}">Nome</option>
+                   			</select>
+        				<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+						<br><br>
+						
+					Cognome: <select th:field="${cuocoDaRimuovere.cognome}">
+                    		<option th:each="cognomeCuoco : ${cognomiCuochi}" th:value = "${cognomeCuoco}" th:text="${cognomeCuoco}">Cognome</option>
+                   			</select>
+        				<span th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}"></span>
+						<br><br>
+						
+					Data di nascita: <select th:field="${cuocoDaRimuovere.dataNascita}">
+                    				<option th:each="dataNascita : ${dateNascitaCuochi}" th:value = "${dataNascita}" th:text="${dataNascita}">Data Nascita</option>
+                   					</select>
+        				<span th:if="${#fields.hasErrors('dataNascita')}" th:errors="*{dataNascita}"></span>
+						<br><br>
+       	 		</div>
+       	 		
+        		<div th:if="${#fields.hasGlobalErrors()}">
+					<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+				</div>
+				
+        		<div>
+					<span><button class="submit" type="submit">Conferma</button></span>
+				</div>
+    		</form>
+    	</div>
     </div>
-    </div>
+    
 </body>
+
 </html>

@@ -1,40 +1,51 @@
 <!DOCTYPE html>
 <html>
+	
 <head>
     <title>SiwFood - Pagina eliminazione ingrediente</title>
     <link rel="stylesheet" href="/css/stile.css" />
 </head>
+
 <body>
+	
 	<nav>
-	<span class="username-in-alto" th:text="${userDetails.username}"></span>
-	<br>
-	<span><a href = "/logout">Logout</a></span>
+		<span class="username-in-alto" th:text="${userDetails.username}"></span>
+		<br>
+		<span><a href = "/logout">Logout</a></span>
 	</nav>
+	
 	<header>
 		<a href = "/"><h1>SiwFood</h1></a>
 	</header>
+	
     <h2>Rimuovi ingrediente</h2>
     <div id = "flex-container-1-centered">
-	<div id = "flex-container-2-light-withbookimage-very-short-but-wide">
-    <form class="loginform" th:action="@{/admin/rimuoviIngrediente}" method="POST" th:object="${ingredienteDaRimuovere}">
-		<div th:if="${#fields.hasGlobalErrors()}">
-			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
-		</div>
-		<div>
-        	Nome: <select th:field="${ingredienteDaRimuovere.nome}">
-                    	<option th:each="nomeIngrediente : ${nomiIngredienti}" th:value = "${nomeIngrediente}" th:text="${nomeIngrediente}">Nome</option>
-                   </select>
-        		<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
-				<br><br>
-        </div>
-        <div th:if="${#fields.hasGlobalErrors()}">
-			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
-		</div>
-        <div>
-			<span><button class="submit" type="submit">Conferma</button></span>
-		</div>
-    </form>
+		<div id = "flex-container-2-light-withbookimage-very-short-but-wide">
+    		<form class="loginform" th:action="@{/admin/rimuoviIngrediente}" method="POST" th:object="${ingredienteDaRimuovere}">
+			
+				<div th:if="${#fields.hasGlobalErrors()}">
+					<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+				</div>
+			
+				<div>	
+        			Nome: <select th:field="${ingredienteDaRimuovere.nome}">
+                    	   <option th:each="nomeIngrediente : ${nomiIngredienti}" th:value = "${nomeIngrediente}" th:text="${nomeIngrediente}">Nome</option>
+                  	 	   </select>
+        			<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+					<br><br>
+        		</div>
+        		
+       		 	<div th:if="${#fields.hasGlobalErrors()}">
+					<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+				</div>
+				
+        		<div>
+					<span><button class="submit" type="submit">Conferma</button></span>
+				</div>
+    		</form>
+    	</div>
     </div>
-    </div>
+    
 </body>
+
 </html>

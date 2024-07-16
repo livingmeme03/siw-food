@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html>
+	
 	<head>
 		<title>SiwFood</title>
 		<link rel = "stylesheet" type = "text/css" href = "/css/stile.css">
 	</head>
+	
 	<body>
+		
 	<nav>
-	<span class="username-in-alto" th:if="${userDetails!=null}" th:text="${userDetails.username}"></span>
-	<br>
-	<span><a href = "/logout">Logout</a></span>
+		<span class="username-in-alto" th:if="${userDetails!=null}" th:text="${userDetails.username}"></span>
+		<br>
+		<span><a href = "/logout">Logout</a></span>
 	</nav>
+	
 	<header>
 		<a href = "/"><h1>SiwFood</h1></a>
 	</header>
-			<h2 th:text="${ricetta.titolo}">Titolo ricetta </h2>
-			<div>La quantità dell'ingrediente deve essere un numero positivo!</div>			
-			<h3>Ingredienti della ricetta:</h3>
-			<div>Clicca su un ingrediente per rimuoverlo!</div>
+	
+	<h2 th:text="${ricetta.titolo}">Titolo ricetta </h2>
+	<div>La quantità dell'ingrediente deve essere un numero positivo!</div>			
+	<h3>Ingredienti della ricetta:</h3>
+	<div>Clicca su un ingrediente per rimuoverlo!</div>
 		<div id="flex-container-1-list">
 			<div class="content">
 			<div th:if="${listaIngredientiPresenti==null || listaIngredientiPresenti.isEmpty()}">Non ci sono ingredienti nella ricetta!</div>
@@ -27,8 +32,8 @@
 				</ul>
 			</div>
 		</div>
-			<h3>Ingredienti da aggiungere alla ricetta:</h3>
-			<div>Clicca su un ingrediente per aggiungerlo!</div>
+	<h3>Ingredienti da aggiungere alla ricetta:</h3>
+	<div>Clicca su un ingrediente per aggiungerlo!</div>
 		<div id="flex-container-1-list">
 			<div class="content">
 			<div th:if="${listaIngredientiDaAggiungere==null || listaIngredientiDaAggiungere.isEmpty()}">Non ci sono ingredienti da aggiungere alla ricetta!</div>
@@ -39,5 +44,7 @@
 				</ul>
 			</div>
 		</div>
+		
 	</body>	
+	
 </html>

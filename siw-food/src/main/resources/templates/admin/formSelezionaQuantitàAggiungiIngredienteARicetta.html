@@ -1,36 +1,46 @@
 <!DOCTYPE html>
 <html>
+	
 <head>
     <title>SiwFood - Pagina selezione quantità</title>
     <link rel="stylesheet" href="/css/stile.css" />
 </head>
+
 <body>
+	
 	<nav>
-	<span class="username-in-alto" th:text="${userDetails.username}"></span>
-	<br>
-	<span><a href = "/logout">Logout</a></span>
+		<span class="username-in-alto" th:text="${userDetails.username}"></span>
+		<br>
+		<span><a href = "/logout">Logout</a></span>
 	</nav>
+	
 	<header>
 		<a href = "/"><h1>SiwFood</h1></a>
 	</header>
+	
     <div id = "flex-container-1-centered">
-	<div id = "flex-container-2-light-withbookimage-very-short-but-wide">
+		<div id = "flex-container-2-light-withbookimage-very-short-but-wide">
 		<h4>In che quantità vuoi aggiungere l'ingrediente?</h4>
-    <form class="loginform" th:action="@{'/admin/aggiungiIngredienteARicetta' + '/' +${idRicetta} + '/' + ${idIngrediente}}" method="POST">
-		<div>
-        	Inserisci: <input required type="text" th:value="${quantità}" name="quantità">
-        	 <span th:if = "${ingrediente.unitàDiMisura != null && ingrediente.unitàDiMisura != ''}" > 
-			  <span th:text="${ingrediente.unitàDiMisura}"></span>
-		  	</span>
-		  	<span th:if = "${ingrediente.unitàDiMisura == null || ingrediente.unitàDiMisura == ''}" > 
-			  <span>singole unità</span>
-		  	</span>
-        </div>
-        <div>
-			<span><button class="submit" type="submit">Conferma</button></span>
+    		<form class="loginform" th:action="@{'/admin/aggiungiIngredienteARicetta' + '/' +${idRicetta} + '/' + ${idIngrediente}}" method="POST">
+				
+				<div>
+        			Inserisci: <input required type="text" th:value="${quantità}" name="quantità">
+        	 		<span th:if = "${ingrediente.unitàDiMisura != null && ingrediente.unitàDiMisura != ''}" > 
+			  			<span th:text="${ingrediente.unitàDiMisura}"></span>
+		  			</span>
+		  			
+		  			<span th:if = "${ingrediente.unitàDiMisura == null || ingrediente.unitàDiMisura == ''}" > 
+			 			<span>singole unità</span>
+		  			</span>
+        		</div>
+        
+        		<div>
+					<span><button class="submit" type="submit">Conferma</button></span>
+				</div>
+    		</form>
 		</div>
-    </form>
-	</div>
     </div>
+    
 </body>
+
 </html>

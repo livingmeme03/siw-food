@@ -1,39 +1,52 @@
 <!DOCTYPE html>
 <html>
+	
 <head>
     <title>SiwFood - Pagina nuova ricetta</title>
     <link rel="stylesheet" href="/css/stile.css" />
 </head>
+
 <body>
+	
 	<nav>
-	<span class="username-in-alto" th:text="${userDetails.username}"></span>
-	<br>
-	<span><a href = "/logout">Logout</a></span>
+		<span class="username-in-alto" th:text="${userDetails.username}"></span>
+		<br>
+		<span><a href = "/logout">Logout</a></span>
 	</nav>
+	
 	<header>
 		<a href = "/"><h1>SiwFood</h1></a>
 	</header>
+	
     <h2>Aggiungi nuova ricetta</h2>
     <div id = "flex-container-1-centered">
-	<div id = "flex-container-2-light-withbookimage-medium-but-wide">
-    <form class="loginform" th:action="@{/admin/aggiungiRicetta}" method="POST" th:object="${nuovaRicetta}">
-		<div>
-			Titolo: <input required type="text" th:field="${nuovaRicetta.titolo}">
-    		<span th:if="${#fields.hasErrors('titolo')}" th:errors="*{titolo}"></span>
-			<br><br>
-			Descrizione: <input type="text" th:field="${nuovaRicetta.descrizione}">
-			<br><br>
-			Percorsi file immagini: <input type="text" th:field="${nuovaRicetta.tuttiPathDelleImmagini}">
-			<br><br>			
-        </div>
-        <div th:if="${#fields.hasGlobalErrors()}">
-			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
-		</div>
-        <div>
-			<span><button class="submit" type="submit">Conferma</button></span>
-		</div>
-    </form>
-    </div>
+		<div id = "flex-container-2-light-withbookimage-medium-but-wide">
+    		<form class="loginform" th:action="@{/admin/aggiungiRicetta}" method="POST" th:object="${nuovaRicetta}">
+				
+				<div>
+					
+					Titolo: <input required type="text" th:field="${nuovaRicetta.titolo}">
+    					<span th:if="${#fields.hasErrors('titolo')}" th:errors="*{titolo}"></span>
+					<br><br>
+					
+					Descrizione: <input type="text" th:field="${nuovaRicetta.descrizione}">
+					<br><br>
+					
+					Percorsi file immagini: <input type="text" th:field="${nuovaRicetta.tuttiPathDelleImmagini}">
+					<br><br>
+								
+        		</div>
+        		
+        		<div th:if="${#fields.hasGlobalErrors()}">
+					<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+				</div>
+				
+        		<div>
+					<span><button class="submit" type="submit">Conferma</button></span>
+				</div>
+				
+    		</form>
+    	</div>
     </div>
 </body>
 </html>

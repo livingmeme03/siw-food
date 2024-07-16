@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html>
+	
 	<head>
 		<title>SiwFood</title>
 		<link rel = "stylesheet" type = "text/css" href = "/css/stile.css">
 	</head>
+	
 	<body>
 		<nav>
-		<span class="username-in-alto" th:text="${userDetails.username}"></span>
-		<br>
-		<span><a href = "/logout">Logout</a></span>
+			<span class="username-in-alto" th:text="${userDetails.username}"></span>
+			<br>
+			<span><a href = "/logout">Logout</a></span>
 		</nav>
+		
 		<header>
 			<a href = "/"><h1>SiwFood</h1></a>
 		</header>
-			<h2 th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}">Nome cuoco</h2>			
-			<h3>Ricette assegnate al cuoco:</h3>
-			<div>Clicca su una ricetta per rimuoverla!</div>
+		
+		<h2 th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}">Nome cuoco</h2>			
+		<h3>Ricette assegnate al cuoco:</h3>
+		<div>Clicca su una ricetta per rimuoverla!</div>
+		
 		<div id = "flex-container-1-list">
-		<div class="content">
+			<div class="content">
 			<div th:if="${ricetteDelCuoco==null || ricetteDelCuoco.isEmpty()}">Non ci sono ricette di questo cuoco!</div>
 				<ul>
 					<div><br></div>
@@ -28,11 +33,14 @@
 				</ul>
 			</div>
 		</div>
+		
 		<br>
-			<h3>Ricette da assegnare al cuoco:</h3>
-			<div>Clicca su una ricetta per assegnarla al cuoco!</div>
+		
+		<h3>Ricette da assegnare al cuoco:</h3>
+		<div>Clicca su una ricetta per assegnarla al cuoco!</div>
+		
 		<div id = "flex-container-1-list">
-		<div class="content">
+			<div class="content">
 			<div th:if="${ricetteDaAggiungere==null || ricetteDaAggiungere.isEmpty()}">Non ci sono ricette da assegnare al cuoco!</div>
 				<ul>
 					<div><br></div>
@@ -43,5 +51,6 @@
 				</ul>
 			</div>
 		</div>
+		
 	</body>	
 </html>

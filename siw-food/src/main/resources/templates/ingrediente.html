@@ -7,29 +7,34 @@
 </head>
 
 <body>
+	
 	<nav>
-	<span class="username-in-alto" th:if="${userDetails!=null}" th:text="${userDetails.username}"></span>
-	<br>
-	<span><a href = "/logout">Logout</a></span>
+		<span class="username-in-alto" th:if="${userDetails!=null}" th:text="${userDetails.username}"></span>
+		<br>
+		<span><a href = "/logout">Logout</a></span>
 	</nav>
+	
 	<header>
 		<a href = "/"><h1>SiwFood</h1></a>
 	</header>
+	
     <div th:if="${ingrediente}">
          <h2 th:text="${ingrediente.nome}">Nome ingrediente </h2> 
          <div id="flex-container-1-image">
-         <span id="flex-container-2-imageCuoco" th:if = "${ingrediente.pathImmagine != null && ingrediente.pathImmagine != ''}"> <img th:src="'/images' + '/' + ${ingrediente.pathImmagine}"> </span>
-         <div id="flex-container-2-light-withbookimage-short"> 
-          <span th:if = "${ingrediente.unitàDiMisura != null && ingrediente.unitàDiMisura != ''}" > 
-			  <div th:text="'Unità di misura: ' + ${ingrediente.unitàDiMisura}"></div>
-		  </span>
-		  <span th:if = "${ingrediente.unitàDiMisura == null || ingrediente.unitàDiMisura == ''}" > 
-			  <div th:text="'Unità di misura: singole unità'"></div>
-		  </span>
-		  </div>
+         	<span id="flex-container-2-imageCuoco" th:if = "${ingrediente.pathImmagine != null && ingrediente.pathImmagine != ''}"> <img th:src="'/images' + '/' + ${ingrediente.pathImmagine}"> </span>
+        	 <div id="flex-container-2-light-withbookimage-short"> 
+          		<span th:if = "${ingrediente.unitàDiMisura != null && ingrediente.unitàDiMisura != ''}" > 
+			  	<div th:text="'Unità di misura: ' + ${ingrediente.unitàDiMisura}"></div>
+		  		</span>
+		  		<span th:if = "${ingrediente.unitàDiMisura == null || ingrediente.unitàDiMisura == ''}" > 
+			  	<div th:text="'Unità di misura: singole unità'"></div>
+		  		</span>
+		  	</div>
 		</div>
     </div>
+    
     <div th:unless="${ingrediente}">Questo ingrediente non è presente nel sistema!</div>
+    
 </body>
 
 </html>

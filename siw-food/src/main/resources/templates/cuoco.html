@@ -7,36 +7,41 @@
 </head>
 
 <body>
+	
 	<nav>
-	<span class="username-in-alto" th:if="${userDetails!=null}" th:text="${userDetails.username}"></span>
-	<br>
-	<span><a href = "/logout">Logout</a></span>
+		<span class="username-in-alto" th:if="${userDetails!=null}" th:text="${userDetails.username}"></span>
+		<br>
+		<span><a href = "/logout">Logout</a></span>
 	</nav>
+	
 	<header>
 		<a href = "/"><h1>SiwFood</h1></a>
 	</header>
+	
     <div th:if="${cuoco}">
 		<h2 th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}">Nome cuoco </h2>
-		<div id="flex-container-1-image">
-		<div id="flex-container-2-light-very-large">
-		<div id ="flex-container-2-light">
-			 <span class="titolo-flexbox">Data di nascita</span>
-			 <span class="testo-flexbox-centrato"th:text="${cuoco.dataNascita}"></span>
-		 </div>
-         <span id="flex-container-2-imageCuoco" th:if = "${cuoco.pathFotografia != '' && cuoco.pathFotografia != null}"> 
-			 <img th:src="'/images' + '/' + ${cuoco.pathFotografia}"> 
-			 </span>
-		 <div id="flex-container-2-light">
-			<span class="titolo-flexbox">Ricette:</span>
-			<ul>
-				<li th:each="ricetta : ${cuoco.ricette}">
-					<a th:href="@{'/ricetta' + '/' + ${ricetta.id}}" th:text="${ricetta.titolo}"> Ricetta Generica</a>
-				</li>
-			</ul>
-		 </div>
-		 </div>
-    </div>
+			<div id="flex-container-1-image">
+				<div id="flex-container-2-light-very-large">
+					<div id ="flex-container-2-light">
+			 			<span class="titolo-flexbox">Data di nascita</span>
+			 			<span class="testo-flexbox-centrato"th:text="${cuoco.dataNascita}"></span>
+		 			</div>
+        			 <span id="flex-container-2-imageCuoco" th:if = "${cuoco.pathFotografia != '' && cuoco.pathFotografia != null}"> 
+			 			<img th:src="'/images' + '/' + ${cuoco.pathFotografia}"> 
+			 		</span>
+		 			<div id="flex-container-2-light">
+						<span class="titolo-flexbox">Ricette:</span>
+						<ul>
+							<li th:each="ricetta : ${cuoco.ricette}">
+								<a th:href="@{'/ricetta' + '/' + ${ricetta.id}}" th:text="${ricetta.titolo}"> Ricetta Generica</a>
+							</li>
+						</ul>
+		 			</div>
+		 		</div>
+    		</div>
+    		
     <div th:unless="${cuoco}">Questo cuoco non è presente nel sistema!</div>
+    
 </body>
 
 </html>

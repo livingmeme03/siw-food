@@ -1,36 +1,47 @@
 <!DOCTYPE html>
 <html>
+	
 <head>
     <title>SiwFood - Pagina eliminazione ricette</title>
     <link rel="stylesheet" href="/css/stile.css" />
 </head>
+
 <body>
+	
 	<nav>
-	<span class="username-in-alto" th:if="${userDetails!=null}" th:text="${userDetails.username}"></span>
-	<br>
-	<span><a href = "/logout">Logout</a></span>
+		<span class="username-in-alto" th:if="${userDetails!=null}" th:text="${userDetails.username}"></span>
+		<br>
+		<span><a href = "/logout">Logout</a></span>
 	</nav>
+	
 	<header>
 		<a href = "/"><h1>SiwFood</h1></a>
 	</header>
+	
     <h2>Rimuovi ricetta</h2>
     <div id = "flex-container-1-centered">
-	<div id = "flex-container-2-light-withbookimage-very-short-but-wide">
-    <form class="loginform" th:action="@{/rimuoviRicetta}" method="POST" th:object="${ricettaDaRimuovere}">
-		<div th:if="${#fields.hasGlobalErrors()}">
-			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
-		</div>
-		<div>
-			Titolo ricetta: <select th:field="${ricettaDaRimuovere.titolo}">
-                    		<option th:each="titoloRicetta : ${titoliRicetteCuoco}" th:value = "${titoloRicetta}" th:text="${titoloRicetta}">Titolo</option>
-                   			</select>
-        </div>
-        <br>
-        <div>
-			<span><input class="submit" type="submit" value = "Conferma"></span>
-		</div>
-    </form>
+		<div id = "flex-container-2-light-withbookimage-very-short-but-wide">
+    		<form class="loginform" th:action="@{/rimuoviRicetta}" method="POST" th:object="${ricettaDaRimuovere}">
+				
+				<div th:if="${#fields.hasGlobalErrors()}">
+					<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+				</div>
+			
+				<div>
+					Titolo ricetta: <select th:field="${ricettaDaRimuovere.titolo}">
+                    				<option th:each="titoloRicetta : ${titoliRicetteCuoco}" th:value = "${titoloRicetta}" th:text="${titoloRicetta}">Titolo</option>
+                   					</select>
+       			</div>
+       		
+        		<br>
+        		<div>
+					<span><input class="submit" type="submit" value = "Conferma"></span>
+				</div>
+			
+    		</form>
+    	</div>
     </div>
-    </div>
+    
 </body>
+
 </html>

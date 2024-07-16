@@ -1,43 +1,48 @@
 <!DOCTYPE html>
 <html>
+	
 	<head>
 		<title>SiwFood</title>
 		<link rel = "stylesheet" type = "text/css" href = "/css/stile.css">
 	</head>
+	
 	<body>
+		
 		<nav>
-		<a th:href="@{/register}">Clicca qui per registrarti</a>
-        <br>
-        <a th:href="@{/login}">Accedi</a>
+			<a th:href="@{/register}">Clicca qui per registrarti</a>
+        	<br>
+        	<a th:href="@{/login}">Accedi</a>
 		</nav>
+		
 		<header>
 			<a href = "/"><h1>SiwFood</h1></a>
 		</header>
+		
 		<h4>Benvenuto!</h4>
 		<div id="flex-container-1-centered">
-		<div id="flex-container-2-light-withbookimage">
-			<span class="titolo-flexbox">Cuochi:</span>
-			<br>
-			<a th:href="@{/elencoCuochi}">Elenco cuochi</a>
-			<br>
-			<a th:href="@{/cercaCuocoPerCognome}">Cerca cuochi per cognome</a>
-			<br>
-		</div>
-		<div id="flex-container-2-light-withbookimage">
-			<span class="titolo-flexbox">Ricette:</span>
-			<br>
-			<a th:href="@{/elencoRicette}">Elenco ricette</a>
-			<br>
-			<a th:href="@{/cercaRicettaPerTitolo}">Cerca ricette</a>
-			<br><br>
-		</div>
-		<div id="flex-container-2-light-withbookimage">
-			<span class="titolo-flexbox">Ingredienti:</span>
-			<br>
-			<a th:href="@{/elencoIngredienti}">Elenco ingredienti</a>
-			<br>
-			<a th:href="@{/cercaIngredientePerNome}">Cerca ingredienti per nome</a>
-		</div>
+			<div id="flex-container-2-light-withbookimage">
+				<span class="titolo-flexbox">Cuochi:</span>
+				<br>
+				<a th:href="@{/elencoCuochi}">Elenco cuochi</a>
+				<br>
+				<a th:href="@{/cercaCuocoPerCognome}">Cerca cuochi per cognome</a>
+				<br>
+			</div>
+			<div id="flex-container-2-light-withbookimage">
+				<span class="titolo-flexbox">Ricette:</span>
+				<br>
+				<a th:href="@{/elencoRicette}">Elenco ricette</a>
+				<br>
+				<a th:href="@{/cercaRicettaPerTitolo}">Cerca ricette</a>
+				<br><br>
+			</div>
+			<div id="flex-container-2-light-withbookimage">
+				<span class="titolo-flexbox">Ingredienti:</span>
+				<br>
+				<a th:href="@{/elencoIngredienti}">Elenco ingredienti</a>
+				<br>
+				<a th:href="@{/cercaIngredientePerNome}">Cerca ingredienti per nome</a>
+			</div>
 		</div>
 	
 	</body>	
