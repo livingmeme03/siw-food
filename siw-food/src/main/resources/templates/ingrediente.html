@@ -8,11 +8,17 @@
 
 <body>
 	
-	<nav>
-		<span class="username-in-alto" th:if="${userDetails!=null}" th:text="${userDetails.username}"></span>
-		<br>
-		<span><a href = "/logout">Logout</a></span>
-	</nav>
+	<nav th:if="${userDetails!=null}">
+        <span class="username-in-alto" th:text="${userDetails.username}"></span>
+        <br>
+        <span><a href = "/logout">Logout</a></span>
+        <br>
+    </nav>
+
+   	<nav th:unless="${userDetails!=null}">
+        <a th:href="@{/register}">Clicca qui per registrarti!</a> <br>
+        <a th:href="@{/login}">Accedi</a> <br>
+    </nav>
 	
 	<header>
 		<a href = "/"><h1>SiwFood</h1></a>
@@ -33,7 +39,7 @@
 		</div>
     </div>
     
-    <div th:unless="${ingrediente}">Questo ingrediente non è presente nel sistema!</div>
+    <h2 th:unless="${ingrediente}">Questo ingrediente non è presente nel sistema!</h2>
     
 </body>
 

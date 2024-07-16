@@ -117,9 +117,9 @@ button.submit {
 }
 
 select {
-	border: 2px rgb(237, 185, 134) outset;
+	border: 2px antiquewhite outset;
 	border-radius: 10%;
-	background-color: rgb(245, 205, 172);
+	background-color: antiquewhite;
 	color: rgb(66, 47, 39);
 	font-weight: bold;
 	font-size: 18px;
@@ -585,7 +585,7 @@ header a {
 
 nav a:visited {
 	text-align: end;
-	color: rgb(177, 108, 78);
+	color: rgb(239, 158, 120);
 }
 
 nav a:link {

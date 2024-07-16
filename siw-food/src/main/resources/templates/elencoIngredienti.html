@@ -8,11 +8,17 @@
 	
 	<body>
 		
-	<nav>
-		<span class="username-in-alto" th:if="${userDetails!=null}" th:text="${userDetails.username}"></span>
-		<br>
-		<span><a href = "/logout">Logout</a></span>
-	</nav>
+	<nav th:if="${userDetails!=null}">
+        <span class="username-in-alto" th:text="${userDetails.username}"></span>
+        <br>
+        <span><a href = "/logout">Logout</a></span>
+        <br>
+    </nav>
+
+   	<nav th:unless="${userDetails!=null}">
+        <a th:href="@{/register}">Clicca qui per registrarti!</a> <br>
+        <a th:href="@{/login}">Accedi</a> <br>
+    </nav>
 	
 	<header>
 		<a href = "/"><h1>SiwFood</h1></a>
@@ -21,7 +27,7 @@
 	<h2 id="h2-sopra-elenco">Ingredienti:</h2>			
 		<div id="flex-container-1-list">
 			<div class="content">
-			<div th:if="${ingredienti==null || ingredienti.isEmpty()}">Non ci sono ingredienti nel sistema!</div>
+			<h2 th:if="${ingredienti==null || ingredienti.isEmpty()}">Non ci sono ingredienti nel sistema!</h2>
 				<ul>
 					<li th:each="ingrediente : ${ingredienti}">
 						<a th:href="@{ '/ingrediente' + '/' + ${ingrediente.id}}" th:text="${ingrediente.nome}">Ingrediente</a>
