@@ -27,8 +27,13 @@ public class UserService {
 	
 	public User findByCuoco(Cuoco cuoco) {
 		
+		try {
+			return this.userRepository.findByCuoco(cuoco);
+		}
 		
-		return this.userRepository.findByCuoco(cuoco);
+		catch(Exception e) {
+			return null;
+		}
 	}
 	
 	public void delete(User user) {
