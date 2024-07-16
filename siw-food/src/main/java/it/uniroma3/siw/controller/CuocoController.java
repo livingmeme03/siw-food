@@ -15,11 +15,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import it.uniroma3.siw.controller.validation.CuocoValidator;
+import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Cuoco;
 import it.uniroma3.siw.model.Ingrediente;
 import it.uniroma3.siw.model.Ricetta;
+import it.uniroma3.siw.model.User;
+import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.CuocoService;
 import it.uniroma3.siw.service.RicettaService;
+import it.uniroma3.siw.service.UserService;
 import jakarta.validation.Valid;
 
 @Controller
@@ -36,6 +40,12 @@ public class CuocoController {
 	
 	@Autowired
 	private RicettaService ricettaService;
+	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private CredentialsService credentialsService;
 
 	@Autowired 
 	private CuocoValidator cuocoValidator;
@@ -102,8 +112,7 @@ public class CuocoController {
 	
 	@GetMapping("/admin/modificaRicetteCuoco/{idCuoco}") 
 	public String showModificaIngredientiRicetta(@PathVariable Long idCuoco, Model model) {
-		//Controlli anti path meddlers
-		Cuoco cuoco = this.cuocoService.findById(idCuoco);
+		Cuoco cuoco = this.cuocoService.findById(idCuoco);		//controllo per chi inserisce id strani nel path
 		if(cuoco == null) {
 			return "redirect:/admin/elencoAggiornaCuochi";
 		}
@@ -121,13 +130,13 @@ public class CuocoController {
 		//Controlli anti path meddlers
 		Ricetta ricetta = this.ricettaService.findById(idRicetta);
 		Cuoco cuoco = this.cuocoService.findById(idCuoco);
-		if(cuoco == null) {
+		if(cuoco == null) {		//controllo per chi inserisce id strani nel path
 			return "redirect:/admin/elencoAggiornaCuochi";
 		}
-		if(ricetta == null) {
+		if(ricetta == null) {	//controllo per chi inserisce id strani nel path
 			return "redirect:/admin/modificaRicetteCuoco/" + idCuoco;
 		}
-		ricetta.setCuoco(cuoco);
+		ricetta.setCuoco(cuoco);			//tutto ok, aggiungo la ricetta tra quelle del cuoco
 		cuoco.getRicette().add(ricetta);
 		this.ricettaService.save(ricetta);
 		this.cuocoService.save(cuoco);
@@ -138,10 +147,10 @@ public class CuocoController {
 	public String rimuoviRicettaDaCuoco(@PathVariable Long idCuoco, @PathVariable Long idRicetta, Model model) {
 		Ricetta ricetta = this.ricettaService.findById(idRicetta);
 		Cuoco cuoco = this.cuocoService.findById(idCuoco);
-		if(cuoco == null) {
+		if(cuoco == null) {		//controllo per chi inserisce id strani nel path
 			return "redirect:/admin/elencoAggiornaCuochi";
 		}
-		if(ricetta == null) {
+		if(ricetta == null) {	//controllo per chi inserisce id strani nel path
 			return "redirect:/admin/modificaRicetteCuoco/" + idCuoco;
 		}
 		ricetta.setCuoco(null);
@@ -177,7 +186,7 @@ public class CuocoController {
 	@GetMapping("/admin/rimuoviCuoco")
 	public String showFormRimuoviCuoco(Model model) {
 		model.addAttribute("cuocoDaRimuovere", new Cuoco());
-		this.aggiungiAttributiCuochi(model);
+		this.aggiungiAttributiCuochi(model);		//setup per menu a tendina
 		return "/admin/formRimuoviCuoco.html";
 	}
 	
@@ -188,9 +197,20 @@ public class CuocoController {
 		this.cuocoValidator.validate(cuoco, bindingResult);		//verifico errori
 
 		if(bindingResult.hasErrors()) {				
-			if(bindingResult.getAllErrors().toString().contains("cuoco.duplicato")) {	//se gli errori contengono
-				this.cuocoService.delete(cuoco);								//ingrediente duplicato, allora è giusto
-				return "redirect:/elencoCuochi";									//e lo cancello
+			if(bindingResult.getAllErrors().toString().contains("cuoco.duplicato")) {//se gli errori contengono
+																			//cuoco duplicato, allora è giusto
+				Cuoco cuocoDaCancellare = this.cuocoService.findByNomeAndCognomeAndDataNascita(cuoco.getNome(), cuoco.getCognome(), cuoco.getDataNascita());
+				User userAssociato = this.userService.findByCuoco(cuocoDaCancellare);	//se il cuoco aveva un utente associato			
+				if(userAssociato!= null) {
+					Credentials credentialsAssociate = this.credentialsService.findByUser(userAssociato);
+					this.credentialsService.delete(credentialsAssociate);		//cancello le credenziali
+					return "redirect:/elencoCuochi";			//che cancella anche l'user e il cuoco con il cascade
+				}
+				else {
+					this.cuocoService.delete(cuoco);			//altrimenti cancello solo il cuoco	
+					return "redirect:/elencoCuochi";
+				}
+							
 			}
 			this.aggiungiAttributiCuochi(model);		//se c'erano altri errori ridò la form
 			return "/admin/formRimuoviCuoco.html";

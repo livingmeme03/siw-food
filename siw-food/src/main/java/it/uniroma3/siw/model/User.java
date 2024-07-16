@@ -27,7 +27,7 @@ public class User {
 	private String nome;
 	@NotBlank
 	private String cognome;
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@OneToOne(cascade = CascadeType.ALL)
 	private Cuoco cuoco;
 	
 	/*-------------------------------------------------------------------------------------------------------*/
