@@ -58,5 +58,9 @@ public class CuocoService {
 	public Iterable<Cuoco> findByCognome(String cognome) {
 		return this.cuocoRepository.findByCognome(cognome);
 	}
+
+	public Long count() {
+		return this.cuocoRepository.count();
+	}
 }
 

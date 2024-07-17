@@ -96,6 +96,7 @@ public class AuthenticationController {
 	public String showIndex(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if(authentication instanceof AnonymousAuthenticationToken) {
+			model.addAttribute("numeroCuochi", this.cuocoService.count());
 			return "index.html";
 		}
 		else {
